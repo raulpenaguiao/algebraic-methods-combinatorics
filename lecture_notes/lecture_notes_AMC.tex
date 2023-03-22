@@ -1,0 +1,188 @@
+\documentclass[12pt]{amsart}
+
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{listings}
+\usepackage{lineno}
+\usepackage[margin=3cm]{geometry}
+\usepackage[all,cmtip, color,matrix,arrow]{xy}
+\usepackage{amsaddr}
+\usepackage{tikz-cd}
+\usepackage{amsmath}%To use \text 
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage[capitalize]{cleveref}
+\crefname{thm}{Theorem}{Theorems}
+%\usepackage{bbold}
+\usepackage[export]{adjustbox}
+\usepackage{todonotes}
+\usepackage{bm}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{mathtools}
+\usepackage{aliascnt}
+\newaliascnt{eqfloat}{equation}
+\newfloat{eqfloat}{h}{eqflts}
+\floatname{eqfloat}{Equation}
+\usepackage{dirtytalk}
+\usepackage[mathscr]{euscript}
+
+\newcommand*{\ORGeqfloat}{}
+\let\ORGeqfloat\eqfloat
+\def\eqfloat{%
+  \let\ORIGINALcaption\caption
+  \def\caption{%
+    \addtocounter{equation}{-1}%
+    \ORIGINALcaption
+  }%
+  \ORGeqfloat
+}
+\newcommand{\raul}[1]{\todo[color=green!30,inline]{Raul: #1}}
+
+
+\makeatletter
+\providecommand*{\shuffle}{%
+  \mathbin{\mathpalette\shuffle@{}}%
+}
+\newcommand*{\shuffle@}[2]{%
+  % #1: math style
+  % #2: unused
+  \sbox0{$#1\vcenter{}$}%
+  \kern .15\ht0 % side bearing
+  \rlap{\vrule height .25\ht0 depth 0pt width 2.5\ht0}%
+  \raise.1\ht0\hbox to 2.5\ht0{%
+    \vrule height 1.75\ht0 depth -.1\ht0 width .17\ht0 %
+    \hfill
+    \vrule height 1.75\ht0 depth -.1\ht0 width .17\ht0 %
+    \hfill
+    \vrule height 1.75\ht0 depth -.1\ht0 width .17\ht0 %
+  }%
+  \kern .15\ht0 % side bearing
+}
+\makeatother
+
+%\def\shuffle{\sqcup\mathchoice{\mkern-7mu}{\mkern-7mu}{\mkern-3.2mu}{\mkern-3.8mu}\sqcup\,}
+\newcommand{\qshuffle}{\overline{\shuffle}}
+
+
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lm}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{obs}[thm]{Observation}
+\newtheorem{defin}[thm]{Definition}
+\newtheorem{smpl}[thm]{Example}
+\newtheorem{quest}[thm]{Question}
+\newtheorem{prob}[thm]{Problem}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{rem}[thm]{Remark}
+\crefname{lm}{Lemma}{Lemmas}
+\crefname{thm}{Theorem}{Theorems}
+\crefname{prop}{Proposition}{Propositions}
+\crefname{defin}{Definition}{Definitions}
+\crefname{rem}{Remark}{Remarks}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+
+%vectors
+\newcommand{\vv}{\mathsf{v}}
+\newcommand{\vj}{\mathsf{j}}
+
+
+\begin{document}
+
+%% Title, authors and addresses
+\title{Lecture notes on algebraic methods in combinatorics} % Subtitle
+
+\author{Raul Penaguiao}
+\email{raul.penaguiao@mis.mpg.de}
+\address{Max Planck Institute Leipzig}
+\keywords{}
+\subjclass[2010]{}
+\date{Spring semester 2023} % Date
+
+%\begin{abstract}
+%\end{abstract}
+
+\maketitle
+\section{Introduction}
+
+\section{Preliminary definitions}
+
+We denote the set $\{1, \dots, n\}$ by $[n]$.
+
+\section{Combinatorics}
+
+\subsubsection*{Oddtown}
+
+
+\section{Geometry}
+
+\subsubsection*{Joints Problem}
+
+A \textbf{joint} in a collection $\mathcal L$ of lines in $\R^3$ is an intersection of at least three non-coplanar lines.
+
+
+\begin{prop}
+Given $N$ lines in $\R^2$ forming $J$ joints we have that
+$$ J \leq C N^{3/_2}\, ,$$
+furthermore, this bound is tight.
+\end{prop}
+
+
+\begin{proof}
+First we show that this is indeed tight.
+Incidentally, take an integer $n$, we can find $3n^2$ lines that intersect in $n^3$ joints. For $n=3$ we can see the example in \cref{fig:joints}.
+The general construction is as follows: we take the collection of $n^2$ lines with direction $(0, 0, 1)$ that go through $(a, b, 0)$, where $a, b\in [n]$, and take it together with two rotations of $120^o$ and $240^o$ of this set along the axis $\{x = y = z\}$.
+
+\begin{figure}[h]
+\includegraphics[scale=.1]{../imgs/ina.png}%../imgs/joints
+\caption{A construction of a collection of lines with high number of joints.\label{fig:joints}}
+\end{figure}
+
+Now, we establish the inequality for $C = 3^{3/_2}$.
+First, we show that for any collection of lines $\mathcal L$, there is a line with at most $3 J^{1/_3}$ joints.
+Acting by contradiction, assume otherwise and consider a polynomial $p \in \R[x, y, z]$ such that 
+\begin{enumerate}
+\item It is non-zero;
+
+\item It vanishes at all joints;
+
+\item It has degree at most $J^{1/_3}$ on each variable.
+\end{enumerate}
+
+Because a polynomial satisfying item 3 can be written as a combination of $(\lfloor J^{1/_3}\rfloor + 1)^3$ monomials, item 2 amounts to $J$ linear equations, such a non-zero polynomial exists.
+We pick $p$ that minimizes the degree, and consider the polynomial
+$$q \coloneqq \left(\frac{\partial}{\partial x} + \frac{\partial}{\partial y} + \frac{\partial}{\partial z} \right) p \, .$$
+
+The polynomial $p$ restricted to any line is a polynomial of degree at most $3J^{1/_3}$.
+Because each line has, by contradiction hypothesis, at least $3 J^{1/_3} + 1$ joints, this polynomial must be identically zero in each line.
+
+It follows that all directional derivatives of $p$ at each joint $\vj$ vanish, so $q(\vj) = 0$.
+Furthermore, $q$ also satisfies item 3 and has smaller degree than $p$.
+By minimality, we must have $q \equiv 0$, which means that 
+$$ p(x, y, zz ) = ax +by + cz \, ,$$
+for some coefficients $a, b, c$.
+
+
+We conclude the proof by acting on induction. For $N = 3$ we necessarily have $J\leq 1 \leq 3^{3/_2} 3^{3/_2}$.
+No consider a collection of lines $\mathcal L$, and find the one line $\ell \in \mathcal L$ that has at most $3 J^{1/_3}$ joints.
+By induction hypothesis, there are at most $3^{3/_2} (N-1)^{3/_2}$ joints in $\mathcal L \setminus \{\ell \}$, so 
+$$ J \leq 3 J^{1/_3} + 3^{3/_2} (N-1)^{3/_2}$
+
+\end{proof}
+
+\subsection*{Aknowledgments}
+The author is supported by the Max Planck institute for the sciences. 
+These notes are based on a lecture by Benny Sudakov at ETH, in 2014.
+
+\bibliographystyle{alpha}
+\bibliography{bibli}
+
+
+
+\end{document}
