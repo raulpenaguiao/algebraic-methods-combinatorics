@@ -3,6 +3,7 @@
 \usepackage{graphicx}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{bbold}
 \usepackage{listings}
 \usepackage{lineno}
 \usepackage[margin=3cm]{geometry}
@@ -86,11 +87,18 @@
 
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
 
+\newcommand{\one}{\mathbb{1}}
+
+\newcommand{\CC}{\mathcal C}
+\newcommand{\JJ}{\mathcal J}
+\newcommand{\II}{\mathcal I}
 
 %vectors
 \newcommand{\vv}{\mathsf{v}}
 \newcommand{\vj}{\mathsf{j}}
+\newcommand{\vx}{\mathsf{x}}
 
 
 \begin{document}
@@ -100,8 +108,8 @@
 
 \author{Raul Penaguiao}
 \email{raul.penaguiao@mis.mpg.de}
-\address{Max Planck Institute Leipzig}
-\keywords{}
+\address{Max Planck Institute for the Sciences Leipzig}
+\keywords{algebraic combinatorics, combinatorial nullstellensatz}
 \subjclass[2010]{}
 \date{Spring semester 2023} % Date
 
@@ -109,16 +117,196 @@
 %\end{abstract}
 
 \maketitle
-\section{Introduction}
+
 
 \section{Preliminary definitions}
 
 We denote the set $\{1, \dots, n\}$ by $[n]$.
+Whenever $q$ is a power of a prime, we denote the unique field of cardinality $q$ by $\F_q$.
+When $q$ is a prime number, we identify $\F_q$ with $\Z/_{q\Z}$.
 
 \section{Combinatorics}
 
-\subsubsection*{Oddtown}
+\subsection{Clubs with rules}
 
+
+\begin{prop}[Oddtown]
+Let $E$ be a finite set.
+A family $\CC \subset 2^E $ is called an \textbf{oddtown} if
+\begin{itemize}
+\item Every $C \in \CC $ has an odd number of elements.
+
+\item For two distinct $C, D \in \CC$, the set $C\cap D$ has an even number of elements.
+\end{itemize}
+
+Then, for any oddtown we have $|\CC| \leq |E|$
+\end{prop}
+
+
+\begin{proof}
+We work in $\F_2^E$.
+For each $C \in \CC$, let $\vv_C$ be the vector in $\F_2^E$ such that 
+$$ (\vv_C)_i =\begin{cases*}
+      & 1 \text{ if $i \in C$,}\\
+      & 0 \text{ otherwise.}
+    \end{cases*} $$
+
+The first and second oddtown conditions give us respectively $\vv_C \cdot \vv_C = 1$ and $\vv_C \cdot \vv_D = 0 $ for any distinct $C, D \in \CC$.
+
+We claim that $\{\vv_C\}_{C \in \CC}$ is a linearly independent set in $\F_2^E$.
+It follows imediately that $|\CC| \leq |E|$.
+Indeed, if $\sum_{C \in \CC} \alpha_C \vv_C = 0$ for scalars $\alpha_i$, then
+$$ 0 = 0 \cdot \vv_D = \sum_{C \in \CC} \alpha_C \vv_C\cdot \vv_D = \alpha_D\, ,$$
+for any $j \in \CC$, concluding the proof.
+\end{proof}
+
+
+\begin{prop}[Separated collections]
+Let $E$ be a finite set.
+A family $\CC \subset 2^E $ is called \textbf{separated} if for any two disjoint non-empty subfamilies $\II, \JJ \subseteq \CC$ we have $\bigcup_{I\in\II} I \neq \bigcup_{J\in\JJ} J$.
+
+Then, for any separated family we have $|\CC| \leq |E|$.
+\end{prop}
+
+
+\begin{proof}
+This time we work in $\R^E$.
+For each $C \in \CC$, let $\vv_C$ be the vector in $\R^E$ such that 
+$$ (\vv_C)_i =\begin{cases*}
+      & 1 \text{ if $i \in C$,}\\
+      & 0 \text{ otherwise.}
+    \end{cases*} $$
+
+
+We will show that $ \{ \vv_C\}_{C\in \CC}$ is a linearly independent set in $\R^E$.
+That $|\CC| \leq |E|$ follows imediately.
+
+Indeed, assume that $\sum_{C \in \CC} \alpha_C \vv_C = 0$.
+Let $\II = \{C \in \CC | \alpha_C > 0\}$ and $\JJ = \{C \in \CC | \alpha_C < 0\}$.
+Rearranging the equation above we have
+$$\vv \coloneqq \sum_{C \in \II} \alpha_C \vv_C  = \sum_{C \in \JJ} (- \alpha_C) \vv_C\, .$$
+Let $K = \{i \in E| \vv_i \neq 0\}$.
+We have both that $\bigcup_{I\in\II} I = K$ and $\bigcup_{J\in\JJ} J = K$.
+Also, $\II$ and $\JJ$ are disjoint.
+
+This contradicts the fact that $\CC$ is separated unless $\II$ and $\JJ$ are empty.
+But $\II$ and $\JJ$ empty implies $\alpha_C = 0 $ for any $C \in \CC$.
+This shows that $ \{ \vv_C\}_{C\in \CC}$ is a linearly independent set, concluding the proof.
+\end{proof}
+
+
+
+
+\begin{prop}[Lindstorm's lemma]
+Let $E$ be a finite set.
+A family $\CC \subset 2^E $ is called \textbf{weakly separated} if for any two disjoint subfamilies $\II, \JJ \subseteq \CC$ we have $\bigcup_{I\in\II} I \neq \bigcup_{J\in\JJ} J$ or $\bigcap_{I\in\II} I \neq \bigcap_{J\in\JJ} J$.
+
+Then, for any weakly separated family we have $|\CC| \leq |E| + 1$.
+\end{prop}
+
+\begin{proof}
+This time we work in $\R_2^{E \uplus \{ \star \}}$.
+For each $C \in \CC$, let $\vv_C$ be the vector in $\R_2^{E \uplus \{ \star \}}$ such that 
+$$ (\vv_C)_i =\begin{cases*}
+      & 1 \text{ if $i \in C$ or if $i = \star$,}\\
+      & 0 \text{ otherwise.}
+    \end{cases*} $$
+
+
+We will show that $\{ \vv_C\}_{C\in \CC}$ is a linearly independent set in $\R^{E \uplus \{ \star \}}$.
+That $|\CC| \leq |E|+1$ follows imediately.
+
+Indeed, as before assume that $\sum_{C \in \CC} \alpha_C \vv_C = 0$.
+Let $\II = \{C \in \CC | \alpha_C > 0\}$ and $\JJ = \{C \in \CC | \alpha_C < 0\}$.
+Rearranging the equation above we have
+$$\vv \coloneqq \sum_{C \in \II} \alpha_C \vv_C  = \sum_{C \in \JJ} (- \alpha_C) \vv_C\, .$$
+Let $K = \{i \in E| \vv_i \neq 0\}$.
+We have both that $\bigcup_{I\in\II} I = K$ and $\bigcup_{J\in\JJ} J = K$.
+Also, $\II$ and $\JJ$ are disjoint.
+Furthermore, $\vv_{\star } = \sum_{I \in \II} \alpha_I = - \sum_{J \in \JJ} \alpha_J$.
+We can see that $i \in \bigcap_{I \in \II} I$ if and only if $\vv_i = \vv_{\star }$.
+Similarly, $j \in \bigcap_{J \in \JJ} J$ if and only if $\vv_j = \vv_{\star }$.
+We conclude that $\bigcap_{I \in \II} I = \bigcap_{J \in \JJ} J$.
+
+This contradicts the fact that $\CC$ is weakly separated unless $\II$ and $\JJ$ are non-empty.
+This shows that $ \{ \vv_C\}_{C\in \CC}$ is a linearly independent set, concluding the proof.
+\end{proof}
+
+
+\begin{prop}[Fischer's inequality]
+Let $E$ be a finite set.
+A family $\CC \subseteq 2^E$ is said to be $\lambda$\textbf{-Fischer} if $|C\cap D| = \lambda$ for all distinct $C, D \in \CC$.
+
+Then, for any $\lambda$-Fischer family, if $\lambda \neq 0$ then $|\CC| \leq |E|$.
+\end{prop}
+
+
+\begin{proof}
+We first deal with the case where $|C| = \lambda $ for some $C \in \CC$.
+Then $\II \coloneqq \{ D \setminus C | D \in \CC \setminus \{C\} \}$ is a family of disjoint sets in $E \setminus C$, therefore
+$$ |\II| \leq |E\setminus C| = |E| - \lambda \leq |E| - 1\, .$$
+We conclude that $|\CC| \leq |E|$.
+
+Now assume that $|C| > \lambda $ for all $C \in \CC$.
+Define the vectors $\vv_C$ in $\R^E$ as 
+$$ (\vv_C)_i =\begin{cases*}
+      & 1 \text{ if $i \in C$,}\\
+      & 0 \text{ otherwise.}
+    \end{cases*} $$
+Let $A$ be the $|E| \times |\CC|$ matrix with column vectors $\vv_C$.
+
+We write $\one $ for the all one vector with $|\CC|$ entries, and so $\one \one^T$ is the all one matrix.
+We have that $A^T A  = \lambda \one \one^T + \mathrm{diag}(d_1, \dots, d_{|E|})$.
+Because $|C| > \lambda$ for all $C \in \CC$, each $d_i$ is a positive integer.
+
+We now show that $A^T A$ is full rank.
+Assume that $A^T A \vx = 0$, let $s = \one^T \vx = \sum_i \vx_i$.
+Then, from the equation above and recalling that $d_i > 0$, 
+\begin{align*}
+A^T A \vx &= \lambda s \one + \mathrm{diag}(d_1, \cdots, d_{|\CC|}) \vx = 0\, , \\
+x_i &= -\frac{\lambda s}{d_i} \, , \\
+s = \sum_i x_i &= -s \lambda \sum_i\frac{1}{d_i}
+\end{align*}
+
+This implies that $s = 0$, which gives $\vx = 0$, or implies $1 = -\lambda \sum_i\frac{1}{d_i} < 0$ which is impossible.
+Thus, $A^T A$ is a matrix of rank $|\CC|$, therefore $A$ has full rank, so $|\CC| \leq |E|$
+\end{proof}
+
+
+\begin{prop}[Generalised Fischer inequality]
+
+\end{prop}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{prop}[Frankl-Wilson theorem]
+
+\end{prop}
+\begin{proof}
+
+\end{proof}
+
+\begin{prop}[$p$-adic Frankl-Wilson theorem]
+
+\end{prop}
+\begin{proof}
+
+\end{proof}
+
+
+\begin{prop}[Ray-Chaudhuri-Wilson theorem]
+\end{prop}
+
+
+\subsection{Graph theory}
+
+\subsubsection{Turan's problem}
+
+\subsubsection{Consistent coloring}
+
+\subsubsection{Ramsey theory}
 
 \section{Geometry}
 
