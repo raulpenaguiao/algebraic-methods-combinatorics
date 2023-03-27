@@ -94,11 +94,15 @@
 \newcommand{\CC}{\mathcal C}
 \newcommand{\JJ}{\mathcal J}
 \newcommand{\II}{\mathcal I}
+\newcommand{\FF}{\mathcal F}
 
 %vectors
 \newcommand{\vv}{\mathsf{v}}
 \newcommand{\vj}{\mathsf{j}}
 \newcommand{\vx}{\mathsf{x}}
+
+\newcommand{\spn}{\mathrm{span}}
+\newcommand{\rk}{\mathrm{rk}}
 
 
 \begin{document}
@@ -269,24 +273,60 @@ s = \sum_i x_i &= -s \lambda \sum_i\frac{1}{d_i}
 \end{align*}
 
 This implies that $s = 0$, which gives $\vx = 0$, or implies $1 = -\lambda \sum_i\frac{1}{d_i} < 0$ which is impossible.
-Thus, $A^T A$ is a matrix of rank $|\CC|$, therefore $A$ has full rank, so $|\CC| \leq |E|$
+Thus, $A^T A$ is a matrix of rank $|\CC|$, therefore $\rk A \geq |\CC|$, so $|\CC| \leq |E|$
 \end{proof}
 
 
 \begin{prop}[Generalised Fischer inequality]
+Let $E$ be a finite set, $p$ a prime and $L = \{l_1, \ldots , l_s\} \subseteq \F_p$.
+A family $\FF \subseteq 2^E$ is said to be $L$-Fischer if any two distinct $A, B \in \FF $ have $|A\cap B| \mod p \in L$.
 
+Then $|\FF| \leq \sum_{i=0}^s \binom{n}{i}$.
 \end{prop}
 
 \begin{proof}
+We work in $\F_p^E$.
+For each $F \in \FF$, let $\vv_F$ be the vector in $\F_p^E$ as above, and define the following polynomials in $\Z[x_e | e \in E]$:
+$$f_F(\vx) \coloneqq \prod_{i = 1}^s (\vx \cdot \vv_F - \ell_i ) \, .$$
 
+Note that for $A, B \in \FF$ distinct, we have $f_A(\vv_B) = 0$, whereas $f_A(\vv_A) \neq 0$.
+We now rewrite each $f_F$ by replacing any monomial of the form $\prod_{e\in E}x_e^{\alpha_e}$ with $\prod_{\substack{e\in E\\ \alpha_E > 0}}x_e$.
+It is still the case that for $A, B \in \FF$ distinct, we have $f_A(\vv_B) = 0$, whereas $f_A(\vv_A) \neq 0$.
+
+We claim that $\{ f_F \}_{F \in \FF}$ is a linearly independent set.
+Furthermore, each polynomial $f_F$ is in the vector space spanned by $\spn\{\prod_{e \in A} x_e | \, A \subseteq E, \, |A| \leq l \}$, so the theorem follows.
+
+Indeed, is $\sum_{F \in \FF} f_F \alpha_F =0$, then evaluating at $\vv_F $ gives us that, for each $F \in \FF$, $\alpha_F f_F(\vv_F) = 0$. 
+We conclude that $\{ f_F \}_{F \in \FF}$ is a linearly independent set.
 \end{proof}
 
 \begin{prop}[Frankl-Wilson theorem]
+Let $E$ be a finite set and $L = \{l_1, \ldots , l_s\} \subseteq \Z$.
+A family $\FF \subseteq 2^E$ is said to be $L$-Fischer if any two distinct $A, B \in \FF $ have $|A\cap B| \in L$.
 
+Then $|\FF| \leq \sum_{i=0}^s \binom{n}{i}$.
 \end{prop}
-\begin{proof}
 
+Remark that, this time, we do not require $|A|\not\in L$, unlike in the $p$-adic case.
+
+\begin{proof}
+We work in $\Z^E$.
+Write $\FF = \{F_1, \ldots , F_k\}$ with $|F_1| \leq |F_2| \leq \ldots \leq |F_k|$.
+For each $F \in \FF$, let $\vv_F$ be the vector in $\Z^E$ as above, and define for $i= 1, \ldots , k$ the following polynomials in $\Z[x_e | e \in E]$:
+$$f_i(\vx) \coloneqq \prod_{j : l_j < |F_i|} (\vx \cdot \vv_{F_i} - \ell_j ) \, .$$
+
+Note that for $i < j \in [k]$, we have $f_j(\vv_{F_i}) = 0$, whereas $f_i(\vv_{F_i}) \neq 0$.
+We now rewrite each $f_j$ by replacing any monomial of the form $\prod_{e\in E}x_e^{\alpha_e}$ with $\prod_{\substack{e\in E\\ \alpha_E > 0}}x_e$.
+It can be observed that it is still the case that for $i < j \in [k]$, we have $f_j(\vv_{F_i}) = 0$, whereas $f_i(\vv_{F_i}) \neq 0$.
+
+We claim that $\{ f_F \}_{F \in \FF}$ is a linearly independent set.
+Furthermore, each polynomial $f_F$ is in the vector space spanned by $\prod_{A\subseteq E}$ with $|A| \leq l$, so the theorem follows.
+
+Indeed, is $\sum_{i = 1}^k f_{F_i} \alpha_i =0$, let $j$ be the index such that $\alpha_j \neq 0$.
+But then evaluating at $\vv_{F_j} $ gives us that $\alpha_j f_j(\vv_{F_j}) = 0$. 
+We conclude that $\{ f_F \}_{F \in \FF}$ is a linearly independent set.
 \end{proof}
+
 
 \begin{prop}[$p$-adic Frankl-Wilson theorem]
 
