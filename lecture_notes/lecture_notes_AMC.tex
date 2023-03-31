@@ -349,6 +349,17 @@ So we have $f_i(\vv_{F_j}) = 0$, whereas $f_i(\vv_{F_i}) \neq 0$.
 We now rewrite each $f_j$ by replacing any monomial of the form $\prod_{e\in E}x_e^{\alpha_e}$ with $\prod_{\substack{e\in E\\ \alpha_E > 0}}x_e$.
 It can be observed that it is still the case that for $i > j $ elements in $[k]$, we have $f_i(\vv_{F_j}) = 0$, whereas $f_i(\vv_{F_i}) \neq 0$.
 
+Furthermore, for $I\subseteq E$, define 
+$$g_I(\vx) = (\lambda - \sum_i \vx_i)\prod_{i\in I} \vx_i\, .$$
+
+Note that for sets $I, J$ in $E$ with $|J| < \lambda$, we have that $f_I(\vv_J ) = 0$ whenever $J\not\subseteq I$.
+So we have $f_i(\vv_{F_j}) = 0$, whereas $f_i(\vv_{F_i}) \neq 0$.
+We now rewrite each $f_j$ by replacing any monomial of the form $\prod_{e\in E}x_e^{\alpha_e}$ with $\prod_{\substack{e\in E\\ \alpha_E > 0}}x_e$.
+It can be observed that it is still the case that for $i > j $ elements in $[k]$, we have $f_i(\vv_{F_j}) = 0$, whereas $f_i(\vv_{F_i}) \neq 0$.
+
+
+
+
 We claim that $\{ f_F \}_{F \in \FF}$ is a linearly independent set.
 Furthermore, because $\deg f \leq s$, each polynomial $f_F$ is in the vector space spanned by $\spn\{\prod_{e \in A} x_e | \, A \subseteq E, \, |A| \leq s \}$, so the theorem follows.
 
