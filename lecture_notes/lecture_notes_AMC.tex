@@ -341,13 +341,14 @@ Then $|\FF| \leq \binom{|E|}{|L|}$.
 \begin{proof}
 We work in $\Z^E$.
 Write $\FF = \{F_1, \ldots , F_k\}$ with $|F_1| \leq |F_2| \leq \ldots \leq |F_k|$.
-For each $F \in \FF$, let $\vv_F$ be the vector in $\Z^E$ as above, and define for $i= 1, \ldots , k$ the following polynomials in $\Z[x_e | e \in E]$:
+For each $F \subseteq E$, let $\vv_F$ be the vector in $\Z^E$ as above, and define for $i= 1, \ldots , k$ the following polynomials in $\Z[x_e | e \in E]$:
 $$f_i(\vx) \coloneqq \prod_{k \, : \, l_k < |F_i|} (\vx \cdot \vv_{F_i} - \ell_k ) \, .$$
 
 Note that for $i > j $ elements in $[k]$, we have $F_i \not\subseteq F_j$, thus $|F_j \cap F_i| <  |F_i|$.
 So we have $f_i(\vv_{F_j}) = 0$, whereas $f_i(\vv_{F_i}) \neq 0$.
 We now rewrite each $f_j$ by replacing any monomial of the form $\prod_{e\in E}x_e^{\alpha_e}$ with $\prod_{\substack{e\in E\\ \alpha_E > 0}}x_e$.
 It can be observed that it is still the case that for $i > j $ elements in $[k]$, we have $f_i(\vv_{F_j}) = 0$, whereas $f_i(\vv_{F_i}) \neq 0$.
+
 
 Furthermore, for $I\subseteq E$, define 
 $$g_I(\vx) = (\lambda - \sum_i \vx_i)\prod_{i\in I} \vx_i\, .$$
@@ -361,6 +362,18 @@ It can be observed that it is still the case that for $i > j $ elements in $[k]$
 
 
 We claim that $\{ f_F \}_{F \in \FF}$ is a linearly independent set.
+
+
+For a set $I \subseteq E$ define $g_I (\vx) \coloneqq (\lambda - \sum_i \vx_i)\prod_{i \in I} x_i$.
+Then observe that for $F \in \FF$, we have $g_I(\vv_F) = 0$.
+Furthermore, if $I \not \subseteq J$, then $g_I(\vv_J) = 0$.
+As before, rewrite each $g_I$ by replacing any monomial of the form $\prod_{e\in E}x_e^{\alpha_e}$ with $\prod_{\substack{e\in E\\ \alpha_E > 0}}x_e$.
+Thus, we still have for $F \in \FF$, that $g_I(\vv_F) = 0$.
+Furthermore, if $I \not \subseteq J$, then $g_I(\vv_J) = 0$.
+
+We claim that $\{ f_F \}_{F \in \FF}\cup \{g_I \}_{I \, : |I| < \lambda }$ is a linearly independent set.
+
+
 Furthermore, because $\deg f \leq s$, each polynomial $f_F$ is in the vector space spanned by $\spn\{\prod_{e \in A} x_e | \, A \subseteq E, \, |A| \leq s \}$, so the theorem follows.
 
 Indeed, if $\sum_{i = 1}^k f_{F_i} \alpha_i =0$, let $j$ be the smallest index such that $\alpha_j \neq 0$.
