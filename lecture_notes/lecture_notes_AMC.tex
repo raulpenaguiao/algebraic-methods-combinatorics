@@ -76,6 +76,7 @@
 \newtheorem{defin}[thm]{Definition}
 \newtheorem{smpl}[thm]{Example}
 \newtheorem{quest}[thm]{Question}
+\newtheorem{exe}[thm]{Exercise}
 \newtheorem{prob}[thm]{Problem}
 \newtheorem{conj}[thm]{Conjecture}
 \newtheorem{rem}[thm]{Remark}
@@ -88,6 +89,8 @@
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\F}{\mathbb{F}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\PP}{\mathbb{P}}
 
 \newcommand{\one}{\mathbb{1}}
 
@@ -98,6 +101,7 @@
 
 %vectors
 \newcommand{\vv}{\mathsf{v}}
+\newcommand{\vw}{\mathsf{w}}
 \newcommand{\vj}{\mathsf{j}}
 \newcommand{\vx}{\mathsf{x}}
 
@@ -424,24 +428,145 @@ so $\binom{|E|}{|L|} \geq |\FF|$ follows from the independence claim, which is d
 %Then evaluating \eqref{eq:l_i_ness} in $\vv_I$, using that $\alpha_F = 0$ for any $F \in \FF$, gives us $\alpha_I g_I(\vv_I) = 0$, which implies $\alpha_I = 0$.
 %We conclude that $\{ f_F \}_{F \in \FF}\cup \{g_I \}_{I \, : |I| < |L| }$ is a linearly independent set.
 
-\subsection{Graph theory}
+\section{Graph theory}
 
-\subsubsection{Turan's problem}
+\subsection{Turan's problem}
 
-\subsubsection{Consistent coloring}
+\subsection{Consistent colouring}
 
-\subsubsection{Ramsey theory}
-The central problem in \textbf{Ramsey theory} is computing the minimal $R \coloneqq R(m, n)$ such that any edge colouring of $K_R$ into two colours contains either a monochromatic $K_m$ of a monochromatic $K_n$.
+An edge colouring of a graph $G = (V, E)$, or simply a colouring of $G$, is a map $f:E \to [k]$.
+A colouring of a $K_n$ is called consistent if for any four vertices, the six edges among these vertices either have all distinct colours, or have three different colours as in \cref{fig:consistent_colouring}.
 
 
-The first few values are the following:
 
-\begin{tabular}{l| }
 
+\begin{figure}[h]
+\includegraphics[scale=.1]{../imgs/ina.png}%../imgs/consistent
+\caption{A consistent colouring locally has either six colours or three colours distributed in this way.\label{fig:consistent_colouring}}
+\end{figure}
+
+
+\begin{thm}
+The graph $K_n$ has a consistent colouring with at most $n-1$ colours if and only if $n = 2^t $ for some integer $t$.
+\end{thm}
+
+\begin{proof}
+Let $\CC \coloneqq\{ c_1, \dots, c_k\}$ be the collection of colours.
+First, because each vertex has $n-1$ neighbours, and no two neightbour edges can have the same colour, we have $k \geq n-1$.
+We are given that $k \leq n-1$, thus $k = n-1$. 
+We will endow $\CC \cup \{\vec{0}\}$ with a structure of $\F_2$ vector space.
+
+Incidentally, let $c$ be the colour of an edge $v_1 \-- v_2$, and $d$ be the colour of an edge $v_1 \-- v_3$.
+We define $c + d $ to be the colour of the edge $v_1 \-- v_3$.
+That this is well defined follows from a simple application of the cosistency property in three squares, as shown in \cref{fig:consistency_squares}.
+This shows that $|\CC \cup \{\vec{0}\}| = n$ is a power of two.
+
+For the converse result, we set $V = \F_2^n$ and colour an edge $\vv \-- \vw$ with the colour $\vv - \vw$.
+It is a straightforward observation that this is a consistent colouring.
+\end{proof}
+
+\begin{figure}[h]
+\includegraphics[scale=.1]{../imgs/ina.png}%../imgs/consistent
+\caption{The vector space operation is well defined.\label{fig:consistency_squares}}
+\end{figure}
+
+
+\subsection{Ramsey theory}
+The central problem in \textbf{Ramsey theory} is computing the minimal $R \coloneqq R(m, n)$ such that any edge colouring of $K_R$ into two colours, say red and blue, contains either a monochromatic red $K_m$ of a monochromatic blue $K_n$.
+
+\begin{defin}[Ramsey edge colouring]
+An edge colouring of a complete graph is said to be an $(m, n)$-Ramsey colouring if there are no monochromatic red $K_n$ and no monochromatic $K_m$ blue.
+
+the number $R(m, n)$ is the smallest value for $R$ such that no edge bicolouring of $K_R$ is $(m, n)$-Ramsey.
+\end{defin}
+
+
+\begin{figure}[h]
+\includegraphics[scale=.1]{../imgs/ina.png}%../imgs/k5_bicolour
+\caption{A edge colouring of $K_5$ without any monochromatic triangle.\label{fig:k5_bicolour}}
+\end{figure}
+
+
+\begin{exe}\label{exe:r33}
+Show that $R(3, 3) = 6$.
+\cref{fig:k5_bicolour} may come in handy.
+\end{exe}
+
+
+The first few values obtained in \cite{chachamis2018ramsey} and in \cite{graver1968some} are shown in \cref{tab:ramsey_nums}.
+It goes without saying that many of the values there presented are not as easy to compute as in the $R(3, 3)$ case from \cref{exe:r33}.
+These numbers were obtained using vast amounts of ingenuity and computational power.
+
+\begin{table}
+\begin{tabular}{l|| c | c | c | c | c | c | c}
+$R(m, n)$& $n = 1 $ & $n = 2 $ &$n = 3 $ &$n = 4 $ &$n = 5 $ & $n = 6$\\
+\hline
+$ m = 1 $& 1 & 1 & 1 & 1 & 1 & 1\\
+$ m = 2 $& 1 & 2 & 3 & 4 & 5 & 6\\
+$ m = 3 $& 1 & 3 & 6 & 9 & 14 & 18\\
+$ m = 4 $& 1 & 4 & 9 & 18 & 25 & ??\\
+$ m = 5 $& 1 & 5 & 14 & 25 & ?? & ??\\
+$ m = 6 $& 1 & 6 & 18 & ?? & ?? & ??
 \end{tabular}
+\caption{Some of the known Ramsey numbers\label{tab:ramsey_nums}}
+\end{table}
 
 
+\begin{quote}
+Suppose aliens invade the earth and threaten to obliterate it in a year's time unless human beings can find the Ramsey number for red five and blue five. We could marshal the world's best minds and fastest computers, and within a year we could probably calculate the value. If the aliens demanded the Ramsey number for red six and blue six, however, we would have no choice but to launch a preemptive attack.
+\hfill (Paul Er\"os)
+\end{quote}
 
+\begin{thm}
+$$2^{n/_2} \leq R(n, n) \leq 2^{2n}\, . $$
+
+\end{thm}
+
+
+\begin{proof}
+For the upper bound we use the following claim: for $m, n \geq 2$ we have.
+\begin{equation}\label{eq:induction_ramsey}
+R(n, m) \leq R(n, m- 1) + R(n-1, m) \, .
+\end{equation}
+That this is true for $n = 2$ and for $m = 2$ follows from the fact that $R(1, n) = 1$ and $R(2, n) = n$.
+
+Now consider $N = R(n, m- 1) + R(n-1, m)$, and fix an edge bicolouring of $K_N$ into, say, red and blue colours.
+Our goal is to find a monochromatic blue $K_n $ or a monochromatic red $K_m$ in $K_N$.
+
+Pick one vertex $\vv$ and partition the remaning $N-1$ vertices $\vw$ into the blue set $V_b$ and the red set $V_r$ according to the edge of $\vv \-- \vw$.
+Note that $|V_b| + |V_r| = N-1$, so either $|V_b| \geq  R(n-1, m)$ or $|V_r| \geq  R(n, m- 1)$.
+In either case we have found either a blue $K_n$ or a red $K_m$.
+
+As a conclusion, from \eqref{eq:induction_ramsey} we get inductively that $R(m, n) \leq 2^{m+n}$, thus $R(n, n) \leq 2^{2n}$.
+
+
+For the lower bound, we observe in \cref{tab:ramsey_nums} that $R(n, n) > 2^{n/_2}$ for $n < 4$. 
+Assume now that $n\geq 4$ and let $N = \lfloor 2^{n/_2} \rfloor $ and colour each edge of $K_N$ at random uniformly.
+Let $R_I$ be the event that the vertex set $I$ induces a monochromatic red complete graph, and let $B_I$ be the event that the vertex set $I$ induces a monochromatic blue complete graph.
+Let $R$ be the event that some set $I$ induces a monochromatic red complete graph, and let $B$ be the event that some set $I$ induces a monochromatic blue complete graph.
+Use $\overline{A}$ to denote the negation of an event $A$.
+We have that:
+\begin{align*}
+\PP[\overline{B} \cap \overline{R}] =& \PP[\bigcap_{|I| = n} \overline{B_I} \cap \bigcap_{|I| = n} \overline{R_I}]\\
+=& 1 - \PP[\bigcup_{|I| = n} B_I \cup \bigcup_{|I| = n} R_I]\\
+\geq & 1 - \sum_{|I| = n} \PP[B_I] + \PP[R_I]\\
+=& 1 - 2\binom{N}{n} 2^{-\binom{n}{2}}\, .
+\end{align*}
+Now observe that $\binom{N}{n} \leq\frac{N^n}{n!}$ and $N \leq 2^{n/_2}$, so
+$$2\binom{N}{n} 2^{-\binom{n}{2}} \leq \frac{2 N^n}{n! N^{n-1}} = \frac{2N}{n!} \leq \frac{ 2 2^{n/_2}}{n!} \leq 0.5 \, ,$$
+where the last inequality is equivalent to $4 2^{n/_2} \leq n!$ which  holds for $n \geq 4$.
+
+Thus $\PP[\overline{B} \cap \overline{R}]  \geq 0.5$, so there is a random assignment of a bicolouring that makes $K_N$ an $(n, n)$-Ramsey colouring.
+We conclude that $R(n, n) \geq 2^{n/_2}$.
+\end{proof}
+
+A key issue with the lower bound described above is that it does not provide an explicit construction of a bicolouring that has neither monochromatic red $K_n$ nor a monochromatic blue $K_m$.
+It just says that, with a randomly generated bicolouring, you will most probably end up with an $(n, n)$-Ramsey colouring.
+But do not forget, to test that a bicolouring is $(n, n)$-Ramsey colouring is hard.
+
+For this reason, we dedicate the next section to present some expicit constructions of bicolourings using algebraic tools.
+
+\subsubsection{Explicit constructions}
 
 \section{Geometry}
 
