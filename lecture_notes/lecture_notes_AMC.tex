@@ -134,7 +134,7 @@ When $q$ is a prime number, we identify $\F_q$ with $\Z/_{q\Z}$.
 \subsection{Clubs with rules}
 
 
-\begin{prop}[Oddtown]
+\begin{prop}[Oddtowns]
 Let $E$ be a finite set.
 A family $\CC \subset 2^E $ is called an \textbf{oddtown} if
 \begin{itemize}
@@ -159,9 +159,9 @@ The first and second oddtown conditions give us respectively $\vv_C \cdot \vv_C 
 
 We claim that $\{\vv_C\}_{C \in \CC}$ is a linearly independent set in $\F_2^E$.
 It follows imediately that $|\CC| \leq |E|$.
-Indeed, if $\sum_{C \in \CC} \alpha_C \vv_C = 0$ for scalars $\alpha_i$, then
+Indeed, if $\sum_{C \in \CC} \alpha_C \vv_C = 0$ for scalars $\alpha_C \in \F_2$, then
 $$ 0 = 0 \cdot \vv_D = \sum_{C \in \CC} \alpha_C \vv_C\cdot \vv_D = \alpha_D\, ,$$
-for any $j \in \CC$, concluding the proof.
+for any $D \in \CC$, concluding the proof.
 \end{proof}
 
 
@@ -252,49 +252,51 @@ $$ |\II| \leq |E\setminus C| = |E| - \lambda \leq |E| - 1\, .$$
 We conclude that $|\CC| \leq |E|$.
 
 Now assume that $|C| > \lambda $ for all $C \in \CC$.
-Define the vectors $\vv_C$ in $\R^E$ as 
+For $C \in \CC$, define the vectors $\vv_C$ in $\R^E$ as 
 $$ (\vv_C)_i =\begin{cases*}
       & 1 \text{ if $i \in C$,}\\
       & 0 \text{ otherwise.}
     \end{cases*} $$
 Let $A$ be the $|E| \times |\CC|$ matrix with column vectors $\vv_C$.
 
-We write $\one $ for the all one vector with $|\CC|$ entries, and so $\one \one^T$ is the all one matrix.
+We write $\one $ for the all one vector with $|\CC|$ entries, which we also interpret as a $|\CC| \times 1$ matrix.
+In this way, $\one \one^T$ is the all one matrix.
 We have that $A^T A  = \lambda \one \one^T + \mathrm{diag}((d_C)_{C\in\CC})$, where $\mathrm{diag}((d_C)_{C\in\CC})$ is a diagonal matrix with entries $d_C$.
-Because $|C| > \lambda$ for all $C \in \CC$, each $d_i$ is a positive integer.
+Because $|C| > \lambda$ for all $C \in \CC$, each $d_C$ is a positive integer.
 
-We now show that $A^T A$ is full rank, which for a square matrix is equivalent to show that it is non-singular.
+We now show that $A^T A$ is full rank.
+Because this is a square matrix, we is equivalently show that it is non-singular.
 Assume that $A^T A \vx = 0$, let $s = \one^T \vx = \sum_{C \in \CC} \vx_C$.
-Then, from the equation above and recalling that $d_i > 0$, 
+Then, from the equation above and $d_i > 0$, we have
 \begin{align*}
 A^T A \vx &= \lambda s \one + \mathrm{diag}((d_C)_{C\in\CC}) \vx = 0\, , \\
 x_i &= -\frac{\lambda s}{d_i} \, , \\
-s = \sum_i x_i &= -s \lambda \sum_{C \in \CC}\frac{1}{d_C}
+s = \sum_i x_i &= - \lambda s \sum_{C \in \CC}\frac{1}{d_C}
 \end{align*}
 
-This implies that $s = 0$, which gives $\vx = 0$, or implies $1 = -\lambda \sum_i\frac{1}{d_i} < 0$ which is impossible.
+This implies that $s = 0$, which gives $\vx = 0$, or implies $1 = -\lambda \sum_i\frac{1}{d_i} < 0$, which is impossible.
 Thus, $A^T A$ is a matrix of rank $|\CC|$, therefore $\rk A \geq |\CC|$, so $|\CC| \leq |E|$
 \end{proof}
 
 
 \begin{prop}[Generalised Fischer inequality]
-Let $E$ be a finite set, $p$ a prime and $L = \{l_1, \ldots , l_s\} \subseteq \F_p$.
-A family $\FF \subseteq 2^E$ is said to be $L$-Fischer if for any $A, B \in \FF $ have $|A\cap B| \mod p \in L$ if and only if $A \neq B$.
+Let $E$ be a finite set, $p$ a prime and $L \subseteq \F_p$.
+A family $\FF \subseteq 2^E$ is said to be $L$-Fischer if for any $A, B \in \FF $ we have $|A\cap B| \mod p \in L$ whenever $A \neq B$ and, furthermore, $|A| \mod p \not \in L$ for all $A \in \FF$.
 
-Then $|\FF| \leq \sum_{i=0}^s \binom{|E|}{i}$.
+Then $|\FF| \leq \sum_{i=0}^{|L|} \binom{|E|}{i}$.
 \end{prop}
 
 \begin{proof}
 We work in $\F_p^E$.
-For each $F \in \FF$, let $\vv_F$ be the vector in $\F_p^E$ as above, and define the following polynomials in $\Z[x_e | e \in E]$:
-$$f_F(\vx) \coloneqq \prod_{i = 1}^s (\vx \cdot \vv_F - \ell_i ) \, .$$
+For each $F \in \FF$, let $\vv_F$ be the vector in $\F_p^E$ as above, and define the following polynomials in $\Z[\vx_e | e \in E]$:
+$$f_F(\vx) \coloneqq \prod_{\ell \in L} (\vx \cdot \vv_F - \ell ) \, .$$
 
 Note that for $A, B \in \FF$ distinct, we have $f_A(\vv_B) = 0$, whereas $f_A(\vv_A) \neq 0$.
-We now rewrite each $f_F$ by replacing any monomial of the form $\prod_{e\in E}x_e^{\alpha_e}$ with $\prod_{\substack{e\in E\\ \alpha_E > 0}}x_e$.
+We now rewrite each $f_F$ by replacing any monomial of the form $\prod_{e\in E}\vx_e^{\alpha_e}$ with $\prod_{\substack{e\in E\\ \alpha_E > 0}}\vx_e$.
 It is still the case that for $A, B \in \FF$ distinct, we have $f_A(\vv_B) = 0$, whereas $f_A(\vv_A) \neq 0$.
 
 We claim that $\{ f_F \}_{F \in \FF}$ is a linearly independent set.
-Furthermore, because $\deg f \leq s$, each polynomial $f_F$ is in the vector space spanned by $\spn\{\prod_{e \in A} x_e | \, A \subseteq E, \, |A| \leq s \}$, so the theorem follows.
+Furthermore, because $\deg f \leq s$, each polynomial $f_F$ is in the vector space $\spn\{\prod_{e \in A} \vx_e | \, A \subseteq E, \, |A| \leq |L| \}$, so the theorem follows.
 
 Indeed, if $\sum_{F \in \FF} f_F \alpha_F =0$, then evaluating this zero polynomial at $\vx = \vv_F $ for each $F \in \FF$, gives us that $\alpha_F f_F(\vv_F) = 0$, so $\alpha_F = 0$. 
 We conclude that $\{ f_F \}_{F \in \FF}$ is a linearly independent set.
@@ -303,27 +305,29 @@ We conclude that $\{ f_F \}_{F \in \FF}$ is a linearly independent set.
 The following was shown in \cite{hsieh1975intersection}:
 
 \begin{prop}[Frankl-Wilson theorem]
-Let $E$ be a finite set and $L = \{l_1, \ldots , l_s\} \subseteq \Z$.
+Let $E$ be a finite set and $L \subseteq \Z$.
 A family $\FF \subseteq 2^E$ is said to be $L$-Fischer if any two distinct $A, B \in \FF $ have $|A\cap B| \in L$.
 
-Then $|\FF| \leq \sum_{i=0}^s \binom{|E|}{i}$.
+Then $|\FF| \leq \sum_{i=0}^{|L|} \binom{|E|}{i}$.
 \end{prop}
 
+Note that the meaning of $L$-Fischer is intrinsically different whenever $L \subseteq \Z$ and $L \subseteq \F_p$.
+We hope that this flexibility of definition does not bring any ambiguity.
 Remark that, this time, we do not require $|A|\not\in L$, unlike in the $p$-adic case.
 
 \begin{proof}
 We work in $\Z^E$.
 Write $\FF = \{F_1, \ldots , F_k\}$ with $|F_1| \leq |F_2| \leq \ldots \leq |F_k|$.
-For each $F \in \FF$, let $\vv_F$ be the vector in $\Z^E$ as above, and define for $i= 1, \ldots , k$ the following polynomials in $\Z[x_e | e \in E]$:
-$$f_i(\vx) \coloneqq \prod_{k \, : \, l_k < |F_i|} (\vx \cdot \vv_{F_i} - \ell_k ) \, .$$
+For each $F \in \FF$, let $\vv_F$ be the vector in $\Z^E$ as above, and define for $i= 1, \ldots , k$ the following polynomials in $\Z[\vx_e | e \in E]$:
+$$f_i(\vx) \coloneqq \prod_{ \substack{\ell \in L \\ \ell < |F_i|}} (\vx \cdot \vv_{F_i} - \ell) \, .$$
 
 Note that for $i > j $ elements in $[k]$, we have $F_i \not\subseteq F_j$, thus $|F_j \cap F_i| <  |F_i|$.
 So we have $f_i(\vv_{F_j}) = 0$, whereas $f_i(\vv_{F_i}) \neq 0$.
-We now rewrite each $f_j$ by replacing any monomial of the form $\prod_{e\in E}x_e^{\alpha_e}$ with $\prod_{\substack{e\in E\\ \alpha_E > 0}}x_e$.
+We now rewrite each $f_j$ by replacing any monomial of the form $\prod_{e\in E}\vx_e^{\alpha_e}$ with $\prod_{\substack{e\in E\\ \alpha_E > 0}}\vx_e$.
 It can be observed that it is still the case that for $i > j $ elements in $[k]$, we have $f_i(\vv_{F_j}) = 0$, whereas $f_i(\vv_{F_i}) \neq 0$.
 
 We claim that $\{ f_F \}_{F \in \FF}$ is a linearly independent set.
-Furthermore, because $\deg f \leq s$, each polynomial $f_F$ is in the vector space spanned by $\spn\{\prod_{e \in A} x_e | \, A \subseteq E, \, |A| \leq s \}$, so the theorem follows.
+Furthermore, because $\deg f \leq s$, each polynomial $f_F$ is in the vector space  $\spn\{\prod_{e \in A} \vx_e | \, A \subseteq E, \, |A| \leq |L| \}$, which has dimension $\sum_{i=0}^{|L|} \binom{|E|}{i}$, so the theorem follows from the independence claim.
 
 Indeed, if $\sum_{i = 1}^k f_{F_i} \alpha_i =0$, let $j$ be the smallest index such that $\alpha_j \neq 0$.
 But then evaluating this zero polynomial at $\vx = \vv_{F_j} $ gives us that $\alpha_{F_j} f_j(\vv_{F_j}) = 0$, so $\alpha_F = 0$. 
@@ -333,73 +337,92 @@ We conclude that $\{ f_F \}_{F \in \FF}$ is a linearly independent set.
 The following was shown in \cite{ray1975t}:
 
 \begin{prop}[Ray-Chaudhuri-Wilson theorem]
-Let $E$ be a finite set, $\lambda $ be an integer and $L$ a set of integers.
+Let $E$ be a finite set, $\lambda $ be a positive integer and $L$ a set of positive integers smaller than $\lambda$.
 Assume that $\FF $ is an $L$-Fischer collection of subsets of $E$, with $|F| = \lambda $ for each $F \in \FF$.
 Then $|\FF| \leq \binom{|E|}{|L|}$.
 \end{prop}
 
 \begin{proof}
 We work in $\Z^E$.
-Write $\FF = \{F_1, \ldots , F_k\}$ with $|F_1| \leq |F_2| \leq \ldots \leq |F_k|$.
-For each $F \subseteq E$, let $\vv_F$ be the vector in $\Z^E$ as above, and define for $i= 1, \ldots , k$ the following polynomials in $\Z[x_e | e \in E]$:
-$$f_i(\vx) \coloneqq \prod_{k \, : \, l_k < |F_i|} (\vx \cdot \vv_{F_i} - \ell_k ) \, .$$
+For each $I \subseteq E$, let $\vv_I$ be the vector in $\Z^E$ as above, and define for $F \in \FF$ the following polynomials in $\Z[\vx_e | e \in E]$:
+$$f_F(\vx) \coloneqq \prod_{\ell \in L } (\vx \cdot \vv_{F} - \ell ) \, .$$
 
-Note that for $i > j $ elements in $[k]$, we have $F_i \not\subseteq F_j$, thus $|F_j \cap F_i| <  |F_i|$.
-So we have $f_i(\vv_{F_j}) = 0$, whereas $f_i(\vv_{F_i}) \neq 0$.
-We now rewrite each $f_j$ by replacing any monomial of the form $\prod_{e\in E}x_e^{\alpha_e}$ with $\prod_{\substack{e\in E\\ \alpha_E > 0}}x_e$.
-It can be observed that it is still the case that for $i > j $ elements in $[k]$, we have $f_i(\vv_{F_j}) = 0$, whereas $f_i(\vv_{F_i}) \neq 0$.
+Note that for $F, G \in \FF$ distinct, we have $f_F(\vv_G) = 0$, whereas $f_F(\vv_F) = \prod_{\ell \in L } (\lambda - \ell )\neq 0$.
+We now rewrite each $f_F$ by replacing any monomial of the form $\prod_{e\in E}\vx_e^{\alpha_e}$ with $\prod_{\substack{e\in E\\ \alpha_E > 0}}\vx_e$.
+It can be observed that for $F, G \in \FF$, we still have $f_F(\vv_G) = 0$ if and only if $F \neq G$.
 
 
 Furthermore, for $I\subseteq E$, define 
-$$g_I(\vx) = (\lambda - \sum_i \vx_i)\prod_{i\in I} \vx_i\, .$$
+$$g_I(\vx) \coloneqq (\lambda - \sum_{i\in E} \vx_i)\prod_{i\in I} \vx_i\, .$$
 
-Note that for sets $I, J$ in $E$ with $|J| < \lambda$, we have that $f_I(\vv_J ) = 0$ whenever $J\not\subseteq I$.
-So we have $f_i(\vv_{F_j}) = 0$, whereas $f_i(\vv_{F_i}) \neq 0$.
-We now rewrite each $f_j$ by replacing any monomial of the form $\prod_{e\in E}x_e^{\alpha_e}$ with $\prod_{\substack{e\in E\\ \alpha_E > 0}}x_e$.
-It can be observed that it is still the case that for $i > j $ elements in $[k]$, we have $f_i(\vv_{F_j}) = 0$, whereas $f_i(\vv_{F_i}) \neq 0$.
+Note that for sets $I, J$ in $E$, we have that $g_I(\vv_J ) = 0$ whenever $I\not\subseteq J$.
+Furthermore, we have $g_I(\vv_F) = 0$ for any $F \in \FF$.
+We now rewrite each $g_I$ by replacing any monomial of the form $\prod_{e\in E}x_e^{\alpha_e}$ with $\prod_{\substack{e\in E\\ \alpha_E > 0}}x_e$.
+It is still the case that for sets $I, J$ in $E$, we have that $g_I(\vv_J ) = 0$ whenever $I\not\subseteq J$, as well as that $g_I(\vv_F) = 0$ for any $F \in \FF$.
 
+We claim that $\{ f_F \}_{F \in \FF}\cup \{g_I \}_{I \, : |I| < |L| }$ is a linearly independent set.
+Furthermore, because $\deg f_F \leq |L|$ for $F \in \FF$, and $\deg g_I \leq |L|$ for $|I| < |L|$, the polynomials $f_F$ and $g_I$ are in the vector space $\spn\{\prod_{e \in A} \vx_e | \, A \subseteq E, \, |A| \leq |L| \}$, which as dimension $\sum_{i=0}^{|L|} \binom{|E|}{i}$.
+It follows that
+$$ \sum_{i=0}^{|L|} \binom{|E|}{i} \geq \sum_{i=0}^{|L|-1} \binom{|E|}{i} + |\FF| \, ,$$
+so $\binom{|E|}{|L|} \geq |\FF|$ follows from the independence claim.
 
+Indeed, assume that 
+\begin{equation}\label{eq:l_i_ness}
+\sum_{F \in \FF} f_F \alpha_F + \sum_{\substack{I \subseteq E\\ |I| < |L|}} g_I \alpha_I =0 \, .
+\end{equation}
 
+For any $F \in \FF$, evaluating \eqref{eq:l_i_ness} at $\vx = \vv_F $ gives us that $\alpha_F f_F(\vv_F) = 0$, so $\alpha_F = 0$.
 
-We claim that $\{ f_F \}_{F \in \FF}$ is a linearly independent set.
-
-
-For a set $I \subseteq E$ define $g_I (\vx) \coloneqq (\lambda - \sum_i \vx_i)\prod_{i \in I} x_i$.
-Then observe that for $F \in \FF$, we have $g_I(\vv_F) = 0$.
-Furthermore, if $I \not \subseteq J$, then $g_I(\vv_J) = 0$.
-As before, rewrite each $g_I$ by replacing any monomial of the form $\prod_{e\in E}x_e^{\alpha_e}$ with $\prod_{\substack{e\in E\\ \alpha_E > 0}}x_e$.
-Thus, we still have for $F \in \FF$, that $g_I(\vv_F) = 0$.
-Furthermore, if $I \not \subseteq J$, then $g_I(\vv_J) = 0$.
-
-We claim that $\{ f_F \}_{F \in \FF}\cup \{g_I \}_{I \, : |I| < \lambda }$ is a linearly independent set.
-
-
-Furthermore, because $\deg f \leq s$, each polynomial $f_F$ is in the vector space spanned by $\spn\{\prod_{e \in A} x_e | \, A \subseteq E, \, |A| \leq s \}$, so the theorem follows.
-
-Indeed, if $\sum_{i = 1}^k f_{F_i} \alpha_i =0$, let $j$ be the smallest index such that $\alpha_j \neq 0$.
-But then evaluating this zero polynomial at $\vx = \vv_{F_j} $ gives us that $\alpha_{F_j} f_j(\vv_{F_j}) = 0$, so $\alpha_F = 0$. 
-We conclude that $\{ f_F \}_{F \in \FF}$ is a linearly independent set.
+If there is some $I$ with $|I| < |L|$ and $\alpha_I \neq 0$, find such $I$ minimal by inclusion.
+Then evaluating \eqref{eq:l_i_ness} in $\vv_I$, using that $\alpha_F = 0$ for any $F \in \FF$, gives us $\alpha_I g_I(\vv_I) = 0$, which implies $\alpha_I = 0$.
+We conclude that $\{ f_F \}_{F \in \FF}\cup \{g_I \}_{I \, : |I| < |L| }$ is a linearly independent set.
 \end{proof}
 
 
-\begin{prop}[]
-Let $E$ be a finite set, $p$ a prime number and $L$ a collection of elements in $\F_p$.
-If $\FF$ is $L$-Fischer and
-\begin{itemize}
-\item For all $F\in \FF$, we have $|F|= \lambda$.
+\begin{prop}[Frankl - Wilson]
+Let $E$ be a finite set, $p$ a prime number, $\lambda$ a positive integer and $L$ a collection of elements in $\F_p$.
+Assume that $\lambda \mod p\not\in L$ and that $|L| \leq \lambda < p$.
 
-\item $\lambda \mod p\not\in L$
 
-\item $|L| \leq \lambda $
-
-\item $\lambda \mod p \geq s$
-\end{itemize}
-
-Then $|\FF| \leq \binom{|E|}{|L|}$.
+If $\FF$ is $L$-Fischer and $|F| = \lambda $ for each $F \in \FF$, then $|\FF| \leq \binom{|E|}{|L|}$.
 \end{prop}
 
 \begin{proof}
+We work in $\F_p^E$.
+For each $I \subseteq E$, let $\vv_I$ be the vector in $\F_p^E$ as above, and define for $F \in \FF$ the following polynomials in $\Z[\vx_e | e \in E]$:
+$$f_F(\vx) \coloneqq \prod_{\ell \in L } (\vx \cdot \vv_{F} - \ell ) \, .$$
+
+Note that for $F, G \in \FF$ distinct, we have $f_F(\vv_G) = 0$, whereas $f_F(\vv_F) = \prod_{\ell \in L } (\lambda - \ell )\neq 0$.
+We now rewrite each $f_F$ by replacing any monomial of the form $\prod_{e\in E}\vx_e^{\alpha_e}$ with $\prod_{\substack{e\in E\\ \alpha_E > 0}}\vx_e$.
+It can be observed that for $F, G \in \FF$, we still have $f_F(\vv_G) = 0$ if and only if $F \neq G$.
+
+Furthermore, for $I\subseteq E$, define 
+$$g_I(\vx) \coloneqq (\lambda - \sum_{i\in E} \vx_i)\prod_{i\in I} \vx_i\, .$$
+
+Note that for sets $I, J$ in $E$, we have that $g_I(\vv_J ) = 0$ whenever $I\not\subseteq J$.
+Note that $g_I(\vv_I) \neq 0$ whenever $|I| < |L|$, thanks to the condition $|L| \leq \lambda < p$.
+
+Furthermore, we have $g_I(\vv_F) = 0$ for any $F \in \FF$.
+We now rewrite each $g_I$ by replacing any monomial of the form $\prod_{e\in E}x_e^{\alpha_e}$ with $\prod_{\substack{e\in E\\ \alpha_E > 0}}x_e$.
+It is still the case that for sets $I, J$ in $E$, we have that $g_I(\vv_J ) = 0$ whenever $I\not\subseteq J$, that $g_I(\vv_I) \neq 0$ for $|I| < |L|$ as well as that $g_I(\vv_F) = 0$ for any $F \in \FF$.
+
+We claim that $\{ f_F \}_{F \in \FF}\cup \{g_I \}_{I \, : |I| < |L| }$ is a linearly independent set.
+Furthermore, because $\deg f_F \leq |L|$ for $F \in \FF$, and $\deg g_I \leq |L|$ for $|I| < |L|$, the polynomials $f_F$ and $g_I$ are in the vector space $\spn\{\prod_{e \in A} \vx_e | \, A \subseteq E, \, |A| \leq |L| \}$, which as dimension $\sum_{i=0}^{|L|} \binom{|E|}{i}$.
+It follows that
+$$ \sum_{i=0}^{|L|} \binom{|E|}{i} \geq \sum_{i=0}^{|L|-1} \binom{|E|}{i} + |\FF| \, ,$$
+so $\binom{|E|}{|L|} \geq |\FF|$ follows from the independence claim, which is done exactly as above.
 \end{proof}
+
+%Indeed, assume that 
+%\begin{equation}\label{eq:l_i_ness}
+%\sum_{F \in \FF} f_F \alpha_F + \sum_{\substack{I \subseteq E\\ |I| < |L|}} g_I \alpha_I =0 \, .
+%\end{equation}
+%
+%For any $F \in \FF$, evaluating \eqref{eq:l_i_ness} at $\vx = \vv_F $ gives us that $\alpha_F f_j(\vv_F) = 0$, so $\alpha_F = 0$.
+%
+%If there is some $I$ with $|I| < |L|$ and $\alpha_I \neq 0$, find such $I$ minimal by inclusion.
+%Then evaluating \eqref{eq:l_i_ness} in $\vv_I$, using that $\alpha_F = 0$ for any $F \in \FF$, gives us $\alpha_I g_I(\vv_I) = 0$, which implies $\alpha_I = 0$.
+%We conclude that $\{ f_F \}_{F \in \FF}\cup \{g_I \}_{I \, : |I| < |L| }$ is a linearly independent set.
 
 \subsection{Graph theory}
 
@@ -408,6 +431,17 @@ Then $|\FF| \leq \binom{|E|}{|L|}$.
 \subsubsection{Consistent coloring}
 
 \subsubsection{Ramsey theory}
+The central problem in \textbf{Ramsey theory} is computing the minimal $R \coloneqq R(m, n)$ such that any edge colouring of $K_R$ into two colours contains either a monochromatic $K_m$ of a monochromatic $K_n$.
+
+
+The first few values are the following:
+
+\begin{tabular}{l| }
+
+\end{tabular}
+
+
+
 
 \section{Geometry}
 
@@ -457,7 +491,7 @@ Because each line has, by contradiction hypothesis, at least $3 J^{1/_3} + 1$ jo
 It follows that all directional derivatives of $p$ at each joint $\vj$ vanish, so $q(\vj) = 0$.
 Furthermore, $q$ also satisfies item 3 and has smaller degree than $p$.
 By minimality, we must have $q \equiv 0$, which means that 
-$$ p(x, y, zz ) = ax +by + cz \, ,$$
+$$ p(x, y, z ) = ax +by + cz \, ,$$
 for some coefficients $a, b, c$.
 
 
