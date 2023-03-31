@@ -77,6 +77,7 @@
 \newtheorem{smpl}[thm]{Example}
 \newtheorem{quest}[thm]{Question}
 \newtheorem{exe}[thm]{Exercise}
+\newtheorem{const}[thm]{Construction}
 \newtheorem{prob}[thm]{Problem}
 \newtheorem{conj}[thm]{Conjecture}
 \newtheorem{rem}[thm]{Remark}
@@ -104,9 +105,13 @@
 \newcommand{\vw}{\mathsf{w}}
 \newcommand{\vj}{\mathsf{j}}
 \newcommand{\vx}{\mathsf{x}}
+\newcommand{\va}{\mathsf{a}}
 
 \newcommand{\spn}{\mathrm{span}}
 \newcommand{\rk}{\mathrm{rk}}
+\newcommand{\conv}{\mathrm{conv}}
+\newcommand{\maxcut}{\mathrm{maxcut}}
+\newcommand{\we}{\mathrm{we}}
 
 
 \begin{document}
@@ -138,7 +143,7 @@ When $q$ is a prime number, we identify $\F_q$ with $\Z/_{q\Z}$.
 \subsection{Clubs with rules}
 
 
-\begin{prop}[Oddtowns]
+\begin{prop}[Oddtowns]\label{prop:oddtown}
 Let $E$ be a finite set.
 A family $\CC \subset 2^E $ is called an \textbf{oddtown} if
 \begin{itemize}
@@ -241,7 +246,7 @@ This shows that $ \{ \vv_C\}_{C\in \CC}$ is a linearly independent set, concludi
 \end{proof}
 
 
-\begin{prop}[Fischer's inequality]
+\begin{prop}[Fischer's inequality]\label{prop:fischer}
 Let $E$ be a finite set.
 A family $\CC \subseteq 2^E$ is said to be $\lambda$\textbf{-Fischer} if $|C\cap D| = \lambda$ for all distinct $C, D \in \CC$.
 
@@ -340,7 +345,7 @@ We conclude that $\{ f_F \}_{F \in \FF}$ is a linearly independent set.
 
 The following was shown in \cite{ray1975t}:
 
-\begin{prop}[Ray-Chaudhuri-Wilson theorem]
+\begin{prop}[Ray-Chaudhuri-Wilson theorem]\label{prop:RCW}
 Let $E$ be a finite set, $\lambda $ be a positive integer and $L$ a set of positive integers smaller than $\lambda$.
 Assume that $\FF $ is an $L$-Fischer collection of subsets of $E$, with $|F| = \lambda $ for each $F \in \FF$.
 Then $|\FF| \leq \binom{|E|}{|L|}$.
@@ -383,7 +388,7 @@ We conclude that $\{ f_F \}_{F \in \FF}\cup \{g_I \}_{I \, : |I| < |L| }$ is a l
 \end{proof}
 
 
-\begin{prop}[Frankl - Wilson]
+\begin{prop}[Frankl - Wilson]\label{prop:frankl_wilson_fixed_size}
 Let $E$ be a finite set, $p$ a prime number, $\lambda$ a positive integer and $L$ a collection of elements in $\F_p$.
 Assume that $\lambda \mod p\not\in L$ and that $|L| \leq \lambda < p$.
 
@@ -427,6 +432,19 @@ so $\binom{|E|}{|L|} \geq |\FF|$ follows from the independence claim, which is d
 %If there is some $I$ with $|I| < |L|$ and $\alpha_I \neq 0$, find such $I$ minimal by inclusion.
 %Then evaluating \eqref{eq:l_i_ness} in $\vv_I$, using that $\alpha_F = 0$ for any $F \in \FF$, gives us $\alpha_I g_I(\vv_I) = 0$, which implies $\alpha_I = 0$.
 %We conclude that $\{ f_F \}_{F \in \FF}\cup \{g_I \}_{I \, : |I| < |L| }$ is a linearly independent set.
+
+
+\begin{prop}[Erd\"os - Ko - Rado]\label{prop:EKR}
+Let $E$ be a finite set and  $\lambda $ a non-negative integer such that $2\lambda \leq |E|$.
+Consider $\FF$  a family of sets in $E$, such that $|F| = \lambda $ for all $F \in \FF$.
+Assume further that $F\cap G \neq \emptyset $ for any $F, G \in \FF$.
+
+Then $|\FF| \leq \binom{n-1}{\lambda - 1}$.
+\end{prop}
+
+This proposition will be proven using spectral graph theory, presented below.
+
+
 
 \section{Graph theory}
 
@@ -568,7 +586,174 @@ For this reason, we dedicate the next section to present some expicit constructi
 
 \subsubsection{Explicit constructions}
 
+The following has no monochromatic $K_n$.
+
+\begin{const}[Construction for $N = O(n^2)$ - naive construction]
+The union of $n-1$ red complete graphs, with blue edges between these.
+\end{const}
+
+The following is a construction from \cite{nagy1972certain}, also presented in \cite{chung1981note}.
+
+\begin{const}[Construction for $N = O(n^3)$ - Nagy's graph]
+Let $N = \binom{n-1}{3}$ and identify the vertices of $K_N$ with subsets of $[n-1]$ of size three.
+Colour $A \-- B$ blue if $|A \cap B|$ is odd, and colour it red if $|A\cap B|$ is even.
+This bicolouring has no monochromatic $K_n$.
+\end{const}
+
+\begin{proof}
+Indeed, if $\FF = \{A_1, \ldots, A_n\}$ is a monochromatic blue clique, this is a $1$-Fischer family on $E = [n-1]$, which is impossible according to \cref{prop:fischer}.
+
+If $\FF = \{A_1, \ldots, A_n\}$ is a monochromatic red clique, this is an oddtown family on $E = [n-1]$, which is impossible according to \cref{prop:oddtown}.
+\end{proof}
+
+The following was presented in \cite{frankl1981intersection}.
+
+\begin{const}[Construction for $N = O(n^k)$ for $k$ arbitrarily large]
+Fix $p$ prime number, $n$ positive integer, and let $N=\binom{n}{p^2-1}$.
+In $K_N$, we identify the vertices with subsets of $[n]$ of size $p^2-1$.
+We colour $X \-- Y $ blue if $|X\cap Y| \neq 1 \mod p$, and we colour $X \-- Y $ red otherwise.
+Then there is no $\binom{n}{p-1}+1$ monochromatic complete graph in $K_N$.
+\end{const}
+
+\begin{proof}
+Let $m = \binom{n}{p-1} + 1$ and assume that $\CC = \{C_1, \ldots, C_m\}$ is a monochromatic blue subgraph of $K_N$.
+Then it is $L$-Fischer, where $L = \{0, 1, \ldots, p-1\}$, with constant size.
+We can therefore use \cref{prop:frankl_wilson_fixed_size}, which gives us that $m \leq \binom{n}{|L|} = m -1$, which is impossible.
+
+Now assume that $\CC = \{ C_1, \ldots,  C_m\}$ is a monochromatic red subgraph of $K_N$.
+Then it is $L$-Fischer, where $L = \{p-1, 2p-1, \ldots p(p-1) - 1\}$, where each set has constant size $p^2-1$.
+Thus according to \cref{prop:RCW}, we have that $m \leq \binom{n}{|L|} = m-1$, again a contradiction.
+\end{proof}
+
+
+\subsection{Spectral theory of graphs}
+
+\begin{prop}
+The spectrum of the Petersen graph is 
+$$ \{ 6, 1, 1, 1, 1, -2, -2, -2, -2, -2 \} \, .$$
+\end{prop}
+
+\begin{proof}
+
+\end{proof}
+
+
+
+\begin{lm}
+Let $G$ be a $d$-regular graph on $n$ vertices, with spectrum $\{ \lambda_1 \leq \ldots \leq \lambda_n\}$.
+Then we have
+\begin{itemize}
+\item $\sum_{i \-- j} (\vx_i - \vx_j)^2 \leq (d - \lambda_1)\sum_i x_i^2$.
+
+\item If $\sum_i \vx_i = 0$ then $\sum_{i \-- j} (\vx_i - \vx_j)^2 \geq (d - \lambda_2)\sum_i x_i^2$.
+\end{itemize}
+\end{lm}
+
+
+\begin{defin}[Max cut of a graph]
+A \textbf{cut} of a graph $G$ is a partition $V = R \uplus L$.
+The \textbf{weight} of a cut $V = R \uplus L$ is the number of edges that cross the cut, that is edges $e = a \-- b$ such that $a \in R$ and $b \in L$, denoted $\we(R, L)$.
+
+The \textbf{max cut} of a graph is 
+$$ \maxcut (G) \coloneqq \max_{V = R \uplus L} \we(R, L) \, . $$
+\end{defin}
+
+\begin{prop}
+$$\maxcut(G) \geq \frac{1}{2}|E| \, .$$
+\end{prop}
+
+\begin{proof}
+Probabilistic method
+%TODO
+\end{proof}
+
+
+\begin{prop}
+Let $G$ be $d$-regular graph on $n$ vertices, and let $\lambda_n$ be its largest eigenvalue.
+Then 
+$$\maxcut(G) \leq \frac{1}{2} |E| - \frac{n \lambda_n}{4} = \frac{n (d-\lambda_n)}{4} \, . $$
+\end{prop}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{prop}\label{prop:indep_bound}
+Let $G$ be a $d$-regular graph with lowes eigenvalue $\lambda_n$.
+Then, the independence number $\alpha(G)$ satisfies
+$$\alpha(G) \leq n \frac{-\lambda_n}{d - \lambda_n}\, . $$
+\end{prop}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:EKR}]
+Let $G$ be a graph with $\binom{|E|}{\lambda}$ vertices, which we identify with the subsets of $E$ of size $\lambda$.
+We draw an edge $A \-- B$ if $A \cap B = \emptyset $.
+The family $\FF $ as described is an independent set in the graph $G$, therefore $|\FF | \leq \alpha (G)$.
+
+On the other hand, $G$ is $d$-regular, with $d = \binom{n - \lambda}{ \lambda}$.
+We now see that $\lambda_n$, the smallest eigenvalue of the spectrum of $G$, is $-\binom{|E| - \lambda - 1}{\lambda - 1}$.
+
+It follows from \cref{prop:indep_bound} that $\alpha(G) \leq |E|\frac{-\lambda_n}{d - \lambda_n} = |E|\frac{\binom{|E| - \lambda - 1}{\lambda - 1}}{\binom{n - \lambda}{\lambda} + \binom{|E| - \lambda - 1}{\lambda - 1}} = \binom{|E|-1}{\lambda - 1}$.
+\end{proof}
+
+
 \section{Geometry}
+
+\begin{prop}[Caratheodory Theorem]
+Let $S \subseteq \R^d$.
+If $\vv \in \conv (S)$ then $\vv = \sum_{i=1}^{d+1} \alpha_i \va_i$ for some $\va_i \in S, \alpha_i \in \R_{\geq 0}$, such that $\sum_i \alpha_i = 1$.
+\end{prop}
+
+\begin{proof}
+
+\end{proof}
+
+
+
+\begin{prop}[Radon's Lemma]
+If $S\subseteq \R^d$ with $|S| \geq d+2$ there exists a partition $S = L \uplus R$ such that $$\conv (L) \cap \conv (R) \neq \emptyset \, .$$
+\end{prop}
+
+
+\begin{proof}
+
+\end{proof}
+
+
+\begin{prop}[Helly's theorem]
+Let $C_1, \ldots , C_m \subseteq \R^d$ convex sets such that every $d+1$ many such sets have non-empty intersection.
+Then 
+$$\bigcap_i C_i \neq \emptyset \, . $$
+\end{prop}
+
+\begin{proof}
+
+\end{proof}
+
+
+
+\begin{prop}[Ham-Sandwish theorem]
+Let $\vx_1 ,  \ldots , \vx_n \in \R^d$.
+Then there exists a hyperplane $h \subseteq \R^d$ such that 
+$$ |\{i | \vx_i \in \overline{h}^+\}| , |\{i | \vx_i \in \overline{h}^-\}| \geq \frac{1}{2} n,\ . $$
+\end{prop}
+
+
+
+\begin{prop}[Colorful Caratheodory]
+Let $M_1, \ldots, M_{d+1} \subseteq \R^d$ finite sets such that $\va \in \bigcap_{i = 1}^{d+1} \conv (M_i) \neq \emptyset$.
+Then, there exists $\vx_1, \dots, \vx_{d+1}$ such that $\vx_i \in M_i$ for all $i = 1, \ldots, d+1$ and $\va \in \conv (\{\vx_1, \ldots, \vx_{d+1}\})$.
+\end{prop}
+
+\begin{proof}
+
+\end{proof}
+
+
+
 
 \subsubsection*{Joints Problem}
 
