@@ -105,10 +105,12 @@
 \newcommand{\vw}{\mathsf{w}}
 \newcommand{\vj}{\mathsf{j}}
 \newcommand{\vx}{\mathsf{x}}
+\newcommand{\vy}{\mathsf{y}}
 \newcommand{\va}{\mathsf{a}}
 
 \newcommand{\spn}{\mathrm{span}}
 \newcommand{\rk}{\mathrm{rk}}
+\newcommand{\tr}{\mathrm{tr}}
 \newcommand{\conv}{\mathrm{conv}}
 \newcommand{\maxcut}{\mathrm{maxcut}}
 \newcommand{\we}{\mathrm{we}}
@@ -138,6 +140,13 @@ We denote the set $\{1, \dots, n\}$ by $[n]$.
 Whenever $q$ is a power of a prime, we denote the unique field of cardinality $q$ by $\F_q$.
 When $q$ is a prime number, we identify $\F_q$ with $\Z/_{q\Z}$.
 
+\subsection{Binomial coefficient bounds}
+
+
+\begin{lm}\label{lm:binom_bound}
+$$\binom{n}{k} \leq e^k \left( \frac{n}{k} \right)^k \, . $$
+\end{lm}
+
 \section{Combinatorics}
 
 \subsection{Clubs with rules}
@@ -145,7 +154,7 @@ When $q$ is a prime number, we identify $\F_q$ with $\Z/_{q\Z}$.
 
 \begin{prop}[Oddtowns]\label{prop:oddtown}
 Let $E$ be a finite set.
-A family $\CC \subset 2^E $ is called an \textbf{oddtown} if
+A family $\CC \subset 2^E $ is called an \textbf{oddtown} of $E$ if
 \begin{itemize}
 \item Every $C \in \CC $ has an odd number of elements.
 
@@ -165,11 +174,12 @@ $$ (\vv_C)_i =\begin{cases*}
     \end{cases*} $$
 
 The first and second oddtown conditions give us respectively $\vv_C \cdot \vv_C = 1$ and $\vv_C \cdot \vv_D = 0 $ for any distinct $C, D \in \CC$.
+Denote by $\mathbb{0}$ the all zero vector.
 
 We claim that $\{\vv_C\}_{C \in \CC}$ is a linearly independent set in $\F_2^E$.
 It follows imediately that $|\CC| \leq |E|$.
-Indeed, if $\sum_{C \in \CC} \alpha_C \vv_C = 0$ for scalars $\alpha_C \in \F_2$, then
-$$ 0 = 0 \cdot \vv_D = \sum_{C \in \CC} \alpha_C \vv_C\cdot \vv_D = \alpha_D\, ,$$
+Indeed, if $\sum_{C \in \CC} \alpha_C \vv_C = \mathbb{0}$ for scalars $\alpha_C \in \F_2$, then
+$$ 0 = \mathbb{0} \cdot \vv_D = \sum_{C \in \CC} \alpha_C \vv_C\cdot \vv_D = \alpha_D\, ,$$
 for any $D \in \CC$, concluding the proof.
 \end{proof}
 
@@ -654,7 +664,7 @@ Then we have
 A \textbf{cut} of a graph $G$ is a partition $V = R \uplus L$.
 The \textbf{weight} of a cut $V = R \uplus L$ is the number of edges that cross the cut, that is edges $e = a \-- b$ such that $a \in R$ and $b \in L$, denoted $\we(R, L)$.
 
-The \textbf{max cut} of a graph is 
+The \textbf{max cut} of a graph is defined as
 $$ \maxcut (G) \coloneqq \max_{V = R \uplus L} \we(R, L) \, . $$
 \end{defin}
 
@@ -812,7 +822,141 @@ $$ J \leq 3 J^{1/_3} + 3^{3/_2} (N-1)^{3/_2}\, , $$
 as desired.
 \end{proof}
 
-\subsection*{Aknowledgments}
+
+\subsection{Efficient Projection}
+
+
+
+
+\begin{thm}[Johnson - Linderstrauss Theorem]\label{thm:JL}
+Fix $d >> 1$ and $\varepsilon \in (0, 1)$.
+Let $P \subseteq \R^d$ with $|P| = n$ finite.
+
+Then there exists a linear map $A:\R^d \to \R^k$, with $k = C_{\varepsilon} \log (n)$, such that for any two distinct $\vx, \vy \in P$ we have
+$$ 1 - \varepsilon \leq \frac{||A(\vx) - A(\vy)||}{||\vx - \vy||} \leq 1 + \varepsilon \, . $$
+\end{thm}
+
+\begin{proof}[Proof of \cref{thm:JL}]%Page 36
+Probabilistic method with a random matrix
+\end{proof}
+
+\begin{lm}\label{lm:JL_1}
+Fix $n$ integer and $\varepsilon \in (0, 1)$.
+Let $A = [a_{i, j}]_{\substack{i = 1, \ldots , n \\ j = 1, \ldots , n}}$ be a symmetric matrix.
+Assume that $a_{i, i} = 1$ and $|a_{i, j}| < \varepsilon $ for all $i, j$ distinct in $[n]$.
+
+Then $\rk \,A \geq n \frac{1}{1 + (n-1)\varepsilon^2}$.
+In particular, if $\varepsilon < (n-1)^{-0.5}$, then $\rk A \geq 0.5 n$ and if $\varepsilon < (n-1)^{-1.5}$ then $\rk \,A = n$.
+\end{lm}
+
+Recall that $\rk \, A$ is the number of eigenvalues of $A$ that are non zero.
+Recall as well that $\tr \, A$ is the sum of the eigenvalues.
+It is a known fact that this is the same as the sum of the diagonal entries of the matrix $A$.
+
+\begin{proof}
+Let $\lambda_1, \ldots, \lambda_n$ be the eigenvalues of $A$, with multiplicity.
+Because $A$ is symmetric, all eigenvalues are real numbers, so we have from Cauchy-Schwarz inequality that
+$$\rk \, A \,  \tr (A^2)= \left(\sum_{\lambda_i \neq 0} 1 \right)\left( \sum_{\lambda_i \neq 0} \lambda_i^2\right) \geq \left( \sum_{\lambda_i \neq 0} \lambda_i \right)^2 = (\tr\,  A)^2 = n^2 \, . $$
+
+Rewritting and using that $|a_{i, j}| < \varepsilon$ for $i\neq j$ we have 
+\begin{align*}
+\rk \, A &\geq n^2/\tr (A^2) = \frac{n^2}{\sum_{i, j} a_{i, j}^2} \\
+&\geq \frac{n^2}{n + n(n-1)\varepsilon^2} = \frac{n}{1 + (n-1)\varepsilon^2}\, ,
+\end{align*}
+which is the desired inequality.
+\end{proof}
+
+\begin{lm}\label{lm:JL_2}
+Fix a positive integer $k$ and let $A = [a_{i, j}]_{\substack{i = 1, \ldots , n \\ j = 1, \ldots , n}}$ be a symmetric matrix.
+Let $B = [a_{i, j}^k]_{\substack{i = 1, \ldots , n \\ j = 1, \ldots , n}}$.
+Then $\rk B \leq \binom{k + \rk A - 1}{k}$.
+\end{lm}
+
+\begin{proof}
+Let $\vv^{(1)}, \ldots, \vv^{(r)} $ be a basis of $\mathrm{rowspace}(A)$, where $r = \rk A$.
+Then $\vw \in \mathrm{rowspace}(B)$ is in 
+$$V \coloneqq \spn \left\{ \left((\vv_j^{(1)})^{t_1} \cdots (\vv_j^{(r)})^{t_r} \right)_{j = 1, \ldots, n}\right\}_{(t_1, \ldots , t_t) \in \Z_{\geq 0}^r | \sum_i t_i = k } \, .$$
+
+It is easy to see that $\dim V = \binom{k + r - 1}{k}$, which leads to the desired result.
+\end{proof}
+
+\begin{lm}\label{lm:JL_3}
+Fix $n$ integer and $\varepsilon \in (0, 0.5)$.
+Let $B = [b_{i, j}]_{\substack{i = 1, \ldots , n \\ j = 1, \ldots , n}}$ be a matrix, not necessarily symmetric.
+Assume that $b_{i, i} = 1$ and $|b_{i, j}| < \varepsilon $ for all $i, j$ distinct in $[n]$.
+
+If $\varepsilon > (n-1)^{-.5}$, then there exists a constant $C$ independent of $n$ and $\varepsilon$ such that 
+$$ \rk B \geq \frac{C \log n}{\varepsilon^2 \log (\varepsilon^{-1})}\, . $$
+\end{lm}
+
+Note that the case where $\varepsilon < (n-1)^{-.5}$ has already been covered in \cref{lm:JL_3}.
+
+\begin{proof}
+Note that 
+$$\rk(B + B^T) \leq \dim( \mathrm{rowspace}(B) ) + \dim( \mathrm{rowspace}(B^T) ) =  \rk B + \rk B^T  = 2 \, \rk \, B\, . $$ 
+Therefore, it is sufficient to show the result for a symmetric matrix $B$.
+
+We split the remaning part of the proof in two cases: when $2 \log(\varepsilon^{-1}) \leq \log n$ and when $2 \log(\varepsilon^{-1}) \geq \log n$.
+
+In the first case define $k = \lfloor \frac{\log n}{2 \log ( \varepsilon^{-1})} \rfloor$ and $n' = \lfloor \varepsilon^{-2k} \rfloor$, in such a way that 
+$$ n' \leq \frac{1}{\varepsilon^{2k}} \leq \left( \frac{1}{\varepsilon} \right)^{\frac{\log n}{2 \log(\varepsilon^{-1})}} = n\, . $$
+Furthermore, $\varepsilon^k \leq \frac{1}{\sqrt{n}} \leq \frac{1}{\sqrt{n-1}}$.
+Let $B_0$ be the $n'\times n'$ submatrix of $B$ arising from the first $n'$ rows and $n'$ columns of $B$, and let $B^{(k)}$ be the matrix $B_0$ with each entry raised to the $k$-th power.
+Note how $B^{(k)}$ is still a symmetric function.
+From \cref{lm:JL_1} we have that $\rk \, B^{(k)} \geq .5 \, n'$.
+
+On the other hand, \cref{lm:JL_2} gives us that 
+$$\rk \, B^{(k)} \leq \binom{k + \rk\, B_0 - 1}{k} \leq e^k \left( \frac{k + \rk \, B_0}{k}\right)^k =  e^k \left(1 +  \frac{\rk \, B_0}{k}\right)^k\, , $$
+where we are using the bound presented in \cref{lm:binom_bound}.
+
+Puting it all together and using $n' \leq \varepsilon^{-2k}$ we get 
+$$ \rk \, B_0 \leq k \left( \frac{1}{2^{1/_k} e} \sqrt[k]{n'} - 1\right)  \leq  \frac{k}{2^{1/_k} e} \sqrt[k]{n'} \leq \frac{1}{2e  2^{1/_k} }\frac{\log n}{\log(\varepsilon^{-1})}\varepsilon^{-2} \leq \frac{C \log n}{\varepsilon^2 \log(\varepsilon^{-1})}\, , $$
+where $C = \frac{1}{2e}$.
+
+For the other side, note that $2 \log(\varepsilon^{-1}) \geq \log n$ implies $\varepsilon \leq n^{-.5}$
+
+\end{proof}
+
+
+
+
+
+\section{Chevalier - Warning}%Page 37
+
+\begin{thm}
+Fix $q$ a power of a prime $p$, and consider $f_1, \ldots, f_n$ polynomials in $\F_q[\vx_1, \ldots , \vx_m]$ such that $\sum_i \deg (f) < m$.
+
+
+
+\end{thm}
+
+\begin{prop}
+
+\end{prop}
+
+
+
+
+
+
+
+
+\section{Combinatorial Nullstelensatz}
+
+
+The following result was shown in \cite{hilbert1893ueber}.
+This is the motivation for our next section, where we will study polynomials in $\F_q$.
+
+\begin{thm}[Nulstellensatz]
+Let $\F$ be an \textbf{algebraically closed field}, and $f, g_1, \ldots, g_m\in \F[\vx_1, \ldots, \vx_n]$ polynomials.
+If $f$ vanishes in all $\vv$ that are common roots of $g_1, \ldots, g_m$, then there exists an integer $k$ and polynomials $h_1, \ldots, h_m \in \F[\vx_1, \ldots, \vx_n]$ such that
+$$ f^k = \sum_{i=1}^m h_i g_i \, . $$
+\end{thm}
+
+
+
+
+\section*{Aknowledgments}
 The author is supported by the Max Planck institute for the sciences. 
 These notes are based on a lecture by Benny Sudakov at ETH, in 2014.
 
