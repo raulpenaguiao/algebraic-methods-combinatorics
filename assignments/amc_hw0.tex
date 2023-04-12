@@ -118,8 +118,8 @@ Show that we can do the colouring with seven colours.
 
 \item Peterson graph
 
-A \textbf{graph} is a pair $(V, E)$ consisting of a ground set $V$ and an edge set $E$, each edge being collection of two vertices, called its endpoints.
-We assume that all graphs are \textbf{simple}, that is no two edges are the same and any edge has two distinct endpoints.
+A \textbf{graph} is a pair $(V, E)$ consisting of a ground set $V$ and an edge set $E$, each edge being a collection of two vertices, called its endpoints.
+We assume that all graphs are \textbf{simple}, that is no two edges have the same endpoints, and any edge has exactly two distinct endpoints.
 An example of such a graph is the Petersen graph, shown in \cref{fig:pet}.
 
 \begin{figure}[h]
@@ -131,9 +131,9 @@ An example of such a graph is the Petersen graph, shown in \cref{fig:pet}.
 
 The \textbf{degree} of a vertex $v$ is the number of edges that have $v$ as one of its endpoints.
 The \textbf{girth} of a graph is the size of the smallest cycle.
-For instance, any vertex of the Petersen graph has degree three, and the garph has girth five.
+For instance, any vertex of the Petersen graph has degree three, and the graph has girth five.
 
-Show that, for a graph of girth five, where all vertices have the same degree $r$, has at least $1+r+r^2$ vertices.
+Show that a graph of girth five, where all vertices have the same degree $r$, has at least $1+r^2$ vertices.
 
 \end{enumerate}
 \end{document}
