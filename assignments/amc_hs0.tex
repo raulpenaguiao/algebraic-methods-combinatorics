@@ -99,5 +99,54 @@
 \begin{enumerate}
 \item 
 
+The maximal number of clubs in Oddtown and in Eventown is, respectively, 
+$$\sum_{\substack{k=0\\ k \text{ odd }}}^{10} \binom{10}{k} \text{ and }\sum_{\substack{k=0\\ k \text{ even }}}^{10} \binom{10}{k}\, . $$
+
+These sums can be evaluated more explicitly in several ways.
+We present here a method using the \textbf{binomial identity} $(x+y)^n = \sum_{k=0}^n \binom{n}{k} x^ky^{n-k}$.
+Set $n = 10, x = 1$ and $y = 1$ to get
+$$ 1024 = 2^{10} = \sum_{k = 0}^{10}\binom{10}{k}\, . $$
+
+Set $n = 10, x = 1$ and $y = -1$ to get
+$$ 0 = 0^{10} = \sum_{k = 0}^{10}\binom{10}{k}(-1)^k \, . $$
+
+Taking the sum of both equations gives us
+$$ 1024 = \sum_{\substack{k=0\\ k \text{ even }}}^{10} \binom{10}{k}2\, ,$$
+and taking the difference of both sums gives us
+$$ 1024 = \sum_{\substack{k=0\\ k \text{ odd }}}^{10} \binom{10}{k}2\, ,$$
+so we conclude that the maximal number of clubs in each town is $512 = 1024 / 2$.
+
+
+\item 
+The picture in \cref{fig:plane_chromat} shows a graph that can be embedded in the plane, in such a way that the image of any two neighbouring vertices is at distance one of each other.
+
+This graph cannot be coloured with two colours in a proper way, so the plane cannot be coloured with two colours in a proper way.
+
+A proper colouring of the plane using seven colours is sketched in \cref{fig:plane_chromat}.
+
+%\begin{figure}[h]
+%\centering
+%\includegraphics[scale=0.3]{../imgs/plane_chromat7.png}
+%\caption{\label{fig:plane_chromat7}}
+%\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7]{../imgs/plane_chromat}
+\hspace{2cm}
+\includegraphics[scale=0.3]{../imgs/plane_chromat7.png}
+\caption{\textbf{Left} A graph with chromatic number three, that can be isometrically embedded in the plane. \textbf{Right} A proper colouring of the plane using seven colours.\label{fig:plane_chromat}}
+\end{figure}
+
+
+\item 
+Fix a vertex $v$ of the graph, and consider $\{v_1, \dots, v_r\}$ its neighbours.
+Note that any vertex $w$ that is a neighbour of both $v_i, v_j$, for $i, j$, distinct, forms a cycle of length four
+$$ w - v_i - v - v_j $$
+which is impossible because the girth of the graph is five.
+Thus this cycle is not proper, that is there are some repeated vertices, which can only be $w = v$.
+We conclude that all the neighbours of $v_i, v_j$, other than $v$, are distinct.
+Counting all such vertices we get
+$$ \underbrace{1}_{\text{ vertex $v$ }} + \underbrace{r}_{v_1, \ldots , v_r} + \underbrace{r(r-1)}_{\text{ each neighbour of $v_i$ distinct from $v$}} = 1 + r^2 \, .$$
 \end{enumerate}
 \end{document}
