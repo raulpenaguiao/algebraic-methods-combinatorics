@@ -67,7 +67,7 @@
 \setlength{\topmargin}{-1in}
 \addtolength{\topmargin}{1.5cm}
 \setlength{\oddsidemargin}{-1in}
-\addtolength{\oddsidemargin}{3cm}
+\addtolength{\oddsidemargin}{1.5cm}
 \setlength{\textwidth}{16cm}
 \setlength{\textheight}{23.5cm}
 \RequirePackage{fancyhdr}
