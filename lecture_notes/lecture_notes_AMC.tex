@@ -114,6 +114,7 @@
 \newcommand{\conv}{\mathrm{conv}}
 \newcommand{\maxcut}{\mathrm{maxcut}}
 \newcommand{\we}{\mathrm{we}}
+%\newcommand{\mod}{\mathrm{mod}}
 
 
 \begin{document}
@@ -400,10 +401,9 @@ We conclude that $\{ f_F \}_{F \in \FF}\cup \{g_I \}_{I \, : |I| < |L| }$ is a l
 
 \begin{prop}[Frankl - Wilson]\label{prop:frankl_wilson_fixed_size}
 Let $E$ be a finite set, $p$ a prime number, $\lambda$ a positive integer and $L$ a collection of elements in $\F_p$.
-Assume that $\lambda \mod p\not\in L$ and that $|L| \leq \lambda < p$.
+Assume that $\FF$ is $L$-Fischer and $|F| = \lambda $ for each $F \in \FF$.
 
-
-If $\FF$ is $L$-Fischer and $|F| = \lambda $ for each $F \in \FF$, then $|\FF| \leq \binom{|E|}{|L|}$.
+If $\lambda \mod p\not\in L$ and that $|L| \leq \mod \lambda$, then $|\FF| \leq \binom{|E|}{|L|}$.
 \end{prop}
 
 \begin{proof}
@@ -432,17 +432,14 @@ $$ \sum_{i=0}^{|L|} \binom{|E|}{i} \geq \sum_{i=0}^{|L|-1} \binom{|E|}{i} + |\FF
 so $\binom{|E|}{|L|} \geq |\FF|$ follows from the independence claim, which is done exactly as above.
 \end{proof}
 
-%Indeed, assume that 
-%\begin{equation}\label{eq:l_i_ness}
-%\sum_{F \in \FF} f_F \alpha_F + \sum_{\substack{I \subseteq E\\ |I| < |L|}} g_I \alpha_I =0 \, .
-%\end{equation}
-%
-%For any $F \in \FF$, evaluating \eqref{eq:l_i_ness} at $\vx = \vv_F $ gives us that $\alpha_F f_j(\vv_F) = 0$, so $\alpha_F = 0$.
-%
-%If there is some $I$ with $|I| < |L|$ and $\alpha_I \neq 0$, find such $I$ minimal by inclusion.
-%Then evaluating \eqref{eq:l_i_ness} in $\vv_I$, using that $\alpha_F = 0$ for any $F \in \FF$, gives us $\alpha_I g_I(\vv_I) = 0$, which implies $\alpha_I = 0$.
-%We conclude that $\{ f_F \}_{F \in \FF}\cup \{g_I \}_{I \, : |I| < |L| }$ is a linearly independent set.
+Here is a simple corollary from the proof above.
 
+\begin{prop}[Frankl - Wilson generalisation]
+Let $E$ be a finite set, $p$ a prime number, $\lambda$ a positive integer and $L$ a collection of elements in $\F_p$.
+Assume that $\FF$ is $L$-Fischer and $|F| = \lambda $ for each $F \in \FF$.
+
+If $\lambda \mod p\not\in L$ and that $|L| \leq \mod \lambda$, then $|\FF| \leq \binom{|E|}{|L|} + \sum_{\substack{i < |L| \\ i = \lambda \mod p}} \binom{|E|}{i}$.
+\end{prop}
 
 \begin{prop}[Erd\"os - Ko - Rado]\label{prop:EKR}
 Let $E$ be a finite set and  $\lambda $ a non-negative integer such that $2\lambda \leq |E|$.
@@ -457,14 +454,6 @@ This proposition will be proven using spectral graph theory, presented below.
 
 
 \section{Graph theory}
-
-\subsection{Turan's problem}
-
-\subsection{Consistent colouring}
-
-An edge colouring of a graph $G = (V, E)$, or simply a colouring of $G$, is a map $f:E \to [k]$.
-A colouring of a $K_n$ is called consistent if for any four vertices, the six edges among these vertices either have all distinct colours, or have three different colours as in \cref{fig:consistent_colouring}.
-
 
 
 
@@ -545,6 +534,7 @@ Suppose aliens invade the earth and threaten to obliterate it in a year's time u
 \hfill (Paul Er\"os)
 \end{quote}
 
+\subsubsection{Probabilistic method in Ramsey bounds}
 \begin{thm}
 $$2^{n/_2} \leq R(n, n) \leq 2^{2n}\, . $$
 
@@ -582,7 +572,7 @@ We have that:
 \end{align*}
 Now observe that $\binom{N}{n} \leq\frac{N^n}{n!}$ and $N \leq 2^{n/_2}$, so
 $$2\binom{N}{n} 2^{-\binom{n}{2}} \leq \frac{2 N^n}{n! N^{n-1}} = \frac{2N}{n!} \leq \frac{ 2 2^{n/_2}}{n!} \leq 0.5 \, ,$$
-where the last inequality is equivalent to $4 2^{n/_2} \leq n!$ which  holds for $n \geq 4$.
+where the last inequality is equivalent to $4 \cdot 2^{n/_2} \leq n!$ which  holds for $n \geq 4$.
 
 Thus $\PP[\overline{B} \cap \overline{R}]  \geq 0.5$, so there is a random assignment of a bicolouring that makes $K_N$ an $(n, n)$-Ramsey colouring.
 We conclude that $R(n, n) \geq 2^{n/_2}$.
@@ -626,16 +616,36 @@ Then there is no $\binom{n}{p-1}+1$ monochromatic complete graph in $K_N$.
 \end{const}
 
 \begin{proof}
-Let $m = \binom{n}{p-1} + 1$ and assume that $\CC = \{C_1, \ldots, C_m\}$ is a monochromatic blue subgraph of $K_N$.
-Then it is $L$-Fischer, where $L = \{0, 1, \ldots, p-1\}$, with constant size.
-We can therefore use \cref{prop:frankl_wilson_fixed_size}, which gives us that $m \leq \binom{n}{|L|} = m -1$, which is impossible.
+Assume that $\CC = \{C_1, \ldots, C_m\}$ is a monochromatic blue subgraph of $K_N$.
+Then it is $L$-Fischer, where $L = \{0, 1, \ldots, p-2\} \subseteq \F_p$, with all subsets of size $p^2-1$.
+We can therefore use \cref{prop:frankl_wilson_fixed_size}, which gives us that $m \leq \binom{n}{|L|}$.
 
 Now assume that $\CC = \{ C_1, \ldots,  C_m\}$ is a monochromatic red subgraph of $K_N$.
 Then it is $L$-Fischer, where $L = \{p-1, 2p-1, \ldots p(p-1) - 1\}$, where each set has constant size $p^2-1$.
-Thus according to \cref{prop:RCW}, we have that $m \leq \binom{n}{|L|} = m-1$, again a contradiction.
+Thus according to \cref{prop:RCW}, we have that $m \leq \binom{n}{|L|}$, this shows that the presented colouring is $(\binom{n}{p-1}, \binom{n}{p-1})$-Ramsey.
+
+
 \end{proof}
 
+\subsection{Chromatic number of the real space}
 
+
+\begin{defin}[Chromatic polynomial]
+Given a graph $G$, its \textbf{chromatic polynomial} $\chi_G$ is a map $\Z_{\geq 0} \to \Z_{\geq 0}$ given by
+$$\chi_G(n) \#\{f:[n] \to V(G) | \text{}\}\, . $$
+\end{defin}
+
+\begin{thm}
+The chromatic polynomial of a graph is indeed a polynomial
+\end{thm}
+
+
+In $\R^d$ we construct a graph, by connecting $\vx, \vy$ if $||\vx - \vy|| = 1$.
+In this sectio we compute the chromatic number of this 
+
+\begin{thm}[Colouring the plane]
+
+\end{thm}
 \subsection{Spectral theory of graphs}
 
 \begin{prop}
@@ -708,6 +718,14 @@ We now see that $\lambda_n$, the smallest eigenvalue of the spectrum of $G$, is 
 
 It follows from \cref{prop:indep_bound} that $\alpha(G) \leq |E|\frac{-\lambda_n}{d - \lambda_n} = |E|\frac{\binom{|E| - \lambda - 1}{\lambda - 1}}{\binom{n - \lambda}{\lambda} + \binom{|E| - \lambda - 1}{\lambda - 1}} = \binom{|E|-1}{\lambda - 1}$.
 \end{proof}
+
+\subsection{Turan's problem}
+
+\subsection{Consistent colouring}
+
+An edge colouring of a graph $G = (V, E)$, or simply a colouring of $G$, is a map $f:E \to [k]$.
+A colouring of a $K_n$ is called consistent if for any four vertices, the six edges among these vertices either have all distinct colours, or have three different colours as in \cref{fig:consistent_colouring}.
+
 
 
 \section{Geometry}
