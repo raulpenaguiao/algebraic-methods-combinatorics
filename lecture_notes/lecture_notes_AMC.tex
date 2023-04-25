@@ -434,7 +434,7 @@ so $\binom{|E|}{|L|} \geq |\FF|$ follows from the independence claim, which is d
 
 Here is a simple corollary from the proof above.
 
-\begin{prop}[Frankl - Wilson generalisation]
+\begin{prop}[Frankl - Wilson generalisation]\label{prop:FWgen}
 Let $E$ be a finite set, $p$ a prime number, $\lambda$ a positive integer and $L$ a collection of elements in $\F_p$.
 Assume that $\FF$ is $L$-Fischer and $|F| = \lambda $ for each $F \in \FF$.
 
@@ -456,51 +456,28 @@ This proposition will be proven using spectral graph theory, presented below.
 \section{Graph theory}
 
 
-
-\begin{figure}[h]
-\includegraphics[scale=.1]{../imgs/ina.png}%../imgs/consistent
-\caption{A consistent colouring locally has either six colours or three colours distributed in this way.\label{fig:consistent_colouring}}
-\end{figure}
-
-
-\begin{thm}
-The graph $K_n$ has a consistent colouring with at most $n-1$ colours if and only if $n = 2^t $ for some integer $t$.
-\end{thm}
-
-\begin{proof}
-Let $\CC \coloneqq\{ c_1, \dots, c_k\}$ be the collection of colours.
-First, because each vertex has $n-1$ neighbours, and no two neightbour edges can have the same colour, we have $k \geq n-1$.
-We are given that $k \leq n-1$, thus $k = n-1$. 
-We will endow $\CC \cup \{\vec{0}\}$ with a structure of $\F_2$ vector space.
-
-Incidentally, let $c$ be the colour of an edge $v_1 \-- v_2$, and $d$ be the colour of an edge $v_1 \-- v_3$.
-We define $c + d $ to be the colour of the edge $v_1 \-- v_3$.
-That this is well defined follows from a simple application of the cosistency property in three squares, as shown in \cref{fig:consistency_squares}.
-This shows that $|\CC \cup \{\vec{0}\}| = n$ is a power of two.
-
-For the converse result, we set $V = \F_2^n$ and colour an edge $\vv \-- \vw$ with the colour $\vv - \vw$.
-It is a straightforward observation that this is a consistent colouring.
-\end{proof}
-
-\begin{figure}[h]
-\includegraphics[scale=.1]{../imgs/ina.png}%../imgs/consistent
-\caption{The vector space operation is well defined.\label{fig:consistency_squares}}
-\end{figure}
+\begin{defin}[Graphs]
+A graph $G = (V, E) $ is a pair of two sets, a vertex set $V$, and an edge set $E$.
+An edge $e \in E$ is a set of two vertices $\{v, w\}$.
+These vertices may be the same (in which case $e$ is called a \textbf{loop}), and there may be several copies of the same edge in $E$ (which are called \textbf{parallel edges}).
+A graph with no loops or parallel edges is called a \textbf{simple graph}.
+Unless otherwise stated, all our graphs will be simple.
+\end{defin}
 
 
 \subsection{Ramsey theory}
-The central problem in \textbf{Ramsey theory} is computing the minimal $R \coloneqq R(m, n)$ such that any edge colouring of $K_R$ into two colours, say red and blue, contains either a monochromatic red $K_m$ of a monochromatic blue $K_n$.
+The central problem in \textbf{Ramsey theory} is computing the minimal $R \coloneqq R(m, n)$ such that any edge colouring of $K_R$ into two colours, say red and blue, contains either a monochromatic red $K_m$ or a monochromatic blue $K_n$.
 
 \begin{defin}[Ramsey edge colouring]
-An edge colouring of a complete graph is said to be an $(m, n)$-Ramsey colouring if there are no monochromatic red $K_n$ and no monochromatic $K_m$ blue.
+An edge colouring of a complete graph is said to be an $(m, n)$-Ramsey colouring if there are no monochromatic red $K_n$ and no monochromatic blue $K_m$.
 
 the number $R(m, n)$ is the smallest value for $R$ such that no edge bicolouring of $K_R$ is $(m, n)$-Ramsey.
 \end{defin}
 
 
 \begin{figure}[h]
-\includegraphics[scale=.1]{../imgs/ina.png}%../imgs/k5_bicolour
-\caption{A edge colouring of $K_5$ without any monochromatic triangle.\label{fig:k5_bicolour}}
+\includegraphics[scale=1]{../imgs/K5colouring}%../imgs/k5_bicolour
+\caption{An edge colouring of $K_5$ without any monochromatic triangle.\label{fig:k5_bicolour}}
 \end{figure}
 
 
@@ -618,34 +595,112 @@ Then there is no $\binom{n}{p-1}+1$ monochromatic complete graph in $K_N$.
 \begin{proof}
 Assume that $\CC = \{C_1, \ldots, C_m\}$ is a monochromatic blue subgraph of $K_N$.
 Then it is $L$-Fischer, where $L = \{0, 1, \ldots, p-2\} \subseteq \F_p$, with all subsets of size $p^2-1$.
-We can therefore use \cref{prop:frankl_wilson_fixed_size}, which gives us that $m \leq \binom{n}{|L|}$.
+We can therefore use \cref{prop:frankl_wilson_fixed_size}, which gives us that $m \leq \binom{n}{|L|} = \binom{n}{p-1}$.
 
 Now assume that $\CC = \{ C_1, \ldots,  C_m\}$ is a monochromatic red subgraph of $K_N$.
 Then it is $L$-Fischer, where $L = \{p-1, 2p-1, \ldots p(p-1) - 1\}$, where each set has constant size $p^2-1$.
-Thus according to \cref{prop:RCW}, we have that $m \leq \binom{n}{|L|}$, this shows that the presented colouring is $(\binom{n}{p-1}, \binom{n}{p-1})$-Ramsey.
+Thus according to \cref{prop:RCW}, we have that $m \leq \binom{n}{|L|}$, this shows that the presented colouring is $(\binom{n}{p-1}+1, \binom{n}{p-1}+1)$-Ramsey, therefore $R(\binom{n}{p-1}+1, \binom{n}{p-1}+1) \geq \binom{n}{p^2-1}$.
 
-
+For $p$ fixed and $n$ large, this shows that $R(n, n) \geq O(n^p)$.
 \end{proof}
 
-\subsection{Chromatic number of the real space}
+\subsubsection{The chromatic polynomial}
 
 
 \begin{defin}[Chromatic polynomial]
 Given a graph $G$, its \textbf{chromatic polynomial} $\chi_G$ is a map $\Z_{\geq 0} \to \Z_{\geq 0}$ given by
-$$\chi_G(n) \#\{f:[n] \to V(G) | \text{}\}\, . $$
+$$\chi_G(n) \coloneqq \#\{f:[n] \to V(G) | \text{ $f(v) \neq f(w)$ for neighbour vertices $v, w$}\}\, . $$
+The functions counted by $\chi_G(n)$ are called \textbf{stable colourings} of $G$ with $n$ colours.
+Note that in this context we are colouring the \textbf{vertices} of the graph.
 \end{defin}
 
+\begin{defin}[Deletion and contraction of edges]
+If $G=(V, E)$ is a graph and $e$ one of its edges, the \textbf{deletion of $e$} is denoted by $G\setminus e$, and is the graph with the same vertex set, and with edge set $E\setminus e$.
+
+If $G=(V, E)$ is a graph and $e=\{v, w\}$ one of its edges, the \textbf{contraction of $e$} is denoted by $G/_e$, and is the graph with vertex set $\{\star\} \cup V \setminus\{v, w\}$, resulting in a graph with one fewer vertex.
+The edge set is in bijection to $E\setminus e$.
+Any edge $e$ that is incident to either $v$ or $w$ becomes now incident to the new vertex $\star $.
+
+Note that simple graphs may not remain simple graphs under this operation.
+\end{defin}
+
+\begin{figure}
+\includegraphics[scale=.61]{../imgs/del_cont}
+\caption{The deletion and a contraction of an edge\label{fig:contraction}. The newly created vertex under the contraction operation is labelled with $\star$.}
+\end{figure}
+
 \begin{thm}
-The chromatic polynomial of a graph is indeed a polynomial
+The chromatic polynomial of a graph is indeed a polynomial.
+In fact, it satisfies a \textbf{deletion contraction formula}: for any edge $e$ of the graph $G$, 
+$$\chi_G(n) = \chi_{G\setminus e}(n) - \chi_{G/_e}(n)\, .$$
 \end{thm}
 
+The \textbf{chromatic number} of a graph $G$ is the smallest integer $n$ such that $\chi_G(n) \neq 0$.
+
+\begin{smpl}
+Consider the Petersen graph $P$, a graph with $10$ vertices and $15$ edges displayed in \cref{fig:petersen}.
+
+It is possible to colour this graph in a stable way using three colours, but not two, so $\chi(P) = 3$.
+It can be computed that 
+$$\chi_P(n) = n ( n-1) (n-2) (x^7 -12 x^6+67 x^5 - 230 x^4 + 529 x^3 - 814 x^2 + 775 x - 352 ) \, . $$
+\end{smpl}
+
+\begin{figure}
+\includegraphics[scale=1]{../imgs/petersen}
+\caption{The Petersen graph\label{fig:petersen}}
+\end{figure}
+
+\subsubsection{The chromatic number}
+
+\begin{prop}
+Let $G$ be a graph, and $\Delta $ the maximal degree of a vertex in $G$.
+Then $\chi(G) \leq \Delta + 1$.
+\end{prop}
+
+\begin{proof}
+Use a greedy algorithm to colour the graph: when you see an uncoloured vertex, use the next available colour.
+As any vertex has at most $\Delta $ neighbours, there are always available colours when using $\Delta + 1$ colours.
+\end{proof}
 
 In $\R^d$ we construct a graph, by connecting $\vx, \vy$ if $||\vx - \vy|| = 1$.
-In this sectio we compute the chromatic number of this 
+In this section we give bounds for the chromatic number of this graph
 
 \begin{thm}[Colouring the plane]
-
+$$\chi (\R^2) \in \{4, 5, 6, 7\}\, .$$
 \end{thm}
+
+\begin{proof}
+The picture in \cref{fig:plane_chromat} shows a graph that can be embedded in the plane, in such a way that the image of any two neighbouring vertices is at distance one of each other.
+
+This graph cannot be coloured with three colours in a proper way, so the plane cannot be coloured with three colours in a proper way.
+
+A proper colouring of the plane using seven colours is sketched in \cref{fig:plane_chromat}.
+
+%\begin{figure}[h]
+%\centering
+%\includegraphics[scale=0.3]{../imgs/plane_chromat7.png}
+%\caption{\label{fig:plane_chromat7}}
+%\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7]{../imgs/plane_chromat}
+\hspace{2cm}
+\includegraphics[scale=0.3]{../imgs/plane_chromat7.png}
+\caption{\textbf{Left} A graph with chromatic number three, that can be isometrically embedded in the plane. \textbf{Right} A proper colouring of the plane using seven colours.\label{fig:plane_chromat}}
+\end{figure}
+
+\end{proof}
+
+
+\begin{thm}
+$$\chi(\R^d) \leq 9^d \, .$$
+\end{thm}
+
+\begin{proof}
+We find a colouring of $\R^d$ using $9^d $ colours
+\end{proof}
+
 \subsection{Spectral theory of graphs}
 
 \begin{prop}
@@ -723,9 +778,42 @@ It follows from \cref{prop:indep_bound} that $\alpha(G) \leq |E|\frac{-\lambda_n
 
 \subsection{Consistent colouring}
 
+
+
+\begin{figure}[h]
+\includegraphics[scale=.1]{../imgs/ina.png}%../imgs/consistent
+\caption{A consistent colouring locally has either six colours or three colours distributed in this way.\label{fig:consistent_colouring}}
+\end{figure}
+
+
 An edge colouring of a graph $G = (V, E)$, or simply a colouring of $G$, is a map $f:E \to [k]$.
 A colouring of a $K_n$ is called consistent if for any four vertices, the six edges among these vertices either have all distinct colours, or have three different colours as in \cref{fig:consistent_colouring}.
 
+
+
+\begin{thm}
+The graph $K_n$ has a consistent colouring with at most $n-1$ colours if and only if $n = 2^t $ for some integer $t$.
+\end{thm}
+
+\begin{proof}
+Let $\CC \coloneqq\{ c_1, \dots, c_k\}$ be the collection of colours.
+First, because each vertex has $n-1$ neighbours, and no two neightbour edges can have the same colour, we have $k \geq n-1$.
+We are given that $k \leq n-1$, thus $k = n-1$. 
+We will endow $\CC \cup \{\vec{0}\}$ with a structure of $\F_2$ vector space.
+
+Incidentally, let $c$ be the colour of an edge $v_1 \-- v_2$, and $d$ be the colour of an edge $v_1 \-- v_3$.
+We define $c + d $ to be the colour of the edge $v_1 \-- v_3$.
+That this is well defined follows from a simple application of the cosistency property in three squares, as shown in \cref{fig:consistency_squares}.
+This shows that $|\CC \cup \{\vec{0}\}| = n$ is a power of two.
+
+For the converse result, we set $V = \F_2^n$ and colour an edge $\vv \-- \vw$ with the colour $\vv - \vw$.
+It is a straightforward observation that this is a consistent colouring.
+\end{proof}
+
+\begin{figure}[h]
+\includegraphics[scale=.1]{../imgs/ina.png}%../imgs/consistent
+\caption{The vector space operation is well defined.\label{fig:consistency_squares}}
+\end{figure}
 
 
 \section{Geometry}
