@@ -111,9 +111,11 @@
 \newcommand{\spn}{\mathrm{span}}
 \newcommand{\rk}{\mathrm{rk}}
 \newcommand{\tr}{\mathrm{tr}}
+\newcommand{\Id}{\mathrm{Id}}
 \newcommand{\conv}{\mathrm{conv}}
 \newcommand{\maxcut}{\mathrm{maxcut}}
 \newcommand{\we}{\mathrm{we}}
+\newcommand{\spec}{\mathrm{spec}}
 %\newcommand{\mod}{\mathrm{mod}}
 
 
@@ -134,6 +136,7 @@
 
 \maketitle
 
+\tableofcontents
 
 \section{Preliminary definitions}
 
@@ -703,18 +706,72 @@ We find a colouring of $\R^d$ using $9^d $ colours
 
 \subsection{Spectral theory of graphs}
 
+
+\subsubsection*{Preliminary observations}
+
+
+\begin{thm}[Spectral theorem of symmetric matrices]
+Let $A$ be a symmetric matrix, with eigenvalues $\spec A = \{\lambda_i\}_i$ and corresponding eigenspaces $V_{\lambda} = \ker(A - \lambda \Id)$.
+
+\begin{itemize}
+\item All eigenvalues are real values.
+
+\item All eigenspaces are complete, that is $\dim (V_{\lambda})$ is precisely the multiplicity of $\lambda $ in $\spec A$.
+
+\item There is an orthogonal basis of eigenvectors $\{v_i\}_i$.
+That is, we have $A \vv_i = \lambda_i \vv_i$ and $\vv_i \cdot \vv_j = 0 $ for $i \neq j$.
+\end{itemize}
+\end{thm}
+
+\subsubsection*{Schwenks theorem}
+
+A \textbf{cover} of a graph $G$ with a collection of graphs $(G_1, \ldots , G_k)$ is a collection of bijective maps $f_i: V(G_i) \to V(G)$ such that:
+\begin{itemize}
+\item If $v \-- w$ is an edge in $G_i$, then $f_i(v) \-- f_i(w)$ is an edge in $G$.
+
+\item If $v \-- w $ is an edge in $G$, there is a unique $i$ such that $f_i^{-1}(v) \-- f_i^{-1}(w)$ is an edge in $G_i$.
+\end{itemize}
+
+\begin{thm}[Schwenk's theorem]\label{thm:schwenk}
+There is no cover of $K_{10}$ with $(P, P, P)$, that is using three copies of the Petersen graph.
+\end{thm}
+
+
 \begin{prop}
 The spectrum of the Petersen graph is 
-$$ \{ 6, 1, 1, 1, 1, -2, -2, -2, -2, -2 \} \, .$$
+$$ \{ 3, 1, 1, 1, 1, 1, -2, -2, -2, -2 \} \, .$$
 \end{prop}
 
 \begin{proof}
 
 \end{proof}
 
+\begin{proof}[Proof of \cref{thm:schwenk}]
+If we have a cover of $K_{10}$ with three copies of $P$, then there are three matrices $A_1, A_2, A_3$ that arise from the adjadency matrix of $P$ by permuting rows and columns, that satisfy
+$$A_1 + A_2 + A_3 = A_{K_{10}} = \mathbb{1}\mathbb{1}^T - \Id_{10}\, . $$
+
+Observe that $\mathbb{1}$ is an eigenvector of $A_1, A_2, A_3$ because the Petersen graph is $d$-regular.
+
+Because they arise by appplying a permutation to the rows and columns of the adjacency matrix of the Petersen graph, the three matrices $A_1, A_2, A_3 $ have the same spectrum.
+
+Let $V^1_1$ be the eigenspace of $A_1$ corresponding to the eigenvector $1$.
+Let $V^2_1$ be the eigenspace of $A_2$ corresponding to the eigenvector $1$.
+These are five dimensional spaces orthogonal to $\mathbb{1}$, so their intersection has to be non-trivial.
+Let $\vv \in V^1_1 \cap V^2_1$ be non-zero vector.
+Then
+\begin{align*}
+& A_1 \vv + A_2 \vv + A_3 \vv  = (\mathbb{1}\mathbb{1}^T - \Id_{10}) \vv \\
+\Leftrightarrow & 2 \vv + A_3 \vv = - \vv \\
+\Leftrightarrow & A_3 \vv = - 3 \vv \, ,
+\end{align*}
+which is impossible, because $-3$ is not in the spectrum of $A_3$.
+\end{proof}
 
 
-\begin{lm}
+\subsubsection*{Hoffman bound and spectral gaps}
+
+
+\begin{lm}\label{lm:spectral_ineq}
 Let $G$ be a $d$-regular graph on $n$ vertices, with spectrum $\{ \lambda_1 \leq \ldots \leq \lambda_n\}$.
 Then we have
 \begin{itemize}
@@ -723,6 +780,46 @@ Then we have
 \item If $\sum_i \vx_i = 0$ then $\sum_{i \-- j} (\vx_i - \vx_j)^2 \geq (d - \lambda_2)\sum_i x_i^2$.
 \end{itemize}
 \end{lm}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{prop}[Hoffman bound]\label{prop:indep_bound}
+Let $G$ be a $d$-regular graph with lowest eigenvalue $\lambda_n$.
+Then, the independence number $\alpha(G)$ satisfies
+$$\alpha(G) \leq n \frac{-\lambda_n}{d - \lambda_n} = \frac{n}{\frac{d}{-\lambda_n} + 1}\, . $$
+\end{prop}
+
+\begin{proof}
+Let $A$ be an independent set in $G$ of size $a$.
+Define $\vx \in \R^{V(G)}$ via 
+$$ \vx_i =\begin{cases*}
+      & n-a \text{ if $i \in A$,}\\
+      & -a \text{ otherwise.}
+    \end{cases*} $$
+
+In this way, $\sum_i \vx_i  = 0$.
+Furthermore, $\sum_i \vx_i^2 = a(n-a)^2 + (n-a)a^2 = n a (n-a)$.
+On the other hand, because $G$ is $d$-regular,
+$$ \sum_{i \-- j} (\vx_i - \vx_j)^2 = \sum_{i \in A}\sum_{j \not\in A}(\vx_i - \vx_j)^2 = dan^2\, . $$
+
+Applying this to \cref{lm:spectral_ineq} gives us $dan^2 \leq (d-\lambda_n)an (n-a)$, which can be rearranged to $a \leq n \frac{-\lambda_n}{d - \lambda_n}$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:EKR}]
+Let $G$ be a graph with $\binom{|E|}{\lambda}$ vertices, which we identify with the subsets of $E$ of size $\lambda$.
+We draw an edge $A \-- B$ if $A \cap B = \emptyset $.
+The family $\FF $ as described is an independent set in the graph $G$, therefore $|\FF | \leq \alpha (G)$.
+
+On the other hand, $G$ is $d$-regular, with $d = \binom{n - \lambda}{ \lambda}$.
+We now see that $\lambda_n$, the smallest eigenvalue of the spectrum of $G$, is $-\binom{|E| - \lambda - 1}{\lambda - 1}$.
+
+It follows from \cref{prop:indep_bound} that $\alpha(G) \leq |E|\frac{-\lambda_n}{d - \lambda_n} = |E|\frac{\binom{|E| - \lambda - 1}{\lambda - 1}}{\binom{n - \lambda}{\lambda} + \binom{|E| - \lambda - 1}{\lambda - 1}} = \binom{|E|-1}{\lambda - 1}$.
+\end{proof}
+
+\subsubsection*{Max cut bounds}
+
 
 
 \begin{defin}[Max cut of a graph]
@@ -751,27 +848,6 @@ $$\maxcut(G) \leq \frac{1}{2} |E| - \frac{n \lambda_n}{4} = \frac{n (d-\lambda_n
 
 \begin{proof}
 
-\end{proof}
-
-\begin{prop}\label{prop:indep_bound}
-Let $G$ be a $d$-regular graph with lowes eigenvalue $\lambda_n$.
-Then, the independence number $\alpha(G)$ satisfies
-$$\alpha(G) \leq n \frac{-\lambda_n}{d - \lambda_n}\, . $$
-\end{prop}
-
-\begin{proof}
-
-\end{proof}
-
-\begin{proof}[Proof of \cref{prop:EKR}]
-Let $G$ be a graph with $\binom{|E|}{\lambda}$ vertices, which we identify with the subsets of $E$ of size $\lambda$.
-We draw an edge $A \-- B$ if $A \cap B = \emptyset $.
-The family $\FF $ as described is an independent set in the graph $G$, therefore $|\FF | \leq \alpha (G)$.
-
-On the other hand, $G$ is $d$-regular, with $d = \binom{n - \lambda}{ \lambda}$.
-We now see that $\lambda_n$, the smallest eigenvalue of the spectrum of $G$, is $-\binom{|E| - \lambda - 1}{\lambda - 1}$.
-
-It follows from \cref{prop:indep_bound} that $\alpha(G) \leq |E|\frac{-\lambda_n}{d - \lambda_n} = |E|\frac{\binom{|E| - \lambda - 1}{\lambda - 1}}{\binom{n - \lambda}{\lambda} + \binom{|E| - \lambda - 1}{\lambda - 1}} = \binom{|E|-1}{\lambda - 1}$.
 \end{proof}
 
 \subsection{Turan's problem}
@@ -818,58 +894,23 @@ It is a straightforward observation that this is a consistent colouring.
 
 \section{Geometry}
 
-\begin{prop}[Caratheodory Theorem]
-Let $S \subseteq \R^d$.
-If $\vv \in \conv (S)$ then $\vv = \sum_{i=1}^{d+1} \alpha_i \va_i$ for some $\va_i \in S, \alpha_i \in \R_{\geq 0}$, such that $\sum_i \alpha_i = 1$.
+
+
+\subsubsection*{Silvester's Theorem}
+
+\begin{prop}
+Consider $X$, a set of $N$ points in the plane, not all colinear.
+Then there are at least $N$ lines that go through at least two points in $X$.
 \end{prop}
+
+\begin{figure}[h]
+\includegraphics[scale=.1]{../imgs/ina.png}%../imgs/consistent
+\caption{The unique distribution of points that minimizes the number of lines.\label{fig:sylvester}}
+\end{figure}
 
 \begin{proof}
 
 \end{proof}
-
-
-
-\begin{prop}[Radon's Lemma]
-If $S\subseteq \R^d$ with $|S| \geq d+2$ there exists a partition $S = L \uplus R$ such that $$\conv (L) \cap \conv (R) \neq \emptyset \, .$$
-\end{prop}
-
-
-\begin{proof}
-
-\end{proof}
-
-
-\begin{prop}[Helly's theorem]
-Let $C_1, \ldots , C_m \subseteq \R^d$ convex sets such that every $d+1$ many such sets have non-empty intersection.
-Then 
-$$\bigcap_i C_i \neq \emptyset \, . $$
-\end{prop}
-
-\begin{proof}
-
-\end{proof}
-
-
-
-\begin{prop}[Ham-Sandwish theorem]
-Let $\vx_1 ,  \ldots , \vx_n \in \R^d$.
-Then there exists a hyperplane $h \subseteq \R^d$ such that 
-$$ |\{i | \vx_i \in \overline{h}^+\}| , |\{i | \vx_i \in \overline{h}^-\}| \geq \frac{1}{2} n,\ . $$
-\end{prop}
-
-
-
-\begin{prop}[Colorful Caratheodory]
-Let $M_1, \ldots, M_{d+1} \subseteq \R^d$ finite sets such that $\va \in \bigcap_{i = 1}^{d+1} \conv (M_i) \neq \emptyset$.
-Then, there exists $\vx_1, \dots, \vx_{d+1}$ such that $\vx_i \in M_i$ for all $i = 1, \ldots, d+1$ and $\va \in \conv (\{\vx_1, \ldots, \vx_{d+1}\})$.
-\end{prop}
-
-\begin{proof}
-
-\end{proof}
-
-
-
 
 \subsubsection*{Joints Problem}
 
@@ -1026,6 +1067,55 @@ For the other side, note that $2 \log(\varepsilon^{-1}) \geq \log n$ implies $\v
 
 
 
+\begin{prop}[Caratheodory Theorem]
+Let $S \subseteq \R^d$.
+If $\vv \in \conv (S)$ then $\vv = \sum_{i=1}^{d+1} \alpha_i \va_i$ for some $\va_i \in S, \alpha_i \in \R_{\geq 0}$, such that $\sum_i \alpha_i = 1$.
+\end{prop}
+
+\begin{proof}
+
+\end{proof}
+
+
+
+\begin{prop}[Radon's Lemma]
+If $S\subseteq \R^d$ with $|S| \geq d+2$ there exists a partition $S = L \uplus R$ such that $$\conv (L) \cap \conv (R) \neq \emptyset \, .$$
+\end{prop}
+
+
+\begin{proof}
+
+\end{proof}
+
+
+\begin{prop}[Helly's theorem]
+Let $C_1, \ldots , C_m \subseteq \R^d$ convex sets such that every $d+1$ many such sets have non-empty intersection.
+Then 
+$$\bigcap_i C_i \neq \emptyset \, . $$
+\end{prop}
+
+\begin{proof}
+
+\end{proof}
+
+
+
+\begin{prop}[Ham-Sandwish theorem]
+Let $\vx_1 ,  \ldots , \vx_n \in \R^d$.
+Then there exists a hyperplane $h \subseteq \R^d$ such that 
+$$ |\{i | \vx_i \in \overline{h}^+\}| , |\{i | \vx_i \in \overline{h}^-\}| \geq \frac{1}{2} n,\ . $$
+\end{prop}
+
+
+
+\begin{prop}[Colorful Caratheodory]
+Let $M_1, \ldots, M_{d+1} \subseteq \R^d$ finite sets such that $\va \in \bigcap_{i = 1}^{d+1} \conv (M_i) \neq \emptyset$.
+Then, there exists $\vx_1, \dots, \vx_{d+1}$ such that $\vx_i \in M_i$ for all $i = 1, \ldots, d+1$ and $\va \in \conv (\{\vx_1, \ldots, \vx_{d+1}\})$.
+\end{prop}
+
+\begin{proof}
+
+\end{proof}
 
 \section{Chevalier - Warning}%Page 37
 
