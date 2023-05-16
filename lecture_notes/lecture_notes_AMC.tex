@@ -115,7 +115,7 @@
 \newcommand{\conv}{\mathrm{conv}}
 \newcommand{\maxcut}{\mathrm{maxcut}}
 \newcommand{\we}{\mathrm{we}}
-\newcommand{\spec}{\mathrm{spec}}
+\newcommand{\spec}{\mathrm{spec} }
 %\newcommand{\mod}{\mathrm{mod}}
 
 
@@ -707,11 +707,65 @@ We find a colouring of $\R^d$ using $9^d $ colours
 \subsection{Spectral theory of graphs}
 
 
+
 \subsubsection*{Preliminary observations}
 
+The adjacency matrix of a graph $G$, denoted as $A_{G} = 
+\begin{bmatrix}
+a_{i,j}
+\end{bmatrix}_{i, j}$ is a $V(G)\times V(G)$ matrix.
+The incidence matrix of a graph $G$, denoted as $B_{G} = 
+\begin{bmatrix}
+b_{i,j}
+\end{bmatrix}_{i, j}$, is a $V(G) \times E(G)$ matrix.
+These are defined so that
+
+$$ a_{i, j} =\begin{cases*}
+      & 1 \text{ if $i \-- j$ in $G$,}\\
+      & 0 \text{ otherwise.}
+    \end{cases*}  \text{ and }
+b_{i, e} =\begin{cases*}
+      & 1 \text{ if $e$ is incident in $j$ in $G$,}\\
+      & 0 \text{ otherwise.}
+    \end{cases*}
+    $$
+
+\begin{smpl}
+Recall that $K_3$ is the complete graph on three vertices, that is a triangle.
+Then $A_{K_3} = 
+\begin{bmatrix}
+0 & 1 & 1\\
+1 & 0 & 1\\
+1 & 1 & 0
+\end{bmatrix}$.
+
+
+Let $G$ be the complete graph on four vertices with one edge removed.
+In this way, it has four vertices and five edges.
+Then $A_{G} = 
+\begin{bmatrix}
+0 & 1 & 1 & 0\\
+1 & 0 & 1 & 1\\
+1 & 1 & 0 & 1\\
+0 & 1 & 1 & 0
+\end{bmatrix}$.
+
+
+\end{smpl}
+
+The matrix $A_G$ is not an \textbf{invariant} of the graph $G$, as it depends on the specific order of the vertices that we pick to describe the matrix.
+However, the \textbf{spectrum} does not depend on this order, so it is an invariant of $G$.
+
+\begin{defin}[Spectrum of a graph]
+Given a graph $G$, the \textbf{eigenvalues} of $A_G$, as a multiset, form the \textbf{spectrum} of $G$, denoted $\spec \, G$.
+\end{defin}
+
+A generic $n\times n$ matrix has eigenvalues that are complex numbers, possibly with some repetitions.
+Because the matrix $A_G$ is symmetric, we know that its eigenvalues are real.
+We also know that when there are repeated eigenvalues, these come with an increase in the dimension of the eigenspace.
 
 \begin{thm}[Spectral theorem of symmetric matrices]
-Let $A$ be a symmetric matrix, with eigenvalues $\spec A = \{\lambda_i\}_i$ and corresponding eigenspaces $V_{\lambda} = \ker(A - \lambda \Id)$.
+Let $A$ be a symmetric matrix, with eigenvalues $\spec \, A = \{\lambda_i\}_i$ and corresponding eigenspaces $V_{\lambda} = \ker(A - \lambda \Id)$.
 
 \begin{itemize}
 \item All eigenvalues are real values.
@@ -723,6 +777,47 @@ That is, we have $A \vv_i = \lambda_i \vv_i$ and $\vv_i \cdot \vv_j = 0 $ for $i
 \end{itemize}
 \end{thm}
 
+In this way, for a graph $G$, we denote $\spec \, G \coloneqq \{ \lambda_1 \geq  \dots \geq \lambda_n \}$ for the multiset of eigenvalues, ordered in decreasing order.
+We also write $\{ \vv_1, \ldots , \vv_n\}$ for the corresponding orthonormal basis, so that $A_G \vv_i = \lambda_i \vv_i$.
+
+A bipartite graph $G$ is a graph whose vertices can be partitioned $V(G) = S\uplus T$ so that both $S, T$ are independent sets.
+Denote de complement of a graph $G$ by $\overline{G}$.
+
+\begin{lm}\label{lm:prelspec}
+\begin{itemize}
+The following facts help us compute the spectrum of graphs: 
+
+\item If $G$ is $d$-regular, then $\lambda_1 = d$ and $\vv_1 = \frac{1}{\sqrt{n}}(1 \cdots 1)^T$
+
+\item If $G$ is conected, then $\lambda_1 \neq \lambda_2$.
+
+\item A graph $G$ is bipartite if and only if $-\spec \, G = \spec \, G$.
+
+\item If $G$ is $d$-regular, denote $\spec \, \overline{G} = \{\overline{\lambda_{n+1}} \geq \overline{\lambda_{n}} \geq \cdots \geq \overline{\lambda_2}\}$, and the corresponding orthonormal eigenbasis by $\{ \overline{\vv_{n+1}}, \ldots, \overline{\vv_2} \}$.
+Then 
+$\overline{\lambda_{n+1}} = n - d - 1$ and 
+$$\overline{\lambda_i} = -1 - \lambda_i, \text{ and }  \overline{\vv_i} = \vv_i \text{ for all $i = 2, \ldots , n$.}$$
+\end{itemize}
+\end{lm}
+
+\begin{proof}
+TBD
+\end{proof}
+
+\begin{prop}
+Recall that, for a graph $G$, we write $L(G)$ for its line graph.
+Then we have
+$$B_G B_G^T = A_{L(G)} + 2\, \Id_{E(G)} \, .$$
+
+Furthermore, if $G$ is a $d$-regular graph, then
+$$B_G B_G^T = A_G + d\, \Id_{V(G)}\, . $$
+\end{prop}
+
+\begin{proof}
+TBD
+\end{proof}
+
+
 \subsubsection*{Schwenks theorem}
 
 A \textbf{cover} of a graph $G$ with a collection of graphs $(G_1, \ldots , G_k)$ is a collection of bijective maps $f_i: V(G_i) \to V(G)$ such that:
@@ -732,19 +827,22 @@ A \textbf{cover} of a graph $G$ with a collection of graphs $(G_1, \ldots , G_k)
 \item If $v \-- w $ is an edge in $G$, there is a unique $i$ such that $f_i^{-1}(v) \-- f_i^{-1}(w)$ is an edge in $G_i$.
 \end{itemize}
 
-\begin{thm}[Schwenk's theorem]\label{thm:schwenk}
-There is no cover of $K_{10}$ with $(P, P, P)$, that is using three copies of the Petersen graph.
-\end{thm}
 
 
-\begin{prop}
+\begin{lm}
 The spectrum of the Petersen graph is 
 $$ \{ 3, 1, 1, 1, 1, 1, -2, -2, -2, -2 \} \, .$$
-\end{prop}
+\end{lm}
 
 \begin{proof}
 
 \end{proof}
+
+
+\begin{thm}[Schwenk's theorem]\label{thm:schwenk}
+There is no cover of $K_{10}$ with $(P, P, P)$, that is using three copies of the Petersen graph.
+\end{thm}
+
 
 \begin{proof}[Proof of \cref{thm:schwenk}]
 If we have a cover of $K_{10}$ with three copies of $P$, then there are three matrices $A_1, A_2, A_3$ that arise from the adjadency matrix of $P$ by permuting rows and columns, that satisfy
@@ -775,14 +873,42 @@ which is impossible, because $-3$ is not in the spectrum of $A_3$.
 Let $G$ be a $d$-regular graph on $n$ vertices, with spectrum $\{ \lambda_1 \leq \ldots \leq \lambda_n\}$.
 Then we have
 \begin{itemize}
-\item $\sum_{i \-- j} (\vx_i - \vx_j)^2 \leq (d - \lambda_1)\sum_i x_i^2$.
+\item $\sum_{i \-- j} (\vx_i - \vx_j)^2 \leq (d - \lambda_n)\sum_i x_i^2$.
 
 \item If $\sum_i \vx_i = 0$ then $\sum_{i \-- j} (\vx_i - \vx_j)^2 \geq (d - \lambda_2)\sum_i x_i^2$.
 \end{itemize}
 \end{lm}
 
 \begin{proof}
+We start with a rearrangement:
+\begin{align*}
+\sum_{i \-- j} (\vx_i - \vx_j)^2 =& \sum_{i \-- j}\left( \vx_i^2 - 2 \vx_i \vx_j + \vx_j^2\right) \\
+=& \sum_{i= 1}^n d \vx_i^2 - 2\sum_{i\-- j} \vx_i \vx_j \\
+=& \vx \vx^T - \vx A_G \vx^T\, . 
+\end{align*}
 
+Recall that we write $\vv_1, \ldots , \vv_n$ for the orthonormal eigenbasis of $A_G$.
+Write $\vx = \sum_{i=1}^n \alpha_i \vv_i$.
+In this way, we have
+$$\vx \vx^T = \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j \vv_i \vv_j^T = \sum_{i=1}^n \alpha_i^2\, , $$
+because $\vv_i \vv_j^T = 0$ for $i \neq j$, and $\vv_i \vv_i^T = ||\vv_i||^2 = 1$.
+
+Using the same facts, we have
+\begin{align*}
+\vx A_G\vx^T =& \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j \vv_i A_G\vv_j^T\\
+=& \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j \lambda_j \vv_i \vv_j^T \\
+=&\sum_{i=1}^n  \alpha_i^2 \lambda_i\, . 
+\end{align*}
+
+We conclude that
+$$ \sum_{i \-- j} (\vx_i - \vx_j)^2 = \vx \vx^T - \vx A_G \vx^T = \sum_{i=1}^n  \alpha_i^2 (d  - \lambda_i) \, . $$
+
+The first item follows from $d  - \lambda_i \leq d  - \lambda_n$, along with $\vx \vx^T = \sum_{i=1}^n \alpha_i^2$.
+For the second item we are given that $\vx (1 \cdots 1)^T = \sum_{i=1}^n \vx_i = 0$, but \cref{lm:prelspec} predicts that $\vv_1 = \frac{1}{\sqrt{n}} (1 \cdots 1)^T$, so
+$$0 = \vx \vv_1^T = \sum_{i=1}^n \alpha_i \vv_i \vv_1^T = \alpha_1 \, .$$
+
+We conclude with 
+$$ \sum_{i \-- j} (\vx_i - \vx_j)^2 = \sum_{i=1}^n  \alpha_i^2 (d  - \lambda_i) = \sum_{i=2}^n  \alpha_i^2 (d  - \lambda_i) \geq \sum_{i=2}^n  \alpha_i^2 (d  - \lambda_2) = \vx \vx^T(d-\lambda_2) \, . $$
 \end{proof}
 
 \begin{prop}[Hoffman bound]\label{prop:indep_bound}
@@ -818,6 +944,57 @@ We now see that $\lambda_n$, the smallest eigenvalue of the spectrum of $G$, is 
 It follows from \cref{prop:indep_bound} that $\alpha(G) \leq |E|\frac{-\lambda_n}{d - \lambda_n} = |E|\frac{\binom{|E| - \lambda - 1}{\lambda - 1}}{\binom{n - \lambda}{\lambda} + \binom{|E| - \lambda - 1}{\lambda - 1}} = \binom{|E|-1}{\lambda - 1}$.
 \end{proof}
 
+\subsubsection*{Erd\"os-Ko-Rado}
+
+Recall from above the Erd\"os-Ko-Rado theorem:
+
+\begin{thm}\label{thm:EKR}
+Let $E$ be a finite set, and $\mathcal F \subseteq 2^E$, such that for any $A, B \in \FF$ we have $A \cap B \neq \emptyset $.
+
+Then $|\FF | \leq \binom{|E|-1}{r-1}$.
+Furthermore, the $\FF$ that attain equality are precisely the ones given by $\FF_i \coloneqq \{ V \in \binom{E}{r} | i \in V\}$, where $i \in E$.
+\end{thm}
+
+Note that, if $n < 2r$ the theorem is straightforward, as $\binom{|E|}{r} \leq \binom{|E|-1}{r-1}$.
+We will therefore consider only the case where $n \geq 2r$.
+
+For that, we construct the \textbf{Kresner graph}.
+
+\begin{defin}[Kneser graph]
+Given a set $E$ and an integer $r$, the Kneser graph $K(E, r)$ has vertex set $\binom{E}{r} = \{ V \subseteq E : |V| = r\}$, and an edge $V \-- W$ if $V \cap W = \emptyset$.
+\end{defin}
+
+\begin{smpl}
+If we take $E = \{1, 2, 3, 4, 5\}$ and $r = 3$, 
+\end{smpl}
+
+\begin{lm}
+The spectrum of $K(E, r)$ is 
+$$ \{(-1)^i\binom{|E| -r - i}{r - i} | i = 0, 1 \ldots , r \text{ with multiplicity } \binom{|E|}{i} - \binom{|E|}{i-1} \} \, . $$
+\end{lm}
+
+\begin{proof}
+%We will consider the chain of subspaces $V_0 \subseteq V_1 \subseteq \cdots \subseteq V_r$ defined as follows:
+%
+%$$V_i \coloneqq \{ \} \, . $$
+%
+%So for instance $V_0 = \K \mathbb{1}$.
+%We always have $\dim V_i = \binom{|E|}{i}$ and note how $V_r = \R^{V(K(E, r))}$.
+TBD
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:EKR}]
+Let $G = K(E, r)$.
+The set $\FF$ is an independent set in $G$, so it is enough to show that $\alpha(G) \leq \binom{|E|-1}{r-1}$.
+
+Let $n = |V(G)| = \binom{|E|}{r}$.
+Note that  $G$ is $d$-regular with $d = \binom{|E|-r}{r}$ and $\lambda_n = -\binom{|E| -r -1 }{r - 1}$.
+By the Hoffman bound, we have
+$$ \alpha(G) \leq -\frac{n\lambda_n}{d - \lambda_n} = \binom{|E|-1}{r-1} \, ,$$
+as desided.
+\end{proof}
+
+
 \subsubsection*{Max cut bounds}
 
 
@@ -849,6 +1026,78 @@ $$\maxcut(G) \leq \frac{1}{2} |E| - \frac{n \lambda_n}{4} = \frac{n (d-\lambda_n
 \begin{proof}
 
 \end{proof}
+
+
+
+\subsubsection*{Friendship graphs}
+
+\begin{defin}[Windmills and frienship graphs]
+A graph $G$ is said to be a \textbf{windmill} if there is a special vertex $v$, called its \textbf{centre}, that shares an edge with all other vertices and the graph resulting from removing $v$ is a perfect matching.
+
+A graph $G$ is said to be a \textbf{friendship} graph if any two distinct vertices have a unique common neighbour.
+\end{defin}
+
+
+\begin{figure}[h]
+\includegraphics[scale=.1]{../imgs/ina.png}%../imgs/consistent
+\caption{A windmill graph, with its centre highlighted.\label{fig:windmill}}
+\end{figure}
+
+
+
+\begin{figure}[h]
+\includegraphics[scale=.1]{../imgs/ina.png}%../imgs/consistent
+\caption{A friendship graph, with a particular common neighbour highlighted.\label{fig:friendship}}
+\end{figure}
+
+It is clear that any windmill is a friendship graph.
+The following result was established in 1966 and proves the converse.
+
+\begin{thm}[Erd\"os-R\'enyi-Sos theorem]\label{thm:ERS}
+Every friendship graph is a windmill.
+\end{thm}
+
+
+\begin{lm}\label{lm:FWd}
+If $G$ is a friendship graph, it is either $d$-regular, or it is a windmill.
+\end{lm}
+
+
+\begin{proof}
+TBD
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:ERS}]
+Assume otherwise, and let $G$ be a friendship graph that is not a windmill.
+We can assume that $G$ is $d$-regular, from \cref{lm:FWd}.
+
+Then, 
+$A_{G}^2 = 
+\begin{bmatrix}
+d & 1 & \cdots & 1 & 1\\
+1 & d & & 1 & 1\\
+\vdots & & \ddots &  & \vdots\\
+1 & 1 & & d & 1\\
+1 & 1 & \cdots & 1 & d
+\end{bmatrix}$.
+
+The spectrum of this matrix can be directly computed as $\{n + d - 1, d-1^{\times n-1}\}$.
+It is easy to see that $\spec \, A^2 = \{ \lambda^2 | \lambda \in \spec \, A\}$.
+Because $G$ is $d$-regular, $d$ is the largest eigenvalue of $A_G$, and so either $d^2 = n+d-1$ or $d^2 = d-1$.
+
+The first one gives us $n = d^2 - d + 1$ and the latter one is impossible for $d$ integer.
+This gives us that the spectrum of $G$ is $\{d, \sqrt{d-1}^{\times a}, -\sqrt{d-1}^{\times b}\}$, where $a, b$ are non-negative integers.
+
+Because $\tr(A_G ) = 0$, we have that $ d + a\sqrt{d-1} - b\sqrt{d-1} = 0$, or $b-a = \frac{d}{\sqrt{d-1}}$.
+
+This means that $\sqrt{d-1} = x$ is an integer that divides $d^2$, but $d^2 = x^2 + 1$ so $x $ divides $1$.
+We conclude that either $x = 1$ or $x = -1$.
+
+That is either $d = 2, n = 3$ or $d = 1, n=1$.
+These give us the graphs $K_1$ and $K_3$, which also are windmills.
+We conclude that any friendship graph is a windmill.
+\end{proof}
+
 
 \subsection{Turan's problem}
 
