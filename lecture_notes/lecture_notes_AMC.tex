@@ -91,6 +91,7 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\Q}{\mathbb{Q}}
+\newcommand{\K}{\mathbb{K}}
 \newcommand{\PP}{\mathbb{P}}
 
 \newcommand{\one}{\mathbb{1}}
@@ -141,8 +142,6 @@
 \section{Preliminary definitions}
 
 We denote the set $\{1, \dots, n\}$ by $[n]$.
-Whenever $q$ is a power of a prime, we denote the unique field of cardinality $q$ by $\F_q$.
-When $q$ is a prime number, we identify $\F_q$ with $\Z/_{q\Z}$.
 
 \subsection{Binomial coefficient bounds}
 
@@ -150,6 +149,16 @@ When $q$ is a prime number, we identify $\F_q$ with $\Z/_{q\Z}$.
 \begin{lm}\label{lm:binom_bound}
 $$\binom{n}{k} \leq e^k \left( \frac{n}{k} \right)^k \, . $$
 \end{lm}
+
+\subsection{Fields}
+Whenever $q$ is a power of a prime, we denote the unique field of cardinality $q$ by $\F_q$.
+When $q$ is a prime number, we identify $\F_q$ with $\Z/_{q\Z}$.
+
+
+\subsection{Vector spaces}
+
+An \textbf{eigenvalue} $\lambda$ of a matrix $A$ with entries in $\K$ is a scalar such that $A - \lambda \Id $ is non-singular.
+A non-zero vector $\vv $ in $\ker (A - \lambda \Id)  $ is said to be a corresponding \textbf{eigenvector}.
 
 \section{Combinatorics}
 
@@ -884,7 +893,7 @@ We start with a rearrangement:
 \begin{align*}
 \sum_{i \-- j} (\vx_i - \vx_j)^2 =& \sum_{i \-- j}\left( \vx_i^2 - 2 \vx_i \vx_j + \vx_j^2\right) \\
 =& \sum_{i= 1}^n d \vx_i^2 - 2\sum_{i\-- j} \vx_i \vx_j \\
-=& \vx \vx^T - \vx A_G \vx^T\, . 
+=& d \vx \vx^T - \vx A_G \vx^T\, . 
 \end{align*}
 
 Recall that we write $\vv_1, \ldots , \vv_n$ for the orthonormal eigenbasis of $A_G$.
@@ -970,7 +979,7 @@ If we take $E = \{1, 2, 3, 4, 5\}$ and $r = 3$,
 
 \begin{lm}
 The spectrum of $K(E, r)$ is 
-$$ \{(-1)^i\binom{|E| -r - i}{r - i} | i = 0, 1 \ldots , r \text{ with multiplicity } \binom{|E|}{i} - \binom{|E|}{i-1} \} \, . $$
+$$ \left\{(-1)^i\binom{|E| -r - i}{r - i}^{\times \binom{|E|}{i} - \binom{|E|}{i-1}} \Big| i = 0, 1 \ldots , r \right\} \, . $$
 \end{lm}
 
 \begin{proof}
@@ -1031,7 +1040,7 @@ $$\maxcut(G) \leq \frac{1}{2} |E| - \frac{n \lambda_n}{4} = \frac{n (d-\lambda_n
 
 \subsubsection*{Friendship graphs}
 
-\begin{defin}[Windmills and frienship graphs]
+\begin{defin}[Windmills and friendship graphs]
 A graph $G$ is said to be a \textbf{windmill} if there is a special vertex $v$, called its \textbf{centre}, that shares an edge with all other vertices and the graph resulting from removing $v$ is a perfect matching.
 
 A graph $G$ is said to be a \textbf{friendship} graph if any two distinct vertices have a unique common neighbour.
@@ -1097,6 +1106,15 @@ That is either $d = 2, n = 3$ or $d = 1, n=1$.
 These give us the graphs $K_1$ and $K_3$, which also are windmills.
 We conclude that any friendship graph is a windmill.
 \end{proof}
+
+\subsubsection*{Sensitivity conjecture}
+
+\begin{thm}
+Let $W$ be a subset of $V(C_n)$ of size at least $2^{n-1}+1$.
+Then $\Delta(C_n|_W) \geq \sqrt{n}$.
+\end{thm}
+
+We observe that there is some $W \subset V(C_n)$ with $2^{n-1}$ independent elements
 
 
 \subsection{Turan's problem}
