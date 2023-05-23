@@ -773,7 +773,7 @@ A generic $n\times n$ matrix has eigenvalues that are complex numbers, possibly 
 Because the matrix $A_G$ is symmetric, we know that its eigenvalues are real.
 We also know that when there are repeated eigenvalues, these come with an increase in the dimension of the eigenspace.
 
-\begin{thm}[Spectral theorem of symmetric matrices]
+\begin{thm}[Spectral theorem of symmetric matrices]\label{thm:spect}
 Let $A$ be a symmetric matrix, with eigenvalues $\spec \, A = \{\lambda_i\}_i$ and corresponding eigenspaces $V_{\lambda} = \ker(A - \lambda \Id)$.
 
 \begin{itemize}
@@ -1109,15 +1109,153 @@ We conclude that any friendship graph is a windmill.
 
 \subsubsection*{Sensitivity conjecture}
 
-\begin{thm}
+\begin{thm}\label{thm:zhang}
 Let $W$ be a subset of $V(C_n)$ of size at least $2^{n-1}+1$.
 Then $\Delta(C_n|_W) \geq \sqrt{n}$.
 \end{thm}
 
-We observe that there is some $W \subset V(C_n)$ with $2^{n-1}$ independent elements
+\begin{smpl}
+We observe that there is some $W \subset V(C_n)$ with $2^{n-1}$ independent elements.
 
+Specifically, if we take $W = \{ \vv \in {0, 1}^n | \sum_i \vv_i \text{ is even }\}$, this set has $2^{n-1}$ elements, none of which share an edge any edge.
+So $\Delta(C_n|_W) = 0$.
+\end{smpl}
+
+To establish the proof of \cref{thm:zhang}, we need some auxiliary lemmas.
+The first one reinterprets the eigenvalues of a matrix as extremals values of its corresponding quadratic form:
+
+\begin{lm}[Maximal quadratic form]\label{lm:maximalquad_EV}
+Let $A$ be an $n \times n$ symmetric matrix with spectrum $\{\lambda_1 \geq \cdots \geq \lambda_n\}$.
+Then we have the following formulas, for each $j = 1, \ldots , n$:
+$$\lambda_j = \max_{\substack{U \subseteq \R^n \\ \dim U = j}} \min_{\vx \in U} \frac{\vx^T A \vx}{\vx^T\vx} = \min_{\substack{U \subseteq \R^n \\ \dim U = n-j+1}} \max_{\vx \in U} \frac{\vx^T A \vx}{\vx^T\vx} \, ,$$
+where the are taking maxima and minima over vector spaces $U \subseteq \R^n$ with a fixed dimension.
+\end{lm}
+
+\begin{proof}
+Let $\{\vv_1, \cdots , \vv_n\}$ be an orthonormal eigenbasis of $A$, which we see it exists in \cref{thm:spect}.
+Write $\vx$ is this basis, arising the coefficients $\{\alpha_i\}_{i=1}^n$ such that:
+$$ \sum_i \alpha_i \vv_i = \vx \, . $$
+
+Note that $\langle \vx \vv_k \rangle = \sum_{i=1}^n \alpha_i \langle \vv_i, \vv_k \rangle = \alpha_k$.
+
+We have that 
+\begin{align*}
+\vx^T A \vx &= \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j \vv_i^T A \vv_j \\
+&= \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j \lambda_j \vv_i^T \vv_j\\
+&= \sum_{i=1}^n \alpha_i^2 \lambda_i\, , 
+\end{align*}
+and that 
+$$ \vx^T \vx = \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j \vv_i^T \vv_j = \sum_{i=1}^n \alpha_i^2\, . $$
+
+For a vector space $U$, define $M(U) = \max_{\vx \in U} \frac{\vx^T A \vx}{\vx^T\vx}$ and $m(U) = \min_{\vx \in U} \frac{\vx^T A \vx}{\vx^T\vx}$.
+Let as well $M = \max_{\substack{U \subseteq \R^n \\ \dim U = j}} m(U)$ and $m = \min_{\substack{U \subseteq \R^n \\ \dim U = n-j+1}} M(U)$.
+Our goal is to show that $\lambda_j = M = m$.
+We will split the proof into four parts: $\lambda_j \leq M$,  $\lambda_j \geq M$,  $\lambda_j \leq m$ and $\lambda_j \geq m$.
+
+To show that  $\lambda_j \leq M$, we find a vector space $U$ such that $\dim U = j $ and $m(U) \geq \lambda_j$.
+Indeed, let $U = \spn \{\vv_i\}_{i=1}^j$.
+It is imediate that $\dim U = j$ and since any $\vx \in U $ can be written as $\vx = \sum_{i=1}^j \alpha_i \vv_i$, we have that 
+$$\frac{\vx^T A \vx}{\vx^T \vx} = \frac{\sum_{i=1}^j \alpha_i^2 \lambda_i}{\sum_{i=1}^j \alpha_i^2} \geq \frac{\sum_{i=1}^j \alpha_i^2 \lambda_j}{\sum_{i=1}^j \alpha_i^2}= \lambda_j\, . $$
+
+
+To show that $\lambda_j \geq M$, we show that any vector space $U$ with $\dim U = j $ has some vector $\vx \in U $ such that $\frac{\vx^T A \vx}{\vx^T \vx} \leq \lambda_j$.
+Indeed, the space $V = \{ \vx \in \R^n | \langle \vx , \vv_i \rangle = 0 \text{ for $ i = 1, \ldots, j-1$ } \}$ has codimension $j-1$, so the intersection $U\cap V$ is non-trivial.
+Let $\vx \in U \cap V$, then $\alpha_i = \langle \vx , \vv_i \rangle = 0 $ for $i = 1, \ldots, j-1$, thus 
+$$\frac{\vx^T A \vx}{\vx^T \vx} = \frac{\sum_{i=j}^n \alpha_i^2 \lambda_i}{\sum_{i=j}^n \alpha_i^2} \leq \frac{\sum_{i=j}^n \alpha_i^2 \lambda_j}{\sum_{i=j}^n \alpha_i^2}= \lambda_j\, . $$
+
+
+To show that $\lambda_j \leq m$, we show that any vector space $U$ with $\dim U =  n - j + 1 $ has some vector $\vx \in U $ such that $\frac{\vx^T A \vx}{\vx^T \vx} \geq \lambda_j$.
+Indeed, the space $V = \{ \vx \in \R^n | \langle \vx , \vv_i \rangle = 0 \text{ for $ i = j+1, \ldots, n$ } \}$ has codimension $n-j$, so the intersection $U\cap V$ is non-trivial.
+Let $\vx \in U \cap V$, then $\alpha_i = \langle \vx , \vv_i \rangle = 0 $ for $i = j+1, \ldots, n$, thus 
+$$\frac{\vx^T A \vx}{\vx^T \vx} = \frac{\sum_{i=1}^j \alpha_i^2 \lambda_i}{\sum_{i=1}^j \alpha_i^2} \geq \frac{\sum_{i=1}^j \alpha_i^2 \lambda_j}{\sum_{i=1}^j \alpha_i^2}= \lambda_j\, . $$
+
+To show that  $\lambda_j \geq m$, we find a vector space $U$ such that $\dim U = n-j+1 $ and $M(U) \leq \lambda_j$.
+Indeed, let $U = \spn \{\vv_i\}_{i=j}^n$.
+It is imediate that $\dim U = n-j+1$ and since any $\vx \in U $ can be written as $\vx = \sum_{i=j}^n \alpha_i \vv_i$, we have that 
+$$\frac{\vx^T A \vx}{\vx^T \vx} = \frac{\sum_{i=j}^n \alpha_i^2 \lambda_i}{\sum_{i=j}^n \alpha_i^2} \leq \frac{\sum_{i=j}^n \alpha_i^2 \lambda_j}{\sum_{i=j}^n \alpha_i^2}= \lambda_j\, . $$
+
+This concludes the proof.
+\end{proof}
+
+\begin{lm}[Interlacing eigenvalues]\label{lm:interlacing}
+Let $A$ be a $(n+r)\times (n+r)$ symmetric matrix and $B$ its upper left $n\times n$ submatrix, that is for any $i, j \in \{1, \ldots, n\}$ we have $A_{i, j} = B_{i, j}$.
+
+Note that $B$ is also symmetric matrix, so let $\spec \, A = \{\lambda_1 \geq \cdots \geq \lambda_{n+r}\}$ and $\spec \, B = \{\mu_1 \geq \cdots \geq \mu_n\}$.
+
+We have
+$$ \lambda_j \geq \mu_j \geq \lambda_{j+r}\, . $$
+\end{lm}
+
+\begin{proof}
+We use \cref{lm:maximalquad_EV}.
+Specifically, to show that $\lambda_j \geq \mu_j$ we show that for any vector space $U\subseteq \R^{n+r}$ with $\dim U = j$ there exists $U'\subseteq \R^n$ with $m(U) \geq m(U')$.
+
+\end{proof}
+
+We now relate $\Delta(G)$, the largest degree of $G$, with the spectrum of matrices.
+
+\begin{lm}\label{lm:adjacency_delta}
+Let $G$ be a graph, $A_G$ be its adjacency matrix and $B$ a symmetric matrix obtained from $A_G$ by flipping the sign of some of its entries.
+
+If $\lambda $ is the largest eigenvalues of $B$, then $\Delta(G) \geq \lambda $.
+\end{lm}
+
+\begin{proof}
+Let $\vv $ be the eigenvector corresponding to $\lambda$, and let $i$ be the index such that $|\vv_i |$ is maximal.
+We necessarily have $\lambda \geq \tr A = 0$.
+Thus we have:
+\begin{align*}
+\lambda  |(\vv)_i| = |(\lambda \vv)_i| &= | (B\vv)_i | = \left| \sum_{j: i\-- j} B_{i, j} \vv_j  \right| \\
+&\leq \sum_{j: i\-- j} |B_{i, j}| |\vv_j| = \sum_{j : i\-- j} |\vv_j| \leq  \sum_{j : i\-- j} |\vv_i| \leq \Delta(G) |\vv_i|\, . 
+\end{align*}
+Note that because $\vv$ is non trivial, we have $|\vv_i|  > 0$.
+Therefore $\lambda \leq \Delta(G)$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:zhang}]
+
+Note that the inductive structure on $C_n$ allows us to describe the adjacency matrix inductively.
+Specifically,
+$$ A_{C_1} = \begin{pmatrix}
+0 & 1 \\
+1 & 0
+\end{pmatrix} \quad \quad \quad 
+A_{C_{n+1}} = \begin{pmatrix}
+A_{C_n} & \Id_{2^n} \\
+\Id_{2^n} & A_{C_n}
+\end{pmatrix}\, . $$
+
+Define the matrices $\{B_n\}_{n\geq 1}$ so that $B_n$ results from $A_{C_n}$ by flipping some signs:
+$$ B_1 = \begin{pmatrix}
+0 & 1 \\
+1 & 0
+\end{pmatrix} \quad \quad \quad 
+B_{n+1} = \begin{pmatrix}
+B_n & \Id_{2^n} \\
+\Id_{2^n} & -B_n
+\end{pmatrix}\, ,$$
+which gives us that $B_1^2 = \Id_{2}$ and 
+$$
+B_{n+1}^2 = \begin{pmatrix}
+B_n^2 + \Id_{2^n} & 0 \\
+0 & B_n^2 + \Id_{2^n}
+\end{pmatrix}\, . $$
+Thus, by an inductive argument we have that $B_n^2 = n\Id_{2^n}$.
+Therefore, we conclude that $\spec\,~B_n~=~\{ \underbrace{\sqrt{n}, \ldots, \sqrt{n}}_{a \text{ times}}, \underbrace{-\sqrt{n}, \ldots, -\sqrt{n}}_{b \text{ times}} \}$. 
+
+Furthermore, $\tr B_n = 0 $ so $a\sqrt{n} - b\sqrt{n} = 0$ and $a+b = 2^n$.
+We conclude that we have $\spec B_n = \{ \underbrace{\sqrt{n}, \ldots, \sqrt{n}}_{2^{n-1} \text{ times}}, \underbrace{-\sqrt{n}, \ldots, -\sqrt{n}}_{2^{n-1} \text{ times}} \}$. 
+
+Let $W \subseteq V(C_n)$ be a collection of vertices of $C_n$ with $|W| > 2^{n-1}$.
+This corresponds to a $|W|\times |W|$ submatrix of $B_n$, call it $D$.
+After rearranging the columns of the matrix, this can be identified with the upper right submatrix of $B_n$.
+Furthermore, $D$ results from the adjacency matrix of $C_n|_W$ by flipping some signs, so \cref{lm:adjacency_delta} gives us that $\Delta(W) \geq \lambda$, where $\lambda $ is the highest eigenvalue of $D$.
+But by \cref{lm:interlacing}, $\lambda \geq \lambda_{2^n - |W| + 1}(B_n) = \sqrt{n}$, because $2^n - |W| + 1 \leq 2^{n-1}$, as desired.
+\end{proof}
 
 \subsection{Turan's problem}
+
+Section under construction
 
 \subsection{Consistent colouring}
 
@@ -1161,13 +1299,13 @@ It is a straightforward observation that this is a consistent colouring.
 
 \section{Geometry}
 
-
+\subsection{Extremal geometry}
 
 \subsubsection*{Silvester's Theorem}
 
 \begin{prop}
-Consider $X$, a set of $N$ points in the plane, not all colinear.
-Then there are at least $N$ lines that go through at least two points in $X$.
+Consider $X$, a set of $m$ points in the plane, not all colinear.
+Then there are at least $m$ lines that go through at least two points in $X$.
 \end{prop}
 
 \begin{figure}[h]
@@ -1176,8 +1314,71 @@ Then there are at least $N$ lines that go through at least two points in $X$.
 \end{figure}
 
 \begin{proof}
+Let $\mathcal L$ be the collection of lines that go through at least two points in $X$.
+For each line $\ell \in \mathcal L$, define the linear function in $\R^X$.
+$$ f_{\ell}(\vx) = \sum_{x\in \ell} \vx_x \, .$$
+
+Assume that $|\mathcal L | < m$.
+Thus, there exists a non trivial solution to $f_{\ell}(\vx) = 0 $ for all $\ell \in \mathcal L$.
+For such a solution $\vx$ we have
+\begin{align*}
+0 &= \sum_{\ell \in \mathcal L} \left( f_{\ell}(\vx) \right)^2 \\
+&= \sum_{\ell \in \mathcal L} \left(\sum_{x \in \ell}\vx_x^2 \right) + \left( \sum_{x, y \in \ell} \vx_x \vx_y \right)\\
+&= \sum_{x \in X} a_x\vx_x^2 + \sum_{x, y \in X}2 a_{x, y} \vx_x \vx_y  \, ,
+\end{align*}
+where $a_x$ is the number of lines $\ell \in \mathcal L$ that go through $x$, and $a_{x, y}$ is the number of lines that go through $x$ and $ y$.
+It is clear that $a_{x, y} = 1$.
+Furthermore, not all points are colinear, so $a_x\geq 2$ for each $x$.
+We can rearrange the above expression as follows:
+\begin{align*}
+0 &=  \sum_{x \in X} a_x\vx_x^2 + \sum_{x, y \in X}2 a_{x, y} \vx_x \vx_y\\
+&=  \sum_{x \in X} (a_x-  1) \vx_x^2 + \left(\sum_{x \in X}\vx_x \right)^2  \, .
+\end{align*}
+
+This is a sum of squares so it is only zero whenever each square is zero, that is $\vx = 0$, a contradiction.
+We conclude that either all points are colinear, or $|\mathcal L | \geq m$.
+\end{proof}
+
+\subsubsection*{Kakeya problem}
+
+
+A set $A \subseteq \F_q^n$ is called a \textbf{Kakeya set} if, for any non-zero $\vv\in\F_q^n$, there exists $\vw \in A$ such that $\forall_{\lambda \in \F_q}$ we have  $\vw + \lambda vv \in A$.
+
+Interest in these sorts of sets arose with the original \textbf{Kakeya problem}, in \cite{fujiwara1917some}:
+
+\begin{prob}[Kakeya problem]
+Find a figure of least area on which a segment of length one can be turned through 360 degrees by a continuous movement.
+\end{prob}
+
+The solution to this problem, presented by \cite{besicovitch1928kakeya}, displayed, for each chosen $\varepsilon > 0$, a set with area smaller than $\varepsilon $ with the desired property, minus the continuous movement.
+In the discrete world, we still require that segments in all directions are still in the Kakeya set, and it turns out that these will always be large.
+This was established in \cite{dvir2009size}:
+
+\begin{thm}[Dvir's solution to the discrete Kakeya problem]\label{thm:kakeya}
+For all $n > 0 $ integer, there is a constant $c_n$ such that any Kakeya set $A \subseteq \F_q^n$ has $|A| \geq c_n q^n$.
+\end{thm}
+
+\begin{lm}
+
+\end{lm}
+
+\begin{lm}
+
+\end{lm}
+
+
+\begin{lm}
+
+\end{lm}
+
+
+\begin{proof}[Proof of \cref{thm:kakeya}]
 
 \end{proof}
+
+
+\subsubsection*{Two-distance sets}
+
 
 \subsubsection*{Joints Problem}
 
@@ -1237,7 +1438,7 @@ as desired.
 \end{proof}
 
 
-\subsection{Efficient Projection}
+\subsubsection{Efficient Projection}
 
 
 
@@ -1330,6 +1531,10 @@ where $C = \frac{1}{2e}$.
 For the other side, note that $2 \log(\varepsilon^{-1}) \geq \log n$ implies $\varepsilon \leq n^{-.5}$
 
 \end{proof}
+
+
+
+\subsection{Convex geometry}
 
 
 
