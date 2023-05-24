@@ -1437,7 +1437,7 @@ However, by the Kakeya property, there is some $\vw \in \F_q^n$ such that $\vw +
 Thus, $f(\vw + \lambda \vv ) = 0$ for any $\lambda \in \F_q$.
 
 However, as a polynomial expression in $\lambda $, the polynomial $f(\vw + \lambda \vv )= f(\vv)_k \lambda^k + \mathcal O (\lambda^{k-1})$ has degree $k \leq q-1$, so according to \cref{lm:rootcount} it has at most $q-1$ roots.
-Therefore, there is some $\lambda $ such that $(\vw + \lambda \vv )=\neq 0$, a contradiction.
+Therefore, there is some $\lambda $ such that $(\vw + \lambda \vv ) \neq 0$, a contradiction.
 \end{proof}
 
 
@@ -1445,21 +1445,40 @@ Therefore, there is some $\lambda $ such that $(\vw + \lambda \vv )=\neq 0$, a c
 
 Let $D$ be a finite set of positive real numbers.
 A set $S\subseteq \R^d$ is called a $D$-distance set if for any two distinct points $\vx, \vy\in S$ we have $||\vx - \vy || \in D$.
-If $D = \{ \delta \}$, the 
+
+If $D = \{ \delta \}$, then $S$ can only have $d+1$ points, and this bound is tight: for instance take the vertices of the $d$ simplex.
+If $D$ has size two, we do not know what is the maximal size of $S$.
 
 \begin{smpl}
 Let $V = \{ \vv \in \{0, 1\}^{n+1} | \sum_{i=1}^{n+1} \vv_i = 2 \}$.
 This is a set with $|V| = \binom{n+1}{2}$.
+It is clear that $V\in \R^{n+1}$.
+Note however that $V$ lies on the $n$-dimensional hyperplane $\sum_i \vv_i = 2$, so there is an isometric map sending $V$ to $\R^n$.
+
 We can see as well that this is a $\{\sqrt{2}, 2\}$-distance set: if $\vx, \vy \in V$ are distinct vectors, then they either differ in two or four entries, depending on whether the entries with $1$ overlap or not.
 In one case we have $||\vx - \vy || = \sqrt{2}$ and in the other case we have $||\vx - \vy || = \sqrt{4} = 2$.
+
+This tells us that there is a $\{\sqrt{2}, 2\}$-distance set in $\R^n$ with $\binom{n+1}{2}$ many elements.
 \end{smpl}
 
 \begin{thm}
-
+If $S\subseteq \R^n$ is a $\{\delta_1, \delta_2 \}$-distance set, then $|S| \leq \frac{(n+1)(n+4)}{2}$.
 \end{thm}
 
 \begin{proof}
+For each $\vv \in S$, construct the following polynomial $f_{\vv} \in \R[x_1, \ldots, x_n]$:
+$$f_{\vv} (\vx) \coloneqq \left(||\vv - \vx||^2 - \delta_1^2\right)\left(||\vv - \vx||^2 - \delta_1^2\right) \, . $$
 
+Note that for $\vv \neq \vw $ elements of $S$, we have $f_{\vv} (\vw) = 0$ and $f_{\vv}(\vv) = \delta_1^2\delta_2^2$.
+
+It can be seen that $f_{\vv}$ is in the vector space
+$$\spn \{\left(\sum_{i=1}^n\right)^2, x_k \sum_{i=1}^n x_i^2, x_k^2, x_kx_j, x_k, 1 | k, j \in \{1, \ldots, n\} \}\, ,$$
+which has dimension $1 + n + n + \binom{n}{2} + n + 1 = \frac{(n+1)(n+4)}{2}$.
+
+On the other hand, $\{f_{\vv}\}_{\vv \in S}$ is a linearly independent set of polynomials: if we take a linear combination such that $0 = \sum_{\vv \in S} \alpha_{\vv} f_{\vv}$, by evaluating at some $\vw \in S$ we get
+$$ 0 = \sum_{\vv \in S} \alpha_{\vv} f_{\vv}(\vw) = \alpha_{\vw} f_{\vw}(\vw) = \alpha_{
+\vw} \delta_1^2 \delta_2^2 \Rightarrow \alpha_{\vw} = 0 \, ,$$
+which means that $\{f_{\vv}\}_{\vv \in S}$ is a linearly independent set.
 \end{proof}
 
 
@@ -1467,30 +1486,37 @@ In one case we have $||\vx - \vy || = \sqrt{2}$ and in the other case we have $|
 \subsubsection*{Joints Problem}
 
 
-
-
 A \textbf{joint} in a collection $\mathcal L$ of lines in $\R^3$ is an intersection of at least three non-coplanar lines.
 
 
-\begin{prop}
-Given $N$ lines in $\R^2$ forming $J$ joints we have that
+\begin{thm}\label{thm:joints}
+Tere exists a constant $C$ such that given $N$ lines in $\R^2$ forming $J$ joints we have that
 $$ J \leq C N^{3/_2}\, ,$$
 furthermore, this bound is tight.
-\end{prop}
+\end{thm}
 
+\begin{smpl}
+This example shows that the bound in \cref{thm:joints} is tight when $C = 3^{-3/_2}$.
+Incidentally, take an integer $n$, we can find $3n^2$ lines that intersect in $n^3$ joints. 
+For $n=3$ we can see the example in \cref{fig:joints}.
+The general construction is as follows: we take the collection of $n^2$ lines with direction $(0, 0, 1)$ that go through $(a, b, 0)$, where $a, b\in [n]$, $n^2$ lines with direction $(0, 1, 0)$ that go through $(a, 0, b)$, where $a, b\in [n]$, $n^2$ lines with direction $(1, 0, 0)$ that go through $(0, a, b)$, where $a, b\in [n]$.
 
-\begin{proof}
-First we show that this is indeed tight.
-Incidentally, take an integer $n$, we can find $3n^2$ lines that intersect in $n^3$ joints. For $n=3$ we can see the example in \cref{fig:joints}.
-The general construction is as follows: we take the collection of $n^2$ lines with direction $(0, 0, 1)$ that go through $(a, b, 0)$, where $a, b\in [n]$, and take it together with two rotations of $120^o$ and $240^o$ of this set along the axis $\{x = y = z\}$.
+In this line configuration, any point $(a, b, c) $ with $a, b, c \in [n]$ is a joint, so $J = n^3$, whereas $N = 3 n^2$.
 
 \begin{figure}[h]
 \includegraphics[scale=.1]{../imgs/ina.png}%../imgs/joints
 \caption{A construction of a collection of lines with high number of joints.\label{fig:joints}}
 \end{figure}
+\end{smpl}
 
+\begin{proof}
 Now, we establish the inequality for $C = 3^{3/_2}$.
 First, we show that for any collection of lines $\mathcal L$, there is a line with at most $3 J^{1/_3}$ joints.
+
+Once this is established, the theorem follows by iteratively removing a line from $\mathcal L$.
+Once this is done to completion so that there are no more lines left, we have removed at most $N 3 J^{1/_3}$ joints, so $J \leq 3 N J^{1/_3} \Rightarrow J \leq (3N)^{3/_2}$.
+
+
 Acting by contradiction, assume otherwise and consider a polynomial $p \in \R[x, y, z]$ such that 
 \begin{enumerate}
 \item It is non-zero;
