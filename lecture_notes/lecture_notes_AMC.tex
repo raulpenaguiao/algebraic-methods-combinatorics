@@ -1646,23 +1646,39 @@ For the other side, note that $2 \log(\varepsilon^{-1}) \geq \log n$ implies $\v
 
 \subsection{Convex geometry}
 
+A set $C \subseteq \R^d$ is said to be \textbf{convex} if for any points $\vx, \vy \in C$ and a real $\lambda \in [0, 1]$ we have $t\vx + (1-t)\vy \in C$.
+The \textbf{convex hull} of a set $S$ is the smallest convex set $\conv S $ that contains $S$.
+Because the convexity condition is closed for arbitrary intersections, it can be defined as $\conv S \coloneqq \bigcap_{S \subseteq C \text{ convex}} C$ or equivalently
+$$ \conv S = \{ \sum_{i=1}^m \alpha_i\vv_i | \vv_i \in S, \, \alpha_i \in [0, 1], \sum_i \alpha_i = 1\} \, . $$
 
 
-
-\begin{prop}[Caratheodory Theorem]
+\begin{thm}[Caratheodory Theorem]
 Let $S \subseteq \R^d$.
 If $\vv \in \conv (S)$ then $\vv = \sum_{i=1}^{d+1} \alpha_i \va_i$ for some $\va_i \in S, \alpha_i \in \R_{\geq 0}$, such that $\sum_i \alpha_i = 1$.
-\end{prop}
+\end{thm}
 
 \begin{proof}
+Because $\vv \in \conv S$, there is an integer $m$, real numbers $\alpha_1, \ldots, \alpha_m $ and vectors $\vx_1, \ldots, \vx_m \in S $ such that $\vv = \sum_{i=1}^{m} \alpha_i \va_i$ and $\sum_i \alpha_i = 1$.
+The ones that give us $m$ minimal, and assume for sake of contradiction that $m > d+1$.
 
+For each $i \in [m]$, let $\vv_{i} = (\vx_i , 1)$.
+Because $m > d+1$, the vectors $\{ \vv_i \}_{i=1}^m$ are linearly dependent, so there is some non-trivial vanishing linear combination $\sum_{i=1}^m \beta_i \vv_i = 0$.
+Note that this gives us $\sum_{i=1}^m \vx_i = 0 $ and $\sum_i \beta_i = 0$, therefore we have, for any real $t$, that $\vv = \sum_{i=1}^{m} (\alpha_i - t \beta_i) \va_i$ and $\sum_i ( \alpha_i  - t \beta_i ) = 1$.
+
+The proof is concluded when we will find $t$ such that $\alpha_i - t \beta_i \geq 0$.
+Indeed, let $t_0 = \min_{i : \beta_i > 0} \frac{\alpha_i}{\beta_i}$.
+Because $\sum_i \beta_i = 0$ and the linear combination $\sum_{i=1}^m \beta_i \vv_i$ was taken to be non-trivial, there is some $\beta_i > 0$, so $t_0 $ is well defined and positive.
+The minimality condition guarantees that for each $i$ we have $\alpha_i - t_0 \beta_i \geq 0$.
+Furthermore, there is an index $I$ such that $\alpha_i - t_0 \beta_i = 0$.
+This means we can write $\vv = \sum_{i=1, i \neq I}^{m} (\alpha_i - t \beta_i) \va_i$.
+This contradicts the minimality of $m$.
 \end{proof}
 
 
 
-\begin{prop}[Radon's Lemma]
+\begin{lm}[Radon's Lemma]
 If $S\subseteq \R^d$ with $|S| \geq d+2$ there exists a partition $S = L \uplus R$ such that $$\conv (L) \cap \conv (R) \neq \emptyset \, .$$
-\end{prop}
+\end{lm}
 
 
 \begin{proof}
@@ -1670,11 +1686,11 @@ If $S\subseteq \R^d$ with $|S| \geq d+2$ there exists a partition $S = L \uplus 
 \end{proof}
 
 
-\begin{prop}[Helly's theorem]
+\begin{thm}[Helly's theorem]
 Let $C_1, \ldots , C_m \subseteq \R^d$ convex sets such that every $d+1$ many such sets have non-empty intersection.
 Then 
 $$\bigcap_i C_i \neq \emptyset \, . $$
-\end{prop}
+\end{thm}
 
 \begin{proof}
 
@@ -1682,18 +1698,18 @@ $$\bigcap_i C_i \neq \emptyset \, . $$
 
 
 
-\begin{prop}[Ham-Sandwish theorem]
+\begin{thm}[Ham-Sandwish theorem]
 Let $\vx_1 ,  \ldots , \vx_n \in \R^d$.
 Then there exists a hyperplane $h \subseteq \R^d$ such that 
 $$ |\{i | \vx_i \in \overline{h}^+\}| , |\{i | \vx_i \in \overline{h}^-\}| \geq \frac{1}{2} n,\ . $$
-\end{prop}
+\end{thm}
 
 
 
-\begin{prop}[Colorful Caratheodory]
+\begin{thm}[Colorful Caratheodory Theorem]
 Let $M_1, \ldots, M_{d+1} \subseteq \R^d$ finite sets such that $\va \in \bigcap_{i = 1}^{d+1} \conv (M_i) \neq \emptyset$.
 Then, there exists $\vx_1, \dots, \vx_{d+1}$ such that $\vx_i \in M_i$ for all $i = 1, \ldots, d+1$ and $\va \in \conv (\{\vx_1, \ldots, \vx_{d+1}\})$.
-\end{prop}
+\end{thm}
 
 \begin{proof}
 
