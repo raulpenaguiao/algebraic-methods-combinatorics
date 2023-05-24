@@ -1,0 +1,240 @@
+\documentclass[kulak]{tplt} 
+% options: kulak (default) or kul
+
+\title{Algebraic Methods in Combinatorics}
+\author{Assignment 1}
+\date{Summer semester 2022 -- 2023}
+\address{
+	\textbf{Max Planck Institute for the Mathematics in the Sciences} \\
+	\textbf{Universit\"at Leipzig}}
+
+
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbold}
+\usepackage{listings}
+\usepackage{lineno}
+%\usepackage[margin=3cm]{geometry}
+\usepackage[all,cmtip, color,matrix,arrow]{xy}
+%\usepackage{amsaddr}
+\usepackage{tikz-cd}
+\usepackage{amsmath}%To use \text 
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage[capitalize]{cleveref}
+\crefname{thm}{Theorem}{Theorems}
+%\usepackage{bbold}
+\usepackage[export]{adjustbox}
+\usepackage{todonotes}
+\usepackage{bm}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{mathtools}
+\usepackage{aliascnt}
+\newaliascnt{eqfloat}{equation}
+\newfloat{eqfloat}{h}{eqflts}
+\floatname{eqfloat}{Equation}
+\usepackage{dirtytalk}
+\usepackage[mathscr]{euscript}
+
+
+%\def\shuffle{\sqcup\mathchoice{\mkern-7mu}{\mkern-7mu}{\mkern-3.2mu}{\mkern-3.8mu}\sqcup\,}
+\newcommand{\qshuffle}{\overline{\shuffle}}
+
+
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lm}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{obs}[thm]{Observation}
+\newtheorem{defin}[thm]{Definition}
+\newtheorem{smpl}[thm]{Example}
+\newtheorem{quest}[thm]{Question}
+\newtheorem{exe}[thm]{Exercise}
+\newtheorem{const}[thm]{Construction}
+\newtheorem{prob}[thm]{Problem}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{rem}[thm]{Remark}
+\crefname{lm}{Lemma}{Lemmas}
+\crefname{thm}{Theorem}{Theorems}
+\crefname{prop}{Proposition}{Propositions}
+\crefname{defin}{Definition}{Definitions}
+\crefname{rem}{Remark}{Remarks}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\PP}{\mathbb{P}}
+
+\newcommand{\one}{\mathbb{1}}
+
+\newcommand{\CC}{\mathcal C}
+\newcommand{\JJ}{\mathcal J}
+\newcommand{\II}{\mathcal I}
+\newcommand{\BB}{\mathcal B}
+\newcommand{\FF}{\mathcal F}
+
+%vectors
+\newcommand{\vv}{\mathsf{v}}
+\newcommand{\vw}{\mathsf{w}}
+\newcommand{\vj}{\mathsf{j}}
+\newcommand{\vx}{\mathsf{x}}
+\newcommand{\vy}{\mathsf{y}}
+\newcommand{\va}{\mathsf{a}}
+
+\newcommand{\spn}{\mathrm{span}}
+\newcommand{\rk}{\mathrm{rk}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\conv}{\mathrm{conv}}
+\newcommand{\maxcut}{\mathrm{maxcut}}
+\newcommand{\we}{\mathrm{we}}
+\newcommand{\nul}{\mathrm{nul}}
+%\newcommand{\ker}{\mathrm{ker}}
+
+
+\begin{document}
+
+\maketitle
+\begin{enumerate}
+\item Generalised Fischer inequality
+
+First we note that $\FF $ is indeed an $L$-Fischer family, as $1234 \cap 125 = 12 $ has size $2$, $1234 \cap 235 = 23 $ has size $2$, $125 \cap 235 = 25 $ also has size $2$.
+
+We order $\FF $ as $F_1 = 125$, $F_2 = 235$ and $F_3 = 1234$.
+This ensures that $|F_1 | \leq |F_2| \leq |F_3|$.
+In this way recall that
+$$f_i (\vx) = \prod_{\substack{\ell \in L \\ \ell < |F_i|}} (\vx \cdot \vv_{F_i} - \ell ) \, . $$
+
+Thus we have 
+$$f_1(\vx) = ( \vx \cdot \vv_{F_1} ) (\vx \cdot \vv_{F_1} - 2 ) = (x_1 + x_2 + x_5 ) (x_1 + x_2 + x_5 - 2) \,  . $$
+$$f_2(\vx) = ( \vx \cdot \vv_{F_2} ) (\vx \cdot \vv_{F_2} - 2 ) = (x_1 + x_3 + x_5 ) (x_1 + x_3 + x_5 - 2) \,  . $$
+$$f_3(\vx) = ( \vx \cdot \vv_{F_3} ) (\vx \cdot \vv_{F_3} - 2 ) = (x_1 + x_2 + x_3 + x_4 ) (x_1 + x_2 + x_3 + x_4 - 2) \,  . $$
+
+
+\item Non-prime towns.
+
+\begin{enumerate}
+\item 
+Let $s = p^a$, where $p$ is a prime number.
+As is usual, for each set $I \subseteq E$, define the vector $\vv_I \in \Q^E$:
+$$ (\vv_I)_i =\begin{cases*}
+      & 1 \text{ if $i \in I$,}\\
+      & 0 \text{ otherwise.}
+    \end{cases*} $$
+
+We will show that $\{\vv_F\}_{F\in \FF}$ is linearly independent.
+Assume that $\sum_{F \in \FF} \alpha_F \vv_F = \vec{0}$, where each $\alpha_F \in \Q$.
+Assume that at least one $\alpha_F$ is non-zero.
+By multiplying by a constant, we can clear denominators and make is so that all $\alpha_F$ are integers.
+By possibly devidint by $p$ as many times as necessary, we can make it so that for at least one set $H\in \FF$, $\alpha_H$ is not a multiple of $p$.
+
+By taking the inner product by $\vv_H$ in both sides of $\sum_{F \in \FF} \alpha_F \vv_F = \vec{0}$, and taking into account that $\vv_F \cdot \vv_H = |F \cap H|$ is a multiple of $s$ for $F\neq H$ in $\FF$, we get
+$$\alpha_H |H| + \sum_{\substack{F \in \FF\\ F \neq H}} \alpha_F |F \cap H| =  0 , \, $$
+however, the left hand side is not a multiple of $s$, a contradiction with the assumption that some $\alpha_F$ is non-zero.
+We conclude that $\{\vv_F\}_{F\in \FF}$ is linearly independent, and so $|\FF | \leq |E|$.
+
+\item 
+Let $\FF_k \coloneqq \{F \in \FF | \text{ $k$ does not divide $|F|$ } \}$.
+Then $\FF = \FF_2 \cup \FF_3$.
+Note how $\FF_2$ is a $2$-town, and $\FF_3$ is a $3$-town.
+Therefore $|\FF| \leq |\FF_2| + |\FF_3| \leq 2|E|$ by the above item.
+
+
+\item
+If $s = \prod_i p_i^{\alpha_i}$ is the prime factorisation of $s$, then 
+$$ \FF = \bigcup_i \FF_{p_i^{\alpha_i}}\, , $$
+and each $\FF_{p_i^{\alpha_i}}$ is a $p_i^{\alpha_i}$-town, so if $c = \text{ number of prime factors of s }$, then
+$$|\FF | \leq \sum_i |\FF_{p_i^{\alpha_i}}| \leq c |E| \, . $$
+\end{enumerate}
+
+
+\item Reverse club problem
+
+\begin{enumerate}
+\item 
+To show tightness, we give an example of a family $\FF$ with $|E|$ elements that satisfies the requirements.
+Let $\FF = \binom{E}{|E| - 1}$.
+In this way $A \in \FF $ has $|A| = |E| - 1$, which is even, and if $A\neq B $ are sets in $\FF$, then $A\cap B = E\setminus (A^c \cup B^c) $ has $|E| - 2$ elements, which is odd.
+
+To show the inequality, for each set $I \subseteq E$, define the vector $\vv_I \in \F_2^E$:
+$$ (\vv_I)_i =\begin{cases*}
+      & 1 \text{ if $i \in I$,}\\
+      & 0 \text{ otherwise.}
+    \end{cases*} $$
+Note that $\vv_F \cdot \vv_G = 1$ for $F\neq G$ sets in $\FF$, whereas $\vv_F \cdot \vv_F = 0$.
+Furthermore, let $\mathbb{1} $ be the all-one vector.
+We have $\mathbb{1} \cdot \vv_F = 0$ for any set $F \in \FF$.
+
+
+Fix $T \in \FF$.
+We claim that either $\{\vv_F\}_{F \in \FF}$ is linearly independent, or $\{\mathbb{1}\} \cup \{\vv_F\}_{\substack{F \in \FF \\ F \neq T}}$ is linearly independent.
+In either case, the inequality $|\FF| \leq |E|$ follows.
+
+Indeed, assume that $|\FF|$ is even, and consider a linear combination $\sum_{F\in \FF} \alpha_F \vv_F = 0$.
+By taking the inner product with $\vv_G$ for some $G\in \FF$ on both sides gives us $\sum_{\substack{F\in \FF\\ F \neq G}} \alpha_F = 0$.
+Fix $H \in \FF$.
+Summing these equations for all $G \in\FF \setminus \{H \}$ gives us $(|\FF| - 1 ) \alpha_H +  \sum_{\substack{F \in \FF \\ F \neq H}} (|\FF| - 2 ) \alpha_F = 0$.
+Note that $|\FF| = 2 $ in $\F_2$, so this gives us $\alpha_H  = 0$.
+Since $H$ was generic, we conclude that $\alpha_H =0 $ for any $\in \FF$, and $\{\vv_F\}_{F \in \FF}$ is linearly independent.
+
+Assume now that $|\FF|$ is odd, and consider a linear combination $\alpha_0 \mathbb{1} + \sum_{\substack{F\in \FF \\ F \neq T}} \alpha_F \vv_F = 0$.
+Taking the inner product with $\vv_G $ for $G\in \FF\setminus\{T\}$ gives $ \sum_{\substack{F\in \FF \\ F \neq T, F \neq G}} \alpha_F = 0$.
+Fix $H \in \FF$ different from $T$.
+Summing all equations for all sets $G \in \FF\setminus \{T, H\}$ gives us 
+$$(|\FF| - 2) \alpha_H + \sum_{\substack{F\in \FF \\ F \neq T, F \neq H}} (|\FF| - 3) \alpha_F = 0$$
+which, because $|\FF|$ is odd, gives us $\alpha_H  = 0$.
+Since $H$ is generic different from $T$, we conclude that $\alpha_H = 0 $ for all $H \in \FF\setminus \{T\}$.
+
+In this way we have $\alpha_0 \mathbb{1} = \alpha_0 \mathbb{1} + \sum_{\substack{F\in \FF \\ F \neq T}} \alpha_F \vv_F = 0$, which implies $\alpha_0 = 0$.
+Thus $\{\mathbb{1}\} \cup \{\vv_F\}_{\substack{F \in \FF \\ F \neq T}}$ is linearly independent, as desired.
+
+\item 
+If $|E|$ is even, we can improve the argument above to show that $|\FF| \leq |E| - 1$.
+Specifically, we have that either $\{\vv_F\}_{F \in \FF}$ is linearly independent, or $\{\mathbb{1}\} \cup \{\vv_F\}_{\substack{F \in \FF \\ F \neq T}}$ is linearly independent.
+We note that each of these sets are in fact in the vector subspace $V \subseteq F_2^n$ given by $V \{ \vv \in \F_2^n | \sum_i \vv_i = 0\}$
+Thus, we have $|\FF| \leq \dim V = |E| - 1$.
+\end{enumerate}
+
+
+\item Two oddtowns
+
+First we note that, in the case where $\mathcal A = \emptyset $ or $\mathcal B = \emptyset$, the claim follows directly.
+Therefore, we can fix some $A \in \mathcal A, B \in \mathcal B$.
+Furthermore, note that $\emptyset \not\in\mathcal A$ as otherwise one would have that $ 0 = |\emptyset \cap B|$ is odd, a contradiction.
+Similarly, $\emptyset \not\in \mathcal B$.
+
+For each set $I \subseteq E$, define the vector $\vv_I \in \F_2^E$:
+$$ (\vv_I)_i =\begin{cases*}
+      & 1 \text{ if $i \in I$,}\\
+      & 0 \text{ otherwise.}
+    \end{cases*} $$
+
+Note that for $X \in \mathcal A,  Y \in \mathcal B$ we have that $\vv_X \cdot \vv_Y = 1$.
+Let $Q \coloneqq \spn \{ \vv_F - \vv_A  | F \in \mathcal A \} $ and $P \coloneqq \spn \{ \vv_F - \vv_B  | F \in \mathcal B \} $.
+Note that the maps $X \mapsto \vv_X - \vv_A$ and $X \mapsto \vv_X - \vv_B$ send $\mathcal A $ to $Q$ and $\mathcal B $ to $P$ injectively, thus we have $|\mathcal A| \leq |Q|$ and $|\mathcal B | \leq |P|$.
+Furthermore, $P, Q$ are vector spaces over $\F_2$, thus $|Q| = 2^{\dim Q}$ and $|P| = 2^{\dim P}$.
+We conclude the proof if we establish that $\dim Q + \dim P  \leq n - 1$.
+
+Let $\vx_1, \ldots, \vx_m$ be a basis of $Q$, and define the matrix $T = \begin{pmatrix}
+ \-- \-- \vx_1 \--\-- \\  \--\--  \vx_2 \-- \--\\ \vdots \\  \-- \-- \vx_m \--\-- \\  \--\--  \vv_A \--\--
+\end{pmatrix}$.
+Note that $\vv_A \not\in Q$: indeed, if $\vv_A = \sum_{F \in \mathcal A} \alpha_i (\vv_F - \vv_A)$, by taking the inner product by $\vv_B$ on both sides we have $1 = \sum_{F \in \mathcal A} \alpha_i (1 - 1) = 0$, a contradiction.
+Therefore $\rk T = \dim Q + 1$.
+Furthermore, $P \subseteq \ker T$: 
+indeed, if $X \in \mathcal A,  Y \in \mathcal B$, then $(\vv_X - \vv_A)\cdot (\vv_Y - \vv_B) = \vv_X\cdot \vv_Y - \vv_X\cdot \vv_B - \vv_A\cdot \vv_Y + \vv_A\cdot \vv_B = 0$.
+So $\nul\, T \geq \dim P$.
+Furthermore, if $Y \in \mathcal B$, then $\vv_A\cdot (\vv_Y - \vv_B) = \vv_A\cdot \vv_Y - \vv_A\cdot \vv_B = 0$.
+So $\nul\, T \geq \dim P$.
+By the rank nulity theorem we conclude that $|E| = \rk T  + \nul T \leq \dim Q + 1 + \dim P$, as desired.
+
+
+\item Colourings and coherent families
+
+
+
+
+\end{enumerate}
+\end{document}

@@ -1244,7 +1244,7 @@ Thus, by an inductive argument we have that $B_n^2 = n\Id_{2^n}$.
 Therefore, we conclude that $\spec\,~B_n~=~\{ \underbrace{\sqrt{n}, \ldots, \sqrt{n}}_{a \text{ times}}, \underbrace{-\sqrt{n}, \ldots, -\sqrt{n}}_{b \text{ times}} \}$. 
 
 Furthermore, $\tr B_n = 0 $ so $a\sqrt{n} - b\sqrt{n} = 0$ and $a+b = 2^n$.
-We conclude that we have $\spec B_n = \{ \underbrace{\sqrt{n}, \ldots, \sqrt{n}}_{2^{n-1} \text{ times}}, \underbrace{-\sqrt{n}, \ldots, -\sqrt{n}}_{2^{n-1} \text{ times}} \}$. 
+We conclude that we have $\spec \, B_n = \{ \underbrace{\sqrt{n}, \ldots, \sqrt{n}}_{2^{n-1} \text{ times}}, \underbrace{-\sqrt{n}, \ldots, -\sqrt{n}}_{2^{n-1} \text{ times}} \}$. 
 
 Let $W \subseteq V(C_n)$ be a collection of vertices of $C_n$ with $|W| > 2^{n-1}$.
 This corresponds to a $|W|\times |W|$ submatrix of $B_n$, call it $D$.
@@ -1497,7 +1497,7 @@ furthermore, this bound is tight.
 
 \begin{smpl}
 This example shows that the bound in \cref{thm:joints} is tight when $C = 3^{-3/_2}$.
-Incidentally, take an integer $n$, we can find $3n^2$ lines that intersect in $n^3$ joints. 
+Specifically, take an integer $n$, we can find $3n^2$ lines that intersect in $n^3$ joints. 
 For $n=3$ we can see the example in \cref{fig:joints}.
 The general construction is as follows: we take the collection of $n^2$ lines with direction $(0, 0, 1)$ that go through $(a, b, 0)$, where $a, b\in [n]$, $n^2$ lines with direction $(0, 1, 0)$ that go through $(a, 0, b)$, where $a, b\in [n]$, $n^2$ lines with direction $(1, 0, 0)$ that go through $(0, a, b)$, where $a, b\in [n]$.
 
@@ -1514,41 +1514,37 @@ Now, we establish the inequality for $C = 3^{3/_2}$.
 First, we show that for any collection of lines $\mathcal L$, there is a line with at most $3 J^{1/_3}$ joints.
 
 Once this is established, the theorem follows by iteratively removing a line from $\mathcal L$.
-Once this is done to completion so that there are no more lines left, we have removed at most $N 3 J^{1/_3}$ joints, so $J \leq 3 N J^{1/_3} \Rightarrow J \leq (3N)^{3/_2}$.
+Each removal takes away at most $3 J^{1/_3}$ joints with it.
+Once this is done to completion, so that there are no more lines left, we have removed at most $N 3 J^{1/_3}$ joints, so $J \leq 3 N J^{1/_3} \Rightarrow J \leq (3N)^{3/_2}$.
 
 
-Acting by contradiction, assume otherwise and consider a polynomial $p \in \R[x, y, z]$ such that 
+Acting by contradiction, assume that there is no line with at most $3 J^{1/_3}$ joints. 
+We consider a polynomial $p \in \R[x, y, z]$ such that 
 \begin{enumerate}
 \item It is non-zero;
 
 \item It vanishes at all joints;
 
-\item It has degree at most $J^{1/_3}$ on each variable.
+\item It has degree \textbf{on each variable} at most $J^{1/_3}$.
 \end{enumerate}
 
-Because a polynomial satisfying item 3 can be written as a combination of $(\lfloor J^{1/_3}\rfloor + 1)^3$ monomials, item 2 amounts to $J$ linear equations, such a non-zero polynomial exists.
-We pick $p$ that minimizes the degree, and consider the polynomials
-$$q_x \coloneqq \frac{\partial}{\partial x} p \, , q_y \coloneqq \frac{\partial}{\partial y} p \, , q_z \coloneqq \frac{\partial}{\partial z} p \, .$$
+A polynomial satisfying item 3 can be written as a combination of $(\lfloor J^{1/_3}\rfloor + 1)^3 > J$ monomials, item 2 amounts to $J$ linear equations, so by dimension analysis such a non-zero polynomial exists.
+We pick $p$ that minimizes the degree.
 
 The polynomial $p$ restricted to any line is a polynomial of degree at most $3J^{1/_3}$.
 Because each line has, by contradiction hypothesis, at least $3 J^{1/_3} + 1$ joints, this polynomial must be identically zero in each line.
 
-It follows that all directional derivatives of $p$ at each joint $\vj$ vanish, so $q(\vj) = 0$.
-Furthermore, $q$ also satisfies item 3 and has smaller degree than $p$.
-By minimality, we must have $q \equiv 0$, which means that 
-$$ p(x, y, z ) = ax +by + cz \, ,$$
-for some coefficients $a, b, c$.
+Consider the polynomials
+$$q_x \coloneqq \frac{\partial}{\partial x} p \, , q_y \coloneqq \frac{\partial}{\partial y} p \, , q_z \coloneqq \frac{\partial}{\partial z} p \, .$$
+It follows from the previous paragraph that all directional derivatives of $p$ at each joint $\vj$ vanish, so $p_x(\vj) = p_y(\vj) = p_z(\vj) = 0$.
 
-
-We conclude the proof by acting on induction. For $N = 3$ we necessarily have $J\leq 1 \leq 3^{3/_2} 3^{3/_2}$.
-No consider a collection of lines $\mathcal L$, and find the one line $\ell \in \mathcal L$ that has at most $3 J^{1/_3}$ joints.
-By induction hypothesis, there are at most $3^{3/_2} (N-1)^{3/_2}$ joints in $\mathcal L \setminus \{\ell \}$, so 
-$$ J \leq 3 J^{1/_3} + 3^{3/_2} (N-1)^{3/_2}\, , $$
-as desired.
+Furthermore, $p_x, p_y, p_z$ also satisfy item 3, as these polynomials have smaller degree than $p$.
+By minimality of $p$, we must have $p_x \equiv p_y \equiv p_z  \equiv 0$, which means that $p$ is the constant polynomial.
+This is a contradiction.
 \end{proof}
 
 
-\subsubsection{Efficient Projection}
+\subsubsection*{Efficient Projection}
 
 
 
@@ -1639,7 +1635,6 @@ $$ \rk \, B_0 \leq k \left( \frac{1}{2^{1/_k} e} \sqrt[k]{n'} - 1\right)  \leq  
 where $C = \frac{1}{2e}$.
 
 For the other side, note that $2 \log(\varepsilon^{-1}) \geq \log n$ implies $\varepsilon \leq n^{-.5}$
-
 \end{proof}
 
 
