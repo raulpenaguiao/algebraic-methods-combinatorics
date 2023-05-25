@@ -150,6 +150,7 @@ and each $\FF_{p_i^{\alpha_i}}$ is a $p_i^{\alpha_i}$-town, so if $c = \text{ nu
 $$|\FF | \leq \sum_i |\FF_{p_i^{\alpha_i}}| \leq c |E| \, . $$
 \end{enumerate}
 
+\vspace{.8cm}
 
 \item Reverse club problem
 
@@ -233,8 +234,49 @@ By the rank nulity theorem we conclude that $|E| = \rk T  + \nul T \leq \dim Q +
 
 \item Colourings and coherent families
 
+For each set $I \subseteq E$, define the vector $\vv_I \in \R^E$:
+$$ (\vv_I)_i =\begin{cases*}
+      & 1 \text{ if $i \in I$,}\\
+      & 0 \text{ otherwise.}
+    \end{cases*} $$
+Let $\mathcal B = \{\vv_1, \ldots, \vv_m\}$ and let $T = \begin{pmatrix}
+\-- \-- \vv_1 \-- \-- \\
+\vdots \\
+\-- \-- \vv_m \-- \-- 
+\end{pmatrix}$.
 
+Assume for sake of contradiction that $m < |E|$, so that $\rk T < |E|$, therefore there is some non-trivial vector $\vv \in \R^E$ such that $T \vv = 0$.
+Let $I_+ = \{e \in E | \vv_e > 0\}$, $I_0 = \{e \in E | \vv_e = 0\}$ and $I_- = \{e \in E | \vv_e < 0\}$.
 
+Let $\mathcal A \coloneqq \{ A \in \mathcal B | A \subseteq K\}$.
+Because $\vv \neq 0$, there is some non-zero entry in $\vv$, so $I_0\subsetneq E$.
+Therefore there exists a set $B \in \mathcal B$ such that $e \in B \not\subseteq I_0$ (remember that $\bigcup_{A \in \mathcal B} A = E$.
+That is, $\mathcal A \subsetneq \mathcal B$.
+Therefore $\mathcal A$ has a two colouring $J \uplus K = E$.
+We will use this colouring to construct a two colouing of $\mathcal B$, attaining a contradiction.
 
+Specifically, we claim that if $J' = I_+ \cup (J \cap I_0) $ and $K' = I_- \cup (K \cap I_0)$, then $J' \uplus K' = E$ is a two colouring of $\mathcal B$.
+
+\begin{itemize}
+\item The sets $J'$ and $K'$ are disjoints, since $I_+, I_0, I_-$ are pairwise disjoint and $J, K$ are disjoint:
+\begin{align*}
+J' \cap K' =& \left( I_+ \cup (J \cap I_0) \right) \cap \left( I_- \cup (K \cap I_0) \right)\\
+=& (I_+ \cap I_-) \cup (I_+ \cap K \cap I_0) \cup (J \cap I_0 \cap I_- ) \cup (J \cap I_0 \cap K \cap I_0) = \emptyset \, . 
+\end{align*}
+
+\item We indeed have $J' \cup K' = E$, as this is 
+$$I_+ \cup (J \cap I_0) \cup I_- \cup (K \cap I_0) = I_+ \cup I_- \cup (I_0 \cap (J \cup K)) = I_+ \cup I_- \cup I_0 = E\, . $$
+
+\item If $B \in \mathcal B \setminus \mathcal A$, then we have both $B \cap J' \neq \emptyset $ and $B \cap K' \neq \emptyset $.
+Indeed, we have $\vv_B \cdot \vv = 0 $, so $\sum_{e\in B} \vv_e = 0$.
+Because $B \subsetneq I_0$ there is some $e \in I_0$ such that $\vv_e \neq 0$, so there is some $f \in E$ such that $\vv_f\neq 0 $ and $\vv_e, \vv_f$ have opposite signs, in order for the sum to vanish, say $\vv_f <0 $ and $\vv_e > 0$.
+Therefore $e \in B \cap J'$ and $f \in B \cap K'$, so $J'\uplus K' $ is a two colouring.
+
+\item If $B \in \mathcal A$, then we have both $B \cap J' \neq \emptyset $ and $B \cap K' \neq \emptyset $.
+Indeed, by assumption we have that  $J\uplus K $ is a two-colouring of $\mathcal A$, so there are $e \in J\cap B$ and $f\in K\cap B$.
+Furthermore, because $B \in \mathcal A$, $B \subseteq I_0$, so $e \in J'$ and $f \in K'$, as desired. 
+\end{itemize}
+
+We get a contradiction with the fact that $m < |E|$, as desired.
 \end{enumerate}
 \end{document}
