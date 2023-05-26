@@ -1,0 +1,171 @@
+\documentclass[kulak]{tplt} 
+% options: kulak (default) or kul
+
+\title{Algebraic Methods in Combinatorics}
+\author{Assignment 3}
+\date{Summer semester 2022 -- 2023}
+\address{
+	\textbf{Max Planck Institute for the Mathematics in the Sciences} \\
+	\textbf{Universit\"at Leipzig}}
+
+
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbold}
+\usepackage{listings}
+\usepackage{lineno}
+%\usepackage[margin=3cm]{geometry}
+\usepackage[all,cmtip, color,matrix,arrow]{xy}
+%\usepackage{amsaddr}
+\usepackage{tikz-cd}
+\usepackage{amsmath}%To use \text 
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage[capitalize]{cleveref}
+\crefname{thm}{Theorem}{Theorems}
+%\usepackage{bbold}
+\usepackage[export]{adjustbox}
+\usepackage{todonotes}
+\usepackage{bm}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{mathtools}
+\usepackage{aliascnt}
+\newaliascnt{eqfloat}{equation}
+\newfloat{eqfloat}{h}{eqflts}
+\floatname{eqfloat}{Equation}
+\usepackage{dirtytalk}
+\usepackage[mathscr]{euscript}
+
+
+%\def\shuffle{\sqcup\mathchoice{\mkern-7mu}{\mkern-7mu}{\mkern-3.2mu}{\mkern-3.8mu}\sqcup\,}
+\newcommand{\qshuffle}{\overline{\shuffle}}
+
+
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lm}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{obs}[thm]{Observation}
+\newtheorem{defin}[thm]{Definition}
+\newtheorem{smpl}[thm]{Example}
+\newtheorem{quest}[thm]{Question}
+\newtheorem{exe}[thm]{Exercise}
+\newtheorem{const}[thm]{Construction}
+\newtheorem{prob}[thm]{Problem}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{rem}[thm]{Remark}
+\crefname{lm}{Lemma}{Lemmas}
+\crefname{thm}{Theorem}{Theorems}
+\crefname{prop}{Proposition}{Propositions}
+\crefname{defin}{Definition}{Definitions}
+\crefname{rem}{Remark}{Remarks}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\PP}{\mathbb{P}}
+
+\newcommand{\one}{\mathbb{1}}
+
+\newcommand{\CC}{\mathcal C}
+\newcommand{\JJ}{\mathcal J}
+\newcommand{\II}{\mathcal I}
+\newcommand{\BB}{\mathcal B}
+\newcommand{\FF}{\mathcal F}
+
+%vectors
+\newcommand{\vv}{\mathsf{v}}
+\newcommand{\vw}{\mathsf{w}}
+\newcommand{\vj}{\mathsf{j}}
+\newcommand{\vx}{\mathsf{x}}
+\newcommand{\vy}{\mathsf{y}}
+\newcommand{\va}{\mathsf{a}}
+
+\newcommand{\spn}{\mathrm{span}}
+\newcommand{\rk}{\mathrm{rk}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\conv}{\mathrm{conv}}
+\newcommand{\maxcut}{\mathrm{maxcut}}
+\newcommand{\we}{\mathrm{we}}
+
+
+\begin{document}
+
+\maketitle
+\begin{enumerate}
+\item 
+Fix an integer $n$, so that $\chi_G(n)$ is the number of proper colourings of $G$ using $n$ colours.
+Let $e = \{v_1, v_2\}$.
+Fix $f$ a proper colouring of $G\setminus e$.
+We have two distinct cases: either $f(v_1) \neq f(v_2)$, in which case $f$ is a proper colouring of the vertices of $G$, or $f(v_1) = f(v_2)$, in which case this induces $\hat{f}$ a colouring in $G/_e$ by setting $f(e) = f(v_1)$.
+This is a proper colouring, and in fact any proper colouring of $G/_e$ can be obtained in such a way, we conclude that 
+$$ \chi_{G\setminus e }(n) = \chi_G(n) + \chi_{G/_e}(n)\, . $$
+
+\item 
+\begin{enumerate}
+\item 
+Any proper colouring of $K_m$ has to use different colours for each vertex of the graph, so $\chi_{K_m}(n) = \frac{n!}{(n-m)!}$.
+
+\item 
+A proper colouring of the graph with no edges is simply a map $V(0_m) \to [n]$, so there are $\chi_{0_m}(n) = n^m$ many such colourings.
+
+
+\item 
+We claim that if a tree $T$ has $v$ vertices, then $\chi_T(n) = n(n-1)^v$.
+We use induction on $v$.
+If $v=1$, then the graph has no edges and so $\chi_T(n) = n^1 = n (n-1)^0$.
+
+For the induction step, let $e$ be a leaf of the tree, so that $T\setminus e = \{\vv\} \uplus T'$ for some smaller tree $T$.
+Therefore, $\chi_{T'\setminus e}(n) = n \chi_{T'}(n) = n^2(n-1)^{v-2}$, where we used the induction hypothesis on $T'$.
+On the other hand, $T/_e$ is also a tree, so $\chi_{T/_e}(n) = n (n-1)^{v-2}$.
+We conclude with the deletion contraction:
+$$\chi_T(n) = \chi_{T'\setminus e}(n) - \chi_{T/_e}(n) = n^2(n-1)^{v-2}  - n(n-1)^{v-2} = n(n-1)^{v-1} \, .  $$
+
+
+\item 
+Let $C_m$ be the cycle on $m$ vertices, and $T_m$ a path on $m$ vertices.
+If $m=3$ then $\chi_{C_3} = n(n-1)(n-2)$.
+Notice that deleting an edge on $C_{m+1}$ we get $T_{m+1}$, which is a tree, and contracting gives us $C_m$.
+Therefore, we use deletion contraction to get 
+$$\chi_{C_{m+1}}(n) =  \chi_{T_{m+1}}(n) - \chi_{C_m}(n) =  n(n-1)^m - \chi_{C_m}(n) \, . $$
+
+By summing this equation up to some $m$ we get, after using geometric series formulas, that
+$$\chi_{C_m}(n) = (n-1)^2\left( (-1)^m - (n-1)^{m-2}\right) \, . $$
+
+\end{enumerate}
+
+
+\item 
+Note that $A_{K_{m, n}}^2 = \begin{pmatrix}
+n J & 0 \\ 0 & mJ
+\end{pmatrix}$, where $J$ is the all-one matrix (either $m\times m$ or $n\times n$).
+The spectrum of this matrix is $\{ 0 ^{\times (m+n-2) }, mn^{\times 2}\}$.
+Indeed, any vector $\vv $ such that $\sum_{i=1}^m \vv_i = 0$ and $\sum_{i=m+1}^{m+n} \vv_i = 0$ has $A_{K_{m, n}}^2\vv =0 $ and the vectors $(\underbrace{1}_{m \text{ times}}, \underbrace{0}_{n \text{ times}})$ and  $ (\underbrace{0}_{m \text{ times}}, \underbrace{1}_{n \text{ times}})$ eigenvectors corresponding to the eigenvalue $mn$.
+
+Thus, $0$ is an eigenvalue of $A_{K{m, n}}$ with multiplicity $m+n-2$ and the values $\{ \sqrt{mn}, -\sqrt{mn}\}$ have combined multiplicity two.
+Because $\Tr A_{K_{m, n}} =0 $,  we have that 
+
+\item 
+\begin{enumerate}
+\item 
+
+\item 
+
+\item 
+
+\item 
+
+\end{enumerate}
+
+
+\item 
+
+\item 
+
+
+\end{enumerate}
+\end{document}

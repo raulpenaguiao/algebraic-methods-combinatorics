@@ -1,0 +1,180 @@
+\documentclass[kulak]{tplt} 
+% options: kulak (default) or kul
+
+\title{Algebraic Methods in Combinatorics}
+\author{Assignment 2}
+\date{Summer semester 2022 -- 2023}
+\address{
+	\textbf{Max Planck Institute for the Mathematics in the Sciences} \\
+	\textbf{Universit\"at Leipzig}}
+
+
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbold}
+\usepackage{listings}
+\usepackage{lineno}
+%\usepackage[margin=3cm]{geometry}
+\usepackage[all,cmtip, color,matrix,arrow]{xy}
+%\usepackage{amsaddr}
+\usepackage{tikz-cd}
+\usepackage{amsmath}%To use \text 
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage[capitalize]{cleveref}
+\crefname{thm}{Theorem}{Theorems}
+%\usepackage{bbold}
+\usepackage[export]{adjustbox}
+\usepackage{todonotes}
+\usepackage{bm}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{mathtools}
+\usepackage{aliascnt}
+\newaliascnt{eqfloat}{equation}
+\newfloat{eqfloat}{h}{eqflts}
+\floatname{eqfloat}{Equation}
+\usepackage{dirtytalk}
+\usepackage[mathscr]{euscript}
+
+
+%\def\shuffle{\sqcup\mathchoice{\mkern-7mu}{\mkern-7mu}{\mkern-3.2mu}{\mkern-3.8mu}\sqcup\,}
+\newcommand{\qshuffle}{\overline{\shuffle}}
+
+
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lm}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{obs}[thm]{Observation}
+\newtheorem{defin}[thm]{Definition}
+\newtheorem{smpl}[thm]{Example}
+\newtheorem{quest}[thm]{Question}
+\newtheorem{exe}[thm]{Exercise}
+\newtheorem{const}[thm]{Construction}
+\newtheorem{prob}[thm]{Problem}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{rem}[thm]{Remark}
+\crefname{lm}{Lemma}{Lemmas}
+\crefname{thm}{Theorem}{Theorems}
+\crefname{prop}{Proposition}{Propositions}
+\crefname{defin}{Definition}{Definitions}
+\crefname{rem}{Remark}{Remarks}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\PP}{\mathbb{P}}
+
+\newcommand{\one}{\mathbb{1}}
+
+\newcommand{\CC}{\mathcal C}
+\newcommand{\JJ}{\mathcal J}
+\newcommand{\II}{\mathcal I}
+\newcommand{\BB}{\mathcal B}
+\newcommand{\FF}{\mathcal F}
+
+%vectors
+\newcommand{\vv}{\mathsf{v}}
+\newcommand{\vw}{\mathsf{w}}
+\newcommand{\vj}{\mathsf{j}}
+\newcommand{\vx}{\mathsf{x}}
+\newcommand{\vy}{\mathsf{y}}
+\newcommand{\va}{\mathsf{a}}
+\newcommand{\ve}{\mathsf{e}}
+
+\newcommand{\spn}{\mathrm{span}}
+\newcommand{\rowspn}{\mathrm{rowspan}}
+\newcommand{\rk}{\mathrm{rk}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\conv}{\mathrm{conv}}
+\newcommand{\maxcut}{\mathrm{maxcut}}
+\newcommand{\we}{\mathrm{we}}
+\newcommand{\spec}{\mathrm{spec}}
+
+
+\begin{document}
+
+\maketitle
+\begin{enumerate}
+\item Prove the deletion contraction relation on the chromatic polynomial of a graph.
+That is, let $G$ be a graph and $e$ is any edge in $G$.
+Denote by $G\setminus e $ the deletion of the edge $e$ from $G$, and $G /_e$ the contraction of the edge $e$ in $G$ (defined in the lecture notes).
+Show that
+$$ \chi_G(n) = \chi_{G\setminus e}(n) - \chi_{G /_e}(n)\, . $$
+
+\item Compute the chromatic polynomial of simple graphs
+
+\begin{enumerate}
+\item Compute the chromatic polynomial of a complete graph on $m$ vertices $K_m$.
+
+\item Compute the chromatic polynomial of the graph with no edges.
+
+\item Compute the chromatic polynomial of any tree graph (that is, connected and acyclic graph).
+
+\item Compute the chromatic polynomial of a cycle of length $m$.
+Use deletion contraction.
+\end{enumerate}
+
+
+
+\item Compute the spectrum of a complete bipartite graph $K_{m, n}$.
+Hint: Compute $A_{K_{m, n}}^2$.
+
+
+
+\item Prove helpful theorems on the spectrum of graphs.
+Write as usual $\spec \, G = \{\lambda_1 \leq \cdots \leq \lambda_n \}$, and consider the corresponding eigenbasis $\{\vv_1, \ldots, \vv_n\}$.
+
+
+\begin{enumerate}
+\item If $G$ is a $d$-regular graph, then $\lambda_1 = d$ and $\vv_1 = d\mathbb{1}$.
+
+\item If $G$ is connected, then $\lambda_1 \neq \lambda_2$.
+
+\item A graph $G$ is bipartite if and only if $\spec \, G = - \spec \, G$.
+
+\item If a graph $G$ is $d$-regular, and $\overline{G}$ is the complementary graph, then $\spec \, \overline{G} = \{ \overline{\lambda_{n+1}}, \overline{\lambda_{n}}, \ldots, \overline{\lambda_{3}}, \overline{\lambda_{2}} \}$, where $\overline{\lambda_{n+1}} = n - d + 1$ and $\overline{\lambda_i} = - 1 - \lambda _ i$.
+Show that the corresponding eigenbasis is the same.
+\end{enumerate}
+
+
+\item Compute the spectrum of the Petersen graph.
+For that, take advantage of the previous exercise, and note that the complement of the Petersen graph is the line graph of $K_5$.
+
+\item In this exercise we will compute the spectrum of the Kneser graph.
+Recall that the Kresner graph $K(E, r)$ is the graph with vertex set $V = \binom{E}{r}$ and two vertices $A, B$ share an edge if $A \cap B = \emptyset$.
+We work on the vector space $\R^V$, where vectors are indexed by subsets of $E$ with $r$ elements.
+Let $e = |E|$.
+
+For $i, j = 0, \ldots, r$, define the matrices $M_{i, j} = [m_{I, J}]_{\substack{I\in \binom{E}{i} \\ J \in \binom{E}{j}}}$ and $\overline{M_{i, j}} = [\overline{m_{I, J}}]_{\substack{I\in \binom{E}{i} \\ J \in \binom{E}{j}}}$ such that 
+
+$$ m_{I, J} =\begin{cases*}
+      & 1 \text{ if $I \subseteq J$,}\\
+      & 0 \text{ otherwise,}
+    \end{cases*}  \quad \quad \quad 
+     \overline{m_{I, J}} =\begin{cases*}
+      & 1 \text{ if $I \cap J = \emptyset $,}\\
+      & 0 \text{ otherwise.}
+    \end{cases*}  $$
+
+Note that $A_{K(E, r)} = \overline{M_{r, r}}$.
+Define $V^i = \rowspn M_{i, r} \subseteq \R^V$.
+
+\begin{enumerate}
+\item Show that $V^i \subseteq V^{i+1}$ and $\dim V^i = \binom{e}{i}$ for $i=0, \ldots, r$.
+
+\item Show that $\rowspn \overline{M_{i, r}} = \rowspn M_{i, r} = V^i$.
+
+\item Show that $M_{i, j} \overline{M_{j, k}} = \overline{M_{i, k}} \binom{e - k - i}{j-i}$ and that $\overline{M_{i, i}} = \sum_{l=0}^i (-1)^l M_{l, i}^TM_{l, j}$.
+
+\item Show that if $\vv \in V^i \cap (V^{i-1})^{\perp}$, then $(-1)^i \vv A_G = \binom{e-r-i}{r-i} \vv $.
+
+\end{enumerate}
+
+
+\end{enumerate}
+\end{document}
