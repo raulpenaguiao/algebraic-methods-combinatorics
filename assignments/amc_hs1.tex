@@ -101,9 +101,9 @@
 \begin{enumerate}
 \item Generalised Fischer inequality
 
-First we note that $\FF $ is indeed an $L$-Fischer family, as $1234 \cap 125 = 12 $ has size $2$, $1234 \cap 235 = 23 $ has size $2$, $125 \cap 235 = 25 $ also has size $2$.
+First we note that $\FF $ is indeed an $L$-Fischer family, as $1234 \cap 125 = 12 $ has size $2$, $1234 \cap 235 = 23 $ has size $2$, and $125 \cap 235 = 25 $ also has size $2$.
 
-We order $\FF $ as $F_1 = 125$, $F_2 = 235$ and $F_3 = 1234$.
+We order the sets in $\FF $: $F_1 = 125$, $F_2 = 235$ and $F_3 = 1234$.
 This ensures that $|F_1 | \leq |F_2| \leq |F_3|$.
 In this way recall that
 $$f_i (\vx) = \prod_{\substack{\ell \in L \\ \ell < |F_i|}} (\vx \cdot \vv_{F_i} - \ell ) \, . $$
@@ -129,12 +129,14 @@ We will show that $\{\vv_F\}_{F\in \FF}$ is linearly independent.
 Assume that $\sum_{F \in \FF} \alpha_F \vv_F = \vec{0}$, where each $\alpha_F \in \Q$.
 Assume that at least one $\alpha_F$ is non-zero.
 By multiplying by a constant, we can clear denominators and make is so that all $\alpha_F$ are integers.
-By possibly devidint by $p$ as many times as necessary, we can make it so that for at least one set $H\in \FF$, $\alpha_H$ is not a multiple of $p$.
+By possibly dividing by $p$ as many times as necessary, we can make it so that for at least one set $H\in \FF$, $\alpha_H$ is not a multiple of $p$.
+Fix such a collection $\{\alpha_F\}_{F \in \FF}$ and set $H$.
 
-By taking the inner product by $\vv_H$ in both sides of $\sum_{F \in \FF} \alpha_F \vv_F = \vec{0}$, and taking into account that $\vv_F \cdot \vv_H = |F \cap H|$ is a multiple of $s$ for $F\neq H$ in $\FF$, we get
-$$\alpha_H |H| + \sum_{\substack{F \in \FF\\ F \neq H}} \alpha_F |F \cap H| =  0 , \, $$
-however, the left hand side is not a multiple of $s$, a contradiction with the assumption that some $\alpha_F$ is non-zero.
-We conclude that $\{\vv_F\}_{F\in \FF}$ is linearly independent, and so $|\FF | \leq |E|$.
+By taking the inner product by $\vv_H$ in both sides of $\sum_{F \in \FF} \alpha_F \vv_F = \vec{0}$, we get
+$$\alpha_H |H| + \sum_{\substack{F \in \FF\\ F \neq H}} \alpha_F |F \cap H| =  0  \, .$$
+
+Taking into account that $\vv_F \cdot \vv_H = |F \cap H|$ is a multiple of $s$ for $F\neq H$ in $\FF$, the left hand side is not a multiple of $s$, a contradiction with the assumption that $\{\vv_F\}_{F\in \FF}$ is linearly dependent.
+So $|\FF | \leq |E|$.
 
 \item 
 Let $\FF_k \coloneqq \{F \in \FF | \text{ $k$ does not divide $|F|$ } \}$.
@@ -174,14 +176,14 @@ Fix $T \in \FF$.
 We claim that either $\{\vv_F\}_{F \in \FF}$ is linearly independent, or $\{\mathbb{1}\} \cup \{\vv_F\}_{\substack{F \in \FF \\ F \neq T}}$ is linearly independent.
 In either case, the inequality $|\FF| \leq |E|$ follows.
 
-Indeed, assume that $|\FF|$ is even, and consider a linear combination $\sum_{F\in \FF} \alpha_F \vv_F = 0$.
+Indeed, assume that $|\FF|$ is even, and consider a linear combination $\sum_{F\in \FF} \alpha_F \vv_F = \vec{0}$.
 By taking the inner product with $\vv_G$ for some $G\in \FF$ on both sides gives us $\sum_{\substack{F\in \FF\\ F \neq G}} \alpha_F = 0$.
 Fix $H \in \FF$.
 Summing these equations for all $G \in\FF \setminus \{H \}$ gives us $(|\FF| - 1 ) \alpha_H +  \sum_{\substack{F \in \FF \\ F \neq H}} (|\FF| - 2 ) \alpha_F = 0$.
 Note that $|\FF| = 2 $ in $\F_2$, so this gives us $\alpha_H  = 0$.
-Since $H$ was generic, we conclude that $\alpha_H =0 $ for any $\in \FF$, and $\{\vv_F\}_{F \in \FF}$ is linearly independent.
+Since $H$ was generic, we conclude that $\alpha_H =0 $ for any $H \in \FF$, and $\{\vv_F\}_{F \in \FF}$ is linearly independent.
 
-Assume now that $|\FF|$ is odd, and consider a linear combination $\alpha_0 \mathbb{1} + \sum_{\substack{F\in \FF \\ F \neq T}} \alpha_F \vv_F = 0$.
+Assume now that $|\FF|$ is odd, and consider a linear combination $\alpha_0 \mathbb{1} + \sum_{\substack{F\in \FF \\ F \neq T}} \alpha_F \vv_F = \vec{0}$.
 Taking the inner product with $\vv_G $ for $G\in \FF\setminus\{T\}$ gives $ \sum_{\substack{F\in \FF \\ F \neq T, F \neq G}} \alpha_F = 0$.
 Fix $H \in \FF$ different from $T$.
 Summing all equations for all sets $G \in \FF\setminus \{T, H\}$ gives us 
@@ -194,18 +196,18 @@ Thus $\{\mathbb{1}\} \cup \{\vv_F\}_{\substack{F \in \FF \\ F \neq T}}$ is linea
 
 \item 
 If $|E|$ is even, we can improve the argument above to show that $|\FF| \leq |E| - 1$.
-Specifically, we have that either $\{\vv_F\}_{F \in \FF}$ is linearly independent, or $\{\mathbb{1}\} \cup \{\vv_F\}_{\substack{F \in \FF \\ F \neq T}}$ is linearly independent.
-We note that each of these sets are in fact in the vector subspace $V \subseteq F_2^n$ given by $V \{ \vv \in \F_2^n | \sum_i \vv_i = 0\}$
+Specifically, recall that we have that either $\{\vv_F\}_{F \in \FF}$ is linearly independent, or $\{\mathbb{1}\} \cup \{\vv_F\}_{\substack{F \in \FF \\ F \neq T}}$ is linearly independent.
+Now we note that each of these sets are in fact in the vector subspace $V \subseteq F_2^n$ given by $V \{ \vv \in \F_2^n | \sum_i \vv_i = 0\}$, which has dimension $|E|-1$.
 Thus, we have $|\FF| \leq \dim V = |E| - 1$.
 \end{enumerate}
 
 
 \item Two oddtowns
 
-First we note that, in the case where $\mathcal A = \emptyset $ or $\mathcal B = \emptyset$, the claim follows directly.
-Therefore, we can fix some $A \in \mathcal A, B \in \mathcal B$.
-Furthermore, note that $\emptyset \not\in\mathcal A$ as otherwise one would have that $ 0 = |\emptyset \cap B|$ is odd, a contradiction.
-Similarly, $\emptyset \not\in \mathcal B$.
+First we note that, in the case where $\mathcal B = \emptyset $ or $\mathcal C = \emptyset$, the claim follows directly.
+Therefore, we can fix some $B \in \mathcal B, C \in \mathcal C$.
+Furthermore, note that $\emptyset \not\in\mathcal B$ as otherwise one would have that $ 0 = |\emptyset \cap C|$ is odd, a contradiction.
+Similarly, $\emptyset \not\in \mathcal C$.
 
 For each set $I \subseteq E$, define the vector $\vv_I \in \F_2^E$:
 $$ (\vv_I)_i =\begin{cases*}
@@ -213,23 +215,22 @@ $$ (\vv_I)_i =\begin{cases*}
       & 0 \text{ otherwise.}
     \end{cases*} $$
 
-Note that for $X \in \mathcal A,  Y \in \mathcal B$ we have that $\vv_X \cdot \vv_Y = 1$.
-Let $Q \coloneqq \spn \{ \vv_F - \vv_A  | F \in \mathcal A \} $ and $P \coloneqq \spn \{ \vv_F - \vv_B  | F \in \mathcal B \} $.
-Note that the maps $X \mapsto \vv_X - \vv_A$ and $X \mapsto \vv_X - \vv_B$ send $\mathcal A $ to $Q$ and $\mathcal B $ to $P$ injectively, thus we have $|\mathcal A| \leq |Q|$ and $|\mathcal B | \leq |P|$.
+Note that for $X \in \mathcal B,  Y \in \mathcal C$ we have that $\vv_X \cdot \vv_Y = 1$.
+Let $Q \coloneqq \spn \{ \vv_F - \vv_B  | F \in \mathcal B \} $ and $P \coloneqq \spn \{ \vv_F - \vv_C  | F \in \mathcal C \} $.
+Note that the maps $X \mapsto \vv_X - \vv_B$ and $X \mapsto \vv_X - \vv_C$ send $\mathcal B $ to $Q$ and $\mathcal C $ to $P$ injectively, thus we have $|\mathcal B| \leq |Q|$ and $|\mathcal C | \leq |P|$.
 Furthermore, $P, Q$ are vector spaces over $\F_2$, thus $|Q| = 2^{\dim Q}$ and $|P| = 2^{\dim P}$.
 We conclude the proof if we establish that $\dim Q + \dim P  \leq n - 1$.
 
 Let $\vx_1, \ldots, \vx_m$ be a basis of $Q$, and define the matrix $T = \begin{pmatrix}
  \-- \-- \vx_1 \--\-- \\  \--\--  \vx_2 \-- \--\\ \vdots \\  \-- \-- \vx_m \--\-- \\  \--\--  \vv_A \--\--
 \end{pmatrix}$.
-Note that $\vv_A \not\in Q$: indeed, if $\vv_A = \sum_{F \in \mathcal A} \alpha_i (\vv_F - \vv_A)$, by taking the inner product by $\vv_B$ on both sides we have $1 = \sum_{F \in \mathcal A} \alpha_i (1 - 1) = 0$, a contradiction.
-Therefore $\rk T = \dim Q + 1$.
-Furthermore, $P \subseteq \ker T$: 
-indeed, if $X \in \mathcal A,  Y \in \mathcal B$, then $(\vv_X - \vv_A)\cdot (\vv_Y - \vv_B) = \vv_X\cdot \vv_Y - \vv_X\cdot \vv_B - \vv_A\cdot \vv_Y + \vv_A\cdot \vv_B = 0$.
+Note that $\vv_B \not\in Q$: indeed, if $\vv_B = \sum_{F \in \mathcal B} \alpha_i (\vv_F - \vv_B)$, by taking the inner product by $\vv_C$ on both sides we have $1 = \sum_{F \in \mathcal B} \alpha_i (1 - 1) = 0$, a contradiction.
+Therefore $\rk\, T = \dim Q + 1$.
+Furthermore, $P \subseteq \ker \, T$.
+Indeed, if $X \in \mathcal B,  Y \in \mathcal C$, then $(\vv_X - \vv_B)\cdot (\vv_Y - \vv_C) = \vv_X\cdot \vv_Y - \vv_X\cdot \vv_C - \vv_B\cdot \vv_Y + \vv_B\cdot \vv_C = 0$.
+In addition, if $Y \in \mathcal C$, then $\vv_B\cdot (\vv_Y - \vv_C) = \vv_B\cdot \vv_Y - \vv_B\cdot \vv_C = 0$.
 So $\nul\, T \geq \dim P$.
-Furthermore, if $Y \in \mathcal B$, then $\vv_A\cdot (\vv_Y - \vv_B) = \vv_A\cdot \vv_Y - \vv_A\cdot \vv_B = 0$.
-So $\nul\, T \geq \dim P$.
-By the rank nulity theorem we conclude that $|E| = \rk T  + \nul T \leq \dim Q + 1 + \dim P$, as desired.
+By the rank nulity theorem we conclude that $|E| = \rk \, T  + \nul \, T \leq \dim Q + 1 + \dim P$, as desired.
 
 
 \item Colourings and coherent families
@@ -245,20 +246,21 @@ Let $\mathcal B = \{\vv_1, \ldots, \vv_m\}$ and let $T = \begin{pmatrix}
 \-- \-- \vv_m \-- \-- 
 \end{pmatrix}$.
 
-Assume for sake of contradiction that $m < |E|$, so that $\rk T < |E|$, therefore there is some non-trivial vector $\vv \in \R^E$ such that $T \vv = 0$.
+Assume for sake of contradiction that $m < |E|$, so that $\rk \, T < |E|$, therefore there is some non-trivial vector $\vv \in \R^E$ such that $T \vv = 0$.
 Let $I_+ = \{e \in E | \vv_e > 0\}$, $I_0 = \{e \in E | \vv_e = 0\}$ and $I_- = \{e \in E | \vv_e < 0\}$.
 
 Let $\mathcal A \coloneqq \{ A \in \mathcal B | A \subseteq K\}$.
 Because $\vv \neq 0$, there is some non-zero entry in $\vv$, so $I_0\subsetneq E$.
-Therefore there exists a set $B \in \mathcal B$ such that $e \in B \not\subseteq I_0$ (remember that $\bigcup_{A \in \mathcal B} A = E$.
+Therefore there exists a set $B \in \mathcal B$ such that $B \not\subseteq I_0$ (remember that $\bigcup_{A \in \mathcal B} A = E$).
 That is, $\mathcal A \subsetneq \mathcal B$.
 Therefore $\mathcal A$ has a two colouring $J \uplus K = E$.
-We will use this colouring to construct a two colouing of $\mathcal B$, attaining a contradiction.
+We will use this colouring to construct a two colouring of $\mathcal B$, attaining a contradiction.
 
 Specifically, we claim that if $J' = I_+ \cup (J \cap I_0) $ and $K' = I_- \cup (K \cap I_0)$, then $J' \uplus K' = E$ is a two colouring of $\mathcal B$.
+We will prove each of the necessary claims to establish this: The sets $J'$ and $K'$ are disjoint, with $J' \cup K' = E$ and also that f $B \in \mathcal B$, then we have both $B \cap J' \neq \emptyset $ and $B \cap K' \neq \emptyset $.
 
 \begin{itemize}
-\item The sets $J'$ and $K'$ are disjoints, since $I_+, I_0, I_-$ are pairwise disjoint and $J, K$ are disjoint:
+\item The sets $J'$ and $K'$ are disjoint sets, since $I_+, I_0, I_-$ are pairwise disjoint and $J, K$ are disjoint:
 \begin{align*}
 J' \cap K' =& \left( I_+ \cup (J \cap I_0) \right) \cap \left( I_- \cup (K \cap I_0) \right)\\
 =& (I_+ \cap I_-) \cup (I_+ \cap K \cap I_0) \cup (J \cap I_0 \cap I_- ) \cup (J \cap I_0 \cap K \cap I_0) = \emptyset \, . 
@@ -269,7 +271,8 @@ $$I_+ \cup (J \cap I_0) \cup I_- \cup (K \cap I_0) = I_+ \cup I_- \cup (I_0 \cap
 
 \item If $B \in \mathcal B \setminus \mathcal A$, then we have both $B \cap J' \neq \emptyset $ and $B \cap K' \neq \emptyset $.
 Indeed, we have $\vv_B \cdot \vv = 0 $, so $\sum_{e\in B} \vv_e = 0$.
-Because $B \subsetneq I_0$ there is some $e \in I_0$ such that $\vv_e \neq 0$, so there is some $f \in E$ such that $\vv_f\neq 0 $ and $\vv_e, \vv_f$ have opposite signs, in order for the sum to vanish, say $\vv_f <0 $ and $\vv_e > 0$.
+Because $B \subsetneq I_0$ there is some $e \in I_0$ such that $\vv_e \neq 0$.
+Such index cannot be unique, because $\sum_{\substack{e\in B \\ \vv_e \neq 0}} \vv_e  = \sum_{e\in B} \vv_e = 0$ so there is some $f \in E$ such that $\vv_f\neq 0 $ and $\vv_e, \vv_f$ have opposite signs, say $\vv_f <0 $ and $\vv_e > 0$.
 Therefore $e \in B \cap J'$ and $f \in B \cap K'$, so $J'\uplus K' $ is a two colouring.
 
 \item If $B \in \mathcal A$, then we have both $B \cap J' \neq \emptyset $ and $B \cap K' \neq \emptyset $.
@@ -277,6 +280,6 @@ Indeed, by assumption we have that  $J\uplus K $ is a two-colouring of $\mathcal
 Furthermore, because $B \in \mathcal A$, $B \subseteq I_0$, so $e \in J'$ and $f \in K'$, as desired. 
 \end{itemize}
 
-We get a contradiction with the fact that $m < |E|$, as desired.
+The existence of a two colouring of $\mathcal B$ is a contradiction, as desired.
 \end{enumerate}
 \end{document}
