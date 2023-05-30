@@ -1543,8 +1543,173 @@ By minimality of $p$, we must have $p_x \equiv p_y \equiv p_z  \equiv 0$, which 
 This is a contradiction.
 \end{proof}
 
+\subsubsection*{Borsuk conjecture}
 
-\subsubsection*{Efficient Projection}
+\begin{conj}[Borsuk's conjecture]
+
+\end{conj}
+
+As it turns out, this conjecture is false, and we will use Frankl-Wilson's construction to provide a counterexample.
+
+
+\begin{smpl}
+\end{smpl}
+
+
+\subsection{Convex geometry}
+
+A set $C \subseteq \R^d$ is said to be \textbf{convex} if for any points $\vx, \vy \in C$ and a real $\lambda \in [0, 1]$ we have $t\vx + (1-t)\vy \in C$.
+The \textbf{convex hull} of a set $S$ is the smallest convex set $\conv S $ that contains $S$.
+Because the convexity condition is closed for arbitrary intersections, it can be defined as $\conv S \coloneqq \bigcap_{S \subseteq C \text{ convex}} C$ or equivalently
+$$ \conv S = \{ \sum_{i=1}^m \alpha_i\vv_i | \vv_i \in S, \, \alpha_i \in [0, 1], \sum_i \alpha_i = 1\} \, . $$
+
+
+\begin{thm}[Caratheodory Theorem]
+Let $S \subseteq \R^d$.
+If $\vv \in \conv (S)$ then $\vv = \sum_{i=1}^{d+1} \alpha_i \va_i$ for some $\va_i \in S, \alpha_i \in \R_{\geq 0}$, such that $\sum_i \alpha_i = 1$.
+\end{thm}
+
+\begin{proof}
+Because $\vv \in \conv S$, there is an integer $m$, real numbers $\alpha_1, \ldots, \alpha_m $ and vectors $\vx_1, \ldots, \vx_m \in S $ such that $\vv = \sum_{i=1}^{m} \alpha_i \va_i$ and $\sum_i \alpha_i = 1$.
+The ones that give us $m$ minimal, and assume for sake of contradiction that $m > d+1$.
+
+For each $i \in [m]$, let $\vv_{i} = (\vx_i , 1)$.
+Because $m > d+1$, the vectors $\{ \vv_i \}_{i=1}^m$ are linearly dependent, so there is some non-trivial vanishing linear combination $\sum_{i=1}^m \beta_i \vv_i = 0$.
+Note that this gives us $\sum_{i=1}^m \vx_i = 0 $ and $\sum_i \beta_i = 0$, therefore we have, for any real $t$, that $\vv = \sum_{i=1}^{m} (\alpha_i - t \beta_i) \va_i$ and $\sum_i ( \alpha_i  - t \beta_i ) = 1$.
+
+The proof is concluded when we will find $t$ such that $\alpha_i - t \beta_i \geq 0$.
+Indeed, let $t_0 = \min_{i : \beta_i > 0} \frac{\alpha_i}{\beta_i}$.
+Because $\sum_i \beta_i = 0$ and the linear combination $\sum_{i=1}^m \beta_i \vv_i$ was taken to be non-trivial, there is some $\beta_i > 0$, so $t_0 $ is well defined and positive.
+The minimality condition guarantees that for each $i$ we have $\alpha_i - t_0 \beta_i \geq 0$.
+Furthermore, there is an index $I$ such that $\alpha_i - t_0 \beta_i = 0$.
+This means we can write $\vv = \sum_{i=1, i \neq I}^{m} (\alpha_i - t \beta_i) \va_i$.
+This contradicts the minimality of $m$.
+\end{proof}
+
+
+
+\begin{lm}[Radon's Lemma]\label{lm:radon}
+If $S\subseteq \R^d$ with $|S| \geq d+2$ there exists a partition $S = L \uplus R$ such that $$\conv (L) \cap \conv (R) \neq \emptyset \, .$$
+\end{lm}
+
+We observe that this is tight.
+Indeed, if we take $S$ to be $d+1$ points in general position, then no such partition can be found.
+
+\begin{proof}
+Let $S = \{\vv_1, \ldots, \vv_m \}$ with $m\geq d+2$.
+Let $\vx_i = (\vv_i, 1)\in \R^{d+1}$.
+These are linearly dependent vectors, so there is some non-trivial linear combination $\sum_{i=1}^m \beta_i \vx_i = 0$.
+This means that $\sum_{i=1}^m \beta_i = 0$ and $\sum_{i=1}^m \beta_i \vv_i = 0$.
+
+Let $I = \{i\in [m] | \beta_i  > 0 \}$ and $J = \{j\in [m] | \beta_j < 0 \}$.
+Define $b = \sum_{i\in I} \beta_i = \sum_{j\in J} - \beta_j$.
+Because $(\beta_i)_{i=1}^m$ is non-trivial, $B>0$.
+
+Thus, we can take $\vec{s} = \sum_{i\in I} \frac{\beta_i}{B} \vv_i = \sum_{j\in J}\frac{-\beta_j}{B}\vx_i$.
+This satisfies both $\vec{s} \in \conv \{\vx_i\}_{i\in I}$ and $\vec{s} \in \conv \{\vx_j\}_{j\in J}$, so these have non-empty intersections, as desired.
+\end{proof}
+
+
+\begin{thm}[Helly's theorem]
+Let $m, d $ be integers such that $m \geq d+1$.
+Take $C_1, \ldots , C_m \subseteq \R^d$ convex sets such that every $d+1$ many such sets have non-empty intersection.
+Then 
+$$\bigcap_i C_i \neq \emptyset \, . $$
+\end{thm}
+
+\begin{proof}
+We use induction on $m$.
+The theorem is imediate for $m = d+1$, as the theorem condition is the same as the desired result.
+
+We now prove the induction step.
+Take $m$ and a collection $\{C_i\}_{i=1}^m$ of convex sets such that every $d+1$ many such sets have non-empty intersection, but $\bigcap_i C_i = \emptyset$.
+
+By induction hypothesis, for each $j = 1, \ldots, m$ we have some $a_j \in \bigcap_{\substack{i=1 \\ i\neq j}}^m C_i$.
+By \cref{lm:radon}, there is a partition $\{a_j\}_{j=1}^m = I \uplus J$ such that $\conv \, I \cap \conv \, J \neq \emptyset$.
+Let $\vx \in \conv \, I \cap \conv \, J $.
+We will show that $\vx \in \bigcap_i C_i$.
+
+Assume with no loss of generality that $I = \{a_1, \ldots, a_l\} $ and $J= \{ a_{l+1} , \ldots, a_m\}$.
+We have that $\vx \in C_i$ for $i = 1, \ldots, l$, as for these $i$ we have $J \subseteq  C_i$, so $\conv \, J \subseteq C_i$.
+Symilarly, we have that $\vx \in C_i$ for $i = l+1, \ldots, m$, as for these $i$ we have $I \subseteq  C_i$, so $\conv \, I \subseteq C_i$.
+We conclude that $\vx \in \bigcap_i C_i$
+\end{proof}
+
+
+Any hyperplane $h \subseteq \R^d$ disconnects $\R^d \setminus h$ into two components.
+We write $h^+$ and $h^-$ for these open sets, and $\overline{h}^+$, $\overline{h}^-$ for their respective closures.
+These closed sets are called \textbf{hyperspaces}.
+
+\begin{defin}[Centerpoint]
+Given a finite set $X \subseteq \R^d$, an $\alpha$-centerpoint $\vy \in \R^d$ is a point such that, for any hyperplane $h$ that contains $\vy$ we get
+$$ |X \cap h^+|, |X\cap h^-| \geq \alpha |X| \, . $$
+\end{defin}
+
+\begin{thm}[Centerpoint theorem]\label{thm:centerpoint}
+Every finite set $X$ has an $\alpha$-centerpoint for $\alpha = \frac{1}{2}$.
+\end{thm}
+
+\begin{obs}
+This is tight.
+Indeed, assume that $\alpha > \frac{1}{d}$, if we take $X$ to be a collection of $d+1$ points in $\R^d$ in general position, these generate $d+1$ distinct hyperplanes $D_1, \ldots, D_{d+1}$.
+Any $\alpha$-centerpoint $\vy$ is contained in a hyperplane parallel to each $D_i$, and the condition $|X \cap h^+|, |X\cap h^-| \geq \alpha |X|$ forces this hyperplane to be precisely $D_i$.
+However, there is no point $\vy \in \bigcap_i D_i = \emptyset$.
+\end{obs}
+
+\begin{proof}[Proof of \cref{thm:centerpoint}]
+Consider $\mathcal X $ the collection of hyperspaces $\overline{h}^+$ that contain at least $\frac{d}{d+1}|X|$ points of $X$, and let 
+$$ \mathcal Y \coloneqq \{ \conv \, (\overline{h}^+ \cap X) | \overline{h}^+ \in \mathcal X \}\, . $$
+
+Note that $\mathcal Y $ is finite, as there are only finitely many subsets of $X$.
+We claim that $\bigcap_{Y \in \mathcal Y} Y \neq \emptyset$.
+Indeed, from \cref{thm:helly}, it is sufficient to show that for any $d+1$ sets $C_1, \ldots, C_{d+1} \in \mathcal Y$ we have $\bigcup_{i=1}^{d+1} C_i \neq \emptyset$.
+
+\begin{align*}
+|X \cap C_1\cap \cdots \cap C_{d+1} |  &= |X| - |X \cap (C_1 \cap \cdots \cap C_{d+1})^c | \\
+&= |X| - |X \cap (C_1^c \cup \cdots \cup C_{d+1}^c) | \\
+&= |X| - |(X \cap C_1^c) \cup \cdots \cup (X \cap C_{d+1}^c)|\\
+&\geq |X| - \sum_i |(X \cap C_i^c)|\\
+&> |X| - \sum_i \frac{1}{d+1} |X| = 0 \, .
+\end{align*}
+
+Therefore we conclude that $\bigcup_{i=1}^{d+1} C_i \neq \emptyset$
+\end{proof}
+
+
+\begin{thm}[Colorful Caratheodory Theorem]
+Let $M_1, \ldots, M_{d+1} \subseteq \R^d$ finite sets such that $\va \in \bigcap_{i = 1}^{d+1} \conv (M_i) \neq \emptyset$.
+Then, there exists $\vx_1, \dots, \vx_{d+1}$ such that $\vx_i \in M_i$ for all $i = 1, \ldots, d+1$ and $\va \in \conv (\{\vx_1, \ldots, \vx_{d+1}\})$.
+\end{thm}
+
+\begin{proof}
+
+\end{proof}
+
+
+\begin{thm}[Tveberg's theorem]
+
+\end{thm}
+
+
+\begin{proof}
+
+\end{proof}
+
+
+
+\begin{thm}[Ham-Sandwish theorem]
+Let $X_1 ,  \ldots , X_d \subseteq  \R^d$ be finite sets.
+Then there exists a hyperplane $h \subseteq \R^d$ such that for all $i=1, \ldots, d$ we have 
+$$ |X_i \cap \overline{h}^+| , |X_i \cap \overline{h}^-| \geq \frac{1}{2} n,\ . $$
+\end{thm}
+
+\begin{proof}
+
+\end{proof}
+
+
+
+\subsection{Efficient Projection}
 
 
 
@@ -1639,95 +1804,42 @@ For the other side, note that $2 \log(\varepsilon^{-1}) \geq \log n$ implies $\v
 
 
 
-\subsection{Convex geometry}
-
-A set $C \subseteq \R^d$ is said to be \textbf{convex} if for any points $\vx, \vy \in C$ and a real $\lambda \in [0, 1]$ we have $t\vx + (1-t)\vy \in C$.
-The \textbf{convex hull} of a set $S$ is the smallest convex set $\conv S $ that contains $S$.
-Because the convexity condition is closed for arbitrary intersections, it can be defined as $\conv S \coloneqq \bigcap_{S \subseteq C \text{ convex}} C$ or equivalently
-$$ \conv S = \{ \sum_{i=1}^m \alpha_i\vv_i | \vv_i \in S, \, \alpha_i \in [0, 1], \sum_i \alpha_i = 1\} \, . $$
-
-
-\begin{thm}[Caratheodory Theorem]
-Let $S \subseteq \R^d$.
-If $\vv \in \conv (S)$ then $\vv = \sum_{i=1}^{d+1} \alpha_i \va_i$ for some $\va_i \in S, \alpha_i \in \R_{\geq 0}$, such that $\sum_i \alpha_i = 1$.
-\end{thm}
-
-\begin{proof}
-Because $\vv \in \conv S$, there is an integer $m$, real numbers $\alpha_1, \ldots, \alpha_m $ and vectors $\vx_1, \ldots, \vx_m \in S $ such that $\vv = \sum_{i=1}^{m} \alpha_i \va_i$ and $\sum_i \alpha_i = 1$.
-The ones that give us $m$ minimal, and assume for sake of contradiction that $m > d+1$.
-
-For each $i \in [m]$, let $\vv_{i} = (\vx_i , 1)$.
-Because $m > d+1$, the vectors $\{ \vv_i \}_{i=1}^m$ are linearly dependent, so there is some non-trivial vanishing linear combination $\sum_{i=1}^m \beta_i \vv_i = 0$.
-Note that this gives us $\sum_{i=1}^m \vx_i = 0 $ and $\sum_i \beta_i = 0$, therefore we have, for any real $t$, that $\vv = \sum_{i=1}^{m} (\alpha_i - t \beta_i) \va_i$ and $\sum_i ( \alpha_i  - t \beta_i ) = 1$.
-
-The proof is concluded when we will find $t$ such that $\alpha_i - t \beta_i \geq 0$.
-Indeed, let $t_0 = \min_{i : \beta_i > 0} \frac{\alpha_i}{\beta_i}$.
-Because $\sum_i \beta_i = 0$ and the linear combination $\sum_{i=1}^m \beta_i \vv_i$ was taken to be non-trivial, there is some $\beta_i > 0$, so $t_0 $ is well defined and positive.
-The minimality condition guarantees that for each $i$ we have $\alpha_i - t_0 \beta_i \geq 0$.
-Furthermore, there is an index $I$ such that $\alpha_i - t_0 \beta_i = 0$.
-This means we can write $\vv = \sum_{i=1, i \neq I}^{m} (\alpha_i - t \beta_i) \va_i$.
-This contradicts the minimality of $m$.
-\end{proof}
-
-
-
-\begin{lm}[Radon's Lemma]
-If $S\subseteq \R^d$ with $|S| \geq d+2$ there exists a partition $S = L \uplus R$ such that $$\conv (L) \cap \conv (R) \neq \emptyset \, .$$
-\end{lm}
-
-
-\begin{proof}
-
-\end{proof}
-
-
-\begin{thm}[Helly's theorem]
-Let $C_1, \ldots , C_m \subseteq \R^d$ convex sets such that every $d+1$ many such sets have non-empty intersection.
-Then 
-$$\bigcap_i C_i \neq \emptyset \, . $$
-\end{thm}
-
-\begin{proof}
-
-\end{proof}
-
-
-
-\begin{thm}[Ham-Sandwish theorem]
-Let $\vx_1 ,  \ldots , \vx_n \in \R^d$.
-Then there exists a hyperplane $h \subseteq \R^d$ such that 
-$$ |\{i | \vx_i \in \overline{h}^+\}| , |\{i | \vx_i \in \overline{h}^-\}| \geq \frac{1}{2} n,\ . $$
-\end{thm}
-
-
-
-\begin{thm}[Colorful Caratheodory Theorem]
-Let $M_1, \ldots, M_{d+1} \subseteq \R^d$ finite sets such that $\va \in \bigcap_{i = 1}^{d+1} \conv (M_i) \neq \emptyset$.
-Then, there exists $\vx_1, \dots, \vx_{d+1}$ such that $\vx_i \in M_i$ for all $i = 1, \ldots, d+1$ and $\va \in \conv (\{\vx_1, \ldots, \vx_{d+1}\})$.
-\end{thm}
-
-\begin{proof}
-
-\end{proof}
-
-\section{Chevalier - Warning}%Page 37
+\section{Chevalier - Warning}
 
 \begin{thm}
 Fix $q$ a power of a prime $p$, and consider $f_1, \ldots, f_n$ polynomials in $\F_q[\vx_1, \ldots , \vx_m]$ such that $\sum_i \deg (f) < m$.
-
-
-
 \end{thm}
 
-\begin{prop}
-
-\end{prop}
 
 
 
 
+\begin{thm}
+Every graph $G$ arrising from adding an edge to a $4$-regular graph contains a $3$ regular graph
+\end{thm}
+
+\begin{proof}
+
+\end{proof}
 
 
+\begin{thm}[Erd\"os-Ginzburg-Ziv Theorem]
+Let $a_1, \ldots, a_{2n-1} \in \Z/_{\Z_n} $.
+Then there exists a set $I\subseteq [2n-1] $ of size $n$ such that $\sum_{i\in I} a_i = 0$.
+\end{thm}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{thm}[Lajos-R\'onyai Theorem]
+Let $p$ be a prime number and  $a_1, \ldots, a_{4p-2} \in \Z/_{\Z_p}\oplus \Z/_{\Z_p} $.
+Then there exists a set $I\subseteq [4p-2] $ of size $n$ such that $\sum_{i\in I} a_i = 0$.
+\end{thm}
+
+\begin{proof}
+
+\end{proof}
 
 
 \section{Combinatorial Nullstelensatz}
