@@ -127,7 +127,7 @@ Hint: Compute $A_{K_{m, n}}^2$.
 
 
 \item Prove helpful theorems on the spectrum of graphs.
-Write as usual $\spec \, G = \{\lambda_1 \leq \cdots \leq \lambda_n \}$, and consider the corresponding eigenbasis $\{\vv_1, \ldots, \vv_n\}$.
+Write as usual $\spec \, G = \{\lambda_1 \leq \cdots \leq \lambda_n \}$, and consider the corresponding orthonormal eigenbasis $\{\vv_1, \ldots, \vv_n\}$.
 
 
 \begin{enumerate}
@@ -136,8 +136,9 @@ Write as usual $\spec \, G = \{\lambda_1 \leq \cdots \leq \lambda_n \}$, and con
 \item If $G$ is connected, then $\lambda_1 \neq \lambda_2$.
 
 \item A graph $G$ is bipartite if and only if $\spec \, G = - \spec \, G$.
+Hint: recall that a graph is bipartite if and only if it does not have any cycle with odd length.
 
-\item If a graph $G$ is $d$-regular, and $\overline{G}$ is the complementary graph, then $\spec \, \overline{G} = \{ \overline{\lambda_{n+1}}, \overline{\lambda_{n}}, \ldots, \overline{\lambda_{3}}, \overline{\lambda_{2}} \}$, where $\overline{\lambda_{n+1}} = n - d + 1$ and $\overline{\lambda_i} = - 1 - \lambda _ i$.
+\item If a graph $G$ is $d$-regular, and $\overline{G}$ is the complementary graph, then $\spec \, \overline{G} = \{ \overline{\lambda_{n+1}}, \overline{\lambda_{n}}, \ldots, \overline{\lambda_{3}}, \overline{\lambda_{2}} \}$, where $\overline{\lambda_{n+1}} = n - d + 1$ and $\overline{\lambda_i} = - 1 - \lambda _ i$ for $i = 2, \ldots, n$.
 Show that the corresponding eigenbasis is the same.
 \end{enumerate}
 
@@ -146,35 +147,34 @@ Show that the corresponding eigenbasis is the same.
 For that, take advantage of the previous exercise, and note that the complement of the Petersen graph is the line graph of $K_5$.
 
 \item In this exercise we will compute the spectrum of the Kneser graph.
-Recall that the Kresner graph $K(E, r)$ is the graph with vertex set $V = \binom{E}{r}$ and two vertices $A, B$ share an edge if $A \cap B = \emptyset$.
+Recall that the Kneser graph $K(E, r)$ is the graph with vertex set $V = \binom{E}{r}$ and two vertices $A, B$ share an edge if $A \cap B = \emptyset$.
 We work on the vector space $\R^V$, where vectors are indexed by subsets of $E$ with $r$ elements.
 Let $e = |E|$.
 
-For $i, j = 0, \ldots, r$, define the matrices $M_{i, j} = [m_{I, J}]_{\substack{I\in \binom{E}{i} \\ J \in \binom{E}{j}}}$ and $\overline{M_{i, j}} = [\overline{m_{I, J}}]_{\substack{I\in \binom{E}{i} \\ J \in \binom{E}{j}}}$ such that 
+For $i, j = 0, \ldots, r$, define the matrices $M_{i, j} = [m_{I, J}]_{\substack{I\in \binom{E}{i} \\ J \in \binom{E}{j}}}$ and $N_{i, j} = [n_{I, J}]_{\substack{I\in \binom{E}{i} \\ J \in \binom{E}{j}}}$ such that 
 
 $$ m_{I, J} =\begin{cases*}
       & 1 \text{ if $I \subseteq J$,}\\
       & 0 \text{ otherwise,}
     \end{cases*}  \quad \quad \quad 
-     \overline{m_{I, J}} =\begin{cases*}
+     n_{I, J} =\begin{cases*}
       & 1 \text{ if $I \cap J = \emptyset $,}\\
       & 0 \text{ otherwise.}
     \end{cases*}  $$
 
-Note that $A_{K(E, r)} = \overline{M_{r, r}}$.
-Define $V^i = \rowspn M_{i, r} \subseteq \R^V$.
+Note that $A_{K(E, r)} = N_{r, r}$.
+Define $V^i = \rowspn \, M_{i, r} \subseteq \R^V$.
 
 \begin{enumerate}
 \item Show that $V^i \subseteq V^{i+1}$ and $\dim V^i = \binom{e}{i}$ for $i=0, \ldots, r$.
 
-\item Show that $\rowspn \overline{M_{i, r}} = \rowspn M_{i, r} = V^i$.
+\item Show that $\rowspn \, N_{i, r} = \rowspn \, M_{i, r} = V^i$.
 
-\item Show that $M_{i, j} \overline{M_{j, k}} = \overline{M_{i, k}} \binom{e - k - i}{j-i}$ and that $\overline{M_{i, i}} = \sum_{l=0}^i (-1)^l M_{l, i}^TM_{l, j}$.
+\item Show that $M_{i, j} N_{j, k} = N_{i, k} \binom{e - k - i}{j-i}$ and that $N_{i, i} = \sum_{l=0}^i (-1)^l M_{l, i}^TM_{l, j}$.
 
 \item Show that if $\vv \in V^i \cap (V^{i-1})^{\perp}$, then $(-1)^i \vv A_G = \binom{e-r-i}{r-i} \vv $.
 
+\item Conclude with the spectrum of $K(E, r)$.
 \end{enumerate}
-
-
 \end{enumerate}
 \end{document}
