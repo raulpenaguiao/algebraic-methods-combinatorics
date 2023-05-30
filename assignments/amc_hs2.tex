@@ -90,6 +90,7 @@
 \newcommand{\tr}{\mathrm{tr}}
 \newcommand{\conv}{\mathrm{conv}}
 \newcommand{\maxcut}{\mathrm{maxcut}}
+\newcommand{\Tr}{\mathrm{Tr}}
 \newcommand{\we}{\mathrm{we}}
 
 
@@ -147,7 +148,10 @@ The spectrum of this matrix is $\{ 0 ^{\times (m+n-2) }, mn^{\times 2}\}$.
 Indeed, any vector $\vv $ such that $\sum_{i=1}^m \vv_i = 0$ and $\sum_{i=m+1}^{m+n} \vv_i = 0$ has $A_{K_{m, n}}^2\vv =0 $ and the vectors $(\underbrace{1}_{m \text{ times}}, \underbrace{0}_{n \text{ times}})$ and  $ (\underbrace{0}_{m \text{ times}}, \underbrace{1}_{n \text{ times}})$ eigenvectors corresponding to the eigenvalue $mn$.
 
 Thus, $0$ is an eigenvalue of $A_{K{m, n}}$ with multiplicity $m+n-2$ and the values $\{ \sqrt{mn}, -\sqrt{mn}\}$ have combined multiplicity two.
-Because $\Tr A_{K_{m, n}} =0 $,  we have that 
+Because $\Tr A_{K_{m, n}} =0 $, we have that each of these values has multiplicity one.
+Thus, the spectrum is 
+$$ \{ \sqrt{mn}, \underbrace{0, 
+\ldots, 0}_{m+n-2 \text{ many times }}, -\sqrt{mn} \} \, . $$
 
 \item 
 \begin{enumerate}
@@ -165,7 +169,17 @@ Because $\Tr A_{K_{m, n}} =0 $,  we have that
 \item 
 
 \item 
+\begin{enumerate}
+\item 
 
+\item 
+
+\item 
+
+\item
+
+\item 
+\end{enumerate}
 
 \end{enumerate}
 \end{document}
