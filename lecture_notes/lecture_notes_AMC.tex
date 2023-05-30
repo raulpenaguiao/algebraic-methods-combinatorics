@@ -1610,7 +1610,7 @@ This satisfies both $\vec{s} \in \conv \{\vx_i\}_{i\in I}$ and $\vec{s} \in \con
 \end{proof}
 
 
-\begin{thm}[Helly's theorem]
+\begin{thm}[Helly's theorem]\label{thm:helly}
 Let $m, d $ be integers such that $m \geq d+1$.
 Take $C_1, \ldots , C_m \subseteq \R^d$ convex sets such that every $d+1$ many such sets have non-empty intersection.
 Then 
@@ -1646,7 +1646,7 @@ $$ |X \cap h^+|, |X\cap h^-| \geq \alpha |X| \, . $$
 \end{defin}
 
 \begin{thm}[Centerpoint theorem]\label{thm:centerpoint}
-Every finite set $X$ has an $\alpha$-centerpoint for $\alpha = \frac{1}{2}$.
+Every finite set $X$ has an $\alpha$-centerpoint for $\alpha = \frac{1}{d+1}$.
 \end{thm}
 
 \begin{obs}
@@ -1700,7 +1700,7 @@ Then, there exists $\vx_1, \dots, \vx_{d+1}$ such that $\vx_i \in M_i$ for all $
 \begin{thm}[Ham-Sandwish theorem]
 Let $X_1 ,  \ldots , X_d \subseteq  \R^d$ be finite sets.
 Then there exists a hyperplane $h \subseteq \R^d$ such that for all $i=1, \ldots, d$ we have 
-$$ |X_i \cap \overline{h}^+| , |X_i \cap \overline{h}^-| \geq \frac{1}{2} n,\ . $$
+$$ |X_i \cap \overline{h}^+| , |X_i \cap \overline{h}^-| \geq \frac{1}{2} n\, . $$
 \end{thm}
 
 \begin{proof}
