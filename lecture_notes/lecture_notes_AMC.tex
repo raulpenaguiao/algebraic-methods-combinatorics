@@ -107,6 +107,7 @@
 \newcommand{\vj}{\mathsf{j}}
 \newcommand{\vx}{\mathsf{x}}
 \newcommand{\vy}{\mathsf{y}}
+\newcommand{\vz}{\mathsf{z}}
 \newcommand{\va}{\mathsf{a}}
 
 \newcommand{\spn}{\mathrm{span}}
@@ -1555,6 +1556,134 @@ As it turns out, this conjecture is false, and we will use Frankl-Wilson's const
 \begin{smpl}
 \end{smpl}
 
+\subsubsection*{Nearly orthogonal vectors}
+
+A set $Y \subseteq \R^d$ is said to be \textbf{orthogonal if any two} distinct points $\vx, \vy \in Y$ have $\vx \perp \vy$.
+
+A set $X\subseteq \R^d$ is said to be \textbf{nearly orthogonal} if any three distinct points $\vx, \vy, \vz \in X $ have either $\vx\perp \vy, \vy\perp\vz$ or $\vz\perp\vx$.
+
+
+\begin{thm}[Rosenfeld, 1991]\label{thm:nearly}
+A \textbf{neraly orthogonal set} $X$ has at most size $2d$.
+\end{thm}
+
+\begin{lm}[Paserval]
+For a set $Y \subseteq \R^d$ of \textbf{orthogonal vectors} with unit length, and $\vv \in \R^d$, we have 
+$$ \sum_{\vy \in Y} (\vy \cdot \vv)^2 \leq ||\vv ||^2 \, . $$
+\end{lm}
+
+\begin{proof}
+
+\end{proof}
+
+
+\begin{lm}
+If $A$ is a symmetric matrix, we have 
+$$ \rk \, A \geq \frac{(\tr A)^2}{\tr A^2} \,  . $$
+\end{lm}
+
+\begin{proof}
+
+\end{proof}
+
+
+\begin{proof}[Proof of \cref{thm:nearly}]
+
+\end{proof}
+
+\subsubsection*{Efficient projection}
+
+
+
+
+\begin{thm}[Johnson - Linderstrauss Theorem]\label{thm:JL}
+Fix $d >> 1$ and $\varepsilon \in (0, 1)$.
+Let $P \subseteq \R^d$ with $|P| = n$ finite.
+
+Then there exists a linear map $A:\R^d \to \R^k$, with $k = C_{\varepsilon} \log (n)$, such that for any two distinct $\vx, \vy \in P$ we have
+$$ 1 - \varepsilon \leq \frac{||A(\vx) - A(\vy)||}{||\vx - \vy||} \leq 1 + \varepsilon \, . $$
+\end{thm}
+
+\begin{proof}[Proof of \cref{thm:JL}]%Page 36
+Probabilistic method with a random matrix
+\end{proof}
+
+\begin{lm}\label{lm:JL_1}
+Fix $n$ integer and $\varepsilon \in (0, 1)$.
+Let $A = [a_{i, j}]_{\substack{i = 1, \ldots , n \\ j = 1, \ldots , n}}$ be a symmetric matrix.
+Assume that $a_{i, i} = 1$ and $|a_{i, j}| < \varepsilon $ for all $i, j$ distinct in $[n]$.
+
+Then $\rk \,A \geq n \frac{1}{1 + (n-1)\varepsilon^2}$.
+In particular, if $\varepsilon < (n-1)^{-0.5}$, then $\rk A \geq 0.5 n$ and if $\varepsilon < (n-1)^{-1.5}$ then $\rk \,A = n$.
+\end{lm}
+
+Recall that $\rk \, A$ is the number of eigenvalues of $A$ that are non zero.
+Recall as well that $\tr \, A$ is the sum of the eigenvalues.
+It is a known fact that this is the same as the sum of the diagonal entries of the matrix $A$.
+
+\begin{proof}
+Let $\lambda_1, \ldots, \lambda_n$ be the eigenvalues of $A$, with multiplicity.
+Because $A$ is symmetric, all eigenvalues are real numbers, so we have from Cauchy-Schwarz inequality that
+$$\rk \, A \,  \tr (A^2)= \left(\sum_{\lambda_i \neq 0} 1 \right)\left( \sum_{\lambda_i \neq 0} \lambda_i^2\right) \geq \left( \sum_{\lambda_i \neq 0} \lambda_i \right)^2 = (\tr\,  A)^2 = n^2 \, . $$
+
+Rewritting and using that $|a_{i, j}| < \varepsilon$ for $i\neq j$ we have 
+\begin{align*}
+\rk \, A &\geq n^2/\tr (A^2) = \frac{n^2}{\sum_{i, j} a_{i, j}^2} \\
+&\geq \frac{n^2}{n + n(n-1)\varepsilon^2} = \frac{n}{1 + (n-1)\varepsilon^2}\, ,
+\end{align*}
+which is the desired inequality.
+\end{proof}
+
+\begin{lm}\label{lm:JL_2}
+Fix a positive integer $k$ and let $A = [a_{i, j}]_{\substack{i = 1, \ldots , n \\ j = 1, \ldots , n}}$ be a symmetric matrix.
+Let $B = [a_{i, j}^k]_{\substack{i = 1, \ldots , n \\ j = 1, \ldots , n}}$.
+Then $\rk B \leq \binom{k + \rk A - 1}{k}$.
+\end{lm}
+
+\begin{proof}
+Let $\vv^{(1)}, \ldots, \vv^{(r)} $ be a basis of $\mathrm{rowspace}(A)$, where $r = \rk A$.
+Then $\vw \in \mathrm{rowspace}(B)$ is in 
+$$V \coloneqq \spn \left\{ \left((\vv_j^{(1)})^{t_1} \cdots (\vv_j^{(r)})^{t_r} \right)_{j = 1, \ldots, n}\right\}_{(t_1, \ldots , t_t) \in \Z_{\geq 0}^r | \sum_i t_i = k } \, .$$
+
+It is easy to see that $\dim V = \binom{k + r - 1}{k}$, which leads to the desired result.
+\end{proof}
+
+\begin{lm}\label{lm:JL_3}
+Fix $n$ integer and $\varepsilon \in (0, 0.5)$.
+Let $B = [b_{i, j}]_{\substack{i = 1, \ldots , n \\ j = 1, \ldots , n}}$ be a matrix, not necessarily symmetric.
+Assume that $b_{i, i} = 1$ and $|b_{i, j}| < \varepsilon $ for all $i, j$ distinct in $[n]$.
+
+If $\varepsilon > (n-1)^{-.5}$, then there exists a constant $C$ independent of $n$ and $\varepsilon$ such that 
+$$ \rk B \geq \frac{C \log n}{\varepsilon^2 \log (\varepsilon^{-1})}\, . $$
+\end{lm}
+
+Note that the case where $\varepsilon < (n-1)^{-.5}$ has already been covered in \cref{lm:JL_3}.
+
+\begin{proof}
+Note that 
+$$\rk(B + B^T) \leq \dim( \mathrm{rowspace}(B) ) + \dim( \mathrm{rowspace}(B^T) ) =  \rk B + \rk B^T  = 2 \, \rk \, B\, . $$ 
+Therefore, it is sufficient to show the result for a symmetric matrix $B$.
+
+We split the remaning part of the proof in two cases: when $2 \log(\varepsilon^{-1}) \leq \log n$ and when $2 \log(\varepsilon^{-1}) \geq \log n$.
+
+In the first case define $k = \lfloor \frac{\log n}{2 \log ( \varepsilon^{-1})} \rfloor$ and $n' = \lfloor \varepsilon^{-2k} \rfloor$, in such a way that 
+$$ n' \leq \frac{1}{\varepsilon^{2k}} \leq \left( \frac{1}{\varepsilon} \right)^{\frac{\log n}{2 \log(\varepsilon^{-1})}} = n\, . $$
+Furthermore, $\varepsilon^k \leq \frac{1}{\sqrt{n}} \leq \frac{1}{\sqrt{n-1}}$.
+Let $B_0$ be the $n'\times n'$ submatrix of $B$ arising from the first $n'$ rows and $n'$ columns of $B$, and let $B^{(k)}$ be the matrix $B_0$ with each entry raised to the $k$-th power.
+Note how $B^{(k)}$ is still a symmetric function.
+From \cref{lm:JL_1} we have that $\rk \, B^{(k)} \geq .5 \, n'$.
+
+On the other hand, \cref{lm:JL_2} gives us that 
+$$\rk \, B^{(k)} \leq \binom{k + \rk\, B_0 - 1}{k} \leq e^k \left( \frac{k + \rk \, B_0}{k}\right)^k =  e^k \left(1 +  \frac{\rk \, B_0}{k}\right)^k\, , $$
+where we are using the bound presented in \cref{lm:binom_bound}.
+
+Puting it all together and using $n' \leq \varepsilon^{-2k}$ we get 
+$$ \rk \, B_0 \leq k \left( \frac{1}{2^{1/_k} e} \sqrt[k]{n'} - 1\right)  \leq  \frac{k}{2^{1/_k} e} \sqrt[k]{n'} \leq \frac{1}{2e  2^{1/_k} }\frac{\log n}{\log(\varepsilon^{-1})}\varepsilon^{-2} \leq \frac{C \log n}{\varepsilon^2 \log(\varepsilon^{-1})}\, , $$
+where $C = \frac{1}{2e}$.
+
+For the other side, note that $2 \log(\varepsilon^{-1}) \geq \log n$ implies $\varepsilon \leq n^{-.5}$
+\end{proof}
+
 
 \subsection{Convex geometry}
 
@@ -1657,7 +1786,7 @@ However, there is no point $\vy \in \bigcap_i D_i = \emptyset$.
 \end{obs}
 
 \begin{proof}[Proof of \cref{thm:centerpoint}]
-Consider $\mathcal X $ the collection of hyperspaces $\overline{h}^+$ that contain at least $\frac{d}{d+1}|X|$ points of $X$, and let 
+Consider $\mathcal X $ the collection of hyperspaces $\overline{h}^+$ that contain more than $\frac{d}{d+1}|X|$ points of $X$, and let 
 $$ \mathcal Y \coloneqq \{ \conv \, (\overline{h}^+ \cap X) | \overline{h}^+ \in \mathcal X \}\, . $$
 
 Note that $\mathcal Y $ is finite, as there are only finitely many subsets of $X$.
@@ -1668,31 +1797,96 @@ Indeed, from \cref{thm:helly}, it is sufficient to show that for any $d+1$ sets 
 |X \cap C_1\cap \cdots \cap C_{d+1} |  &= |X| - |X \cap (C_1 \cap \cdots \cap C_{d+1})^c | \\
 &= |X| - |X \cap (C_1^c \cup \cdots \cup C_{d+1}^c) | \\
 &= |X| - |(X \cap C_1^c) \cup \cdots \cup (X \cap C_{d+1}^c)|\\
-&\geq |X| - \sum_i |(X \cap C_i^c)|\\
-&> |X| - \sum_i \frac{1}{d+1} |X| = 0 \, .
+&\geq |X| - \sum_i |X \cap C_i^c|\\
+&> |X| - \sum_i \frac{1}{d+1} |X| = 0 \, ,
 \end{align*}
+where we note that $|X \cap C_i^c| < \frac{1}{d+1}|X|$ because, by assumption, $X \cap C_i = \overline{h}^+ \cap X$ contains more than $\frac{d}{d+1}|X|$ points.
 
-Therefore we conclude that $\bigcup_{i=1}^{d+1} C_i \neq \emptyset$
+Therefore we conclude that $\bigcup_{i=1}^{d+1} C_i \neq \emptyset$.
+We claim that any point $\vy \in \bigcup_{i=1}^{d+1} C_i $ is a $\frac{1}{d}$-centerpoint.
+Indeed, for sake of contradiction assume that there is some hyperplane $h$ through $\vy$ such that $|\overline{h}^+ \cap X|< \frac{1}{d+1}|X|$, then  $|h^+ \cap X|< \frac{1}{d+1}|X|$.
+Because $X$ is a discrete set, we can find a parallel hyperplane $g$ such that $\overline{g}^+\cap X = h^+ \cap X$.
+Note how  $\vy \not \in \conv \, (\overline{g}^+ \cap X)$, so $\vy \not \in \bigcup_{i=1}^{d+1} C_i $, a contradiction.
 \end{proof}
 
 
-\begin{thm}[Colorful Caratheodory Theorem]
+\begin{thm}[Colorful Caratheodory Theorem]\label{thm:colorful_c}
 Let $M_1, \ldots, M_{d+1} \subseteq \R^d$ finite sets such that $\va \in \bigcap_{i = 1}^{d+1} \conv (M_i) \neq \emptyset$.
 Then, there exists $\vx_1, \dots, \vx_{d+1}$ such that $\vx_i \in M_i$ for all $i = 1, \ldots, d+1$ and $\va \in \conv (\{\vx_1, \ldots, \vx_{d+1}\})$.
 \end{thm}
 
-\begin{proof}
 
+\begin{lm}\label{lm:closeness}
+Let $H$ be a hyperplane, $\vx \in H$ and $\va, \vy$ on the same side of $H$ such that $\vx \-- \va$ is perpendicular to $H$.
+Then there exists some $\lambda \in [0, 1]$ such that $(1-\lambda) \vx +\lambda \vy$ is closer to $\va$ than $\vx$.
+\end{lm}
+
+\begin{proof}
+Let $f(\lambda)  = || (1-\lambda) \vx +\lambda \vy - \va ||^2 - ||\vx - \va||^2$.
+Note that $f(0) = 0$.
+We claim that $f'(0) < 0$, which means that for $\lambda >0 $ small enough, we have $f(\lambda) < 0$ and thus  $\va$ is closer to $(1-\lambda) \vx +\lambda \vy$ than $\vx$.
+Indeed, note that
+
+\begin{align*}
+f(\lambda) &=  || (1-\lambda) \vx +\lambda \vy - \va ||^2 - ||\vx - \va||^2\\
+&=  || (1-\lambda) \vx +\lambda \vy - \vx + \vx - \va ||^2 - ||\vx - \va||^2\\
+&=  || \lambda(\vy - \vx ) + \vx - \va ||^2 - ||\vx - \va||^2\\
+&=  || \lambda(\vy - \vx )||^2 + 2\langle \lambda(\vy - \vx ),  \vx - \va\rangle + || \vx - \va ||^2 - || \vx - \va ||^2 \\
+&=   \lambda^2 ||(\vy - \vx )||^2 - 2\lambda \langle \vx - \vy,  \vx - \va\rangle\\
+f'(0) &=  -2 \langle \vx - \vy,  \vx - \va\rangle < 0\, ,\\
+\end{align*}
+because the angle between the vectors $\vx - \vy,  \vx - \va$ is less than $\frac{\pi}{2}$.
 \end{proof}
 
+\begin{proof}[Proof of \cref{thm:colorful_c}]
+Assume otherwise, and let $\vx_i \in M_i$ be chosen such that the distance between $\va $ and $X \coloneqq \conv(\{\vx_1, \ldots, \vx_{d+1}\})$ is minimal.
+Because the sets $M_i$ are all finite, this minimum exists and is attained by some $\{\vx_i\}$.
+For sake of contradiction assume that this distance is positive, so that there is some $\vx_0 \in X $ that is the closest point in $X$ to $\va$.
+
+Let $H$ be the hyperplane perpendicular to $\vx_0 \-- \va$ that passes through $\vx$.
+Let $H^+$ be the component of $\R^d\setminus H $ that contains $\va$.
+If there exists some $\vy \in H^+ \cap X$, then we can construct a point $\vy \in X$ closer to $\va$ than $\vx$, which is impossible by minimality of $\vx_0$.
+Therefore $H^+ \cap X = \emptyset$.
+
+Now write $\vx_0 \in X \cap H$, which is a $d-1$-dimensional convex set.
+By \cref{thm:caratheodory} we can write $\vx_0$ as a convex combination of $d$ terms, say $\sum_{i=1}^{d+1} \alpha_i \vx_i$ where $\alpha_j = 0$.
+Recall that $\va \in \conv M_j$, so there is some $\hat{\vx}_j \in H^+$.
+Replace $\vx_j$ by $\hat{\vx}_j$, and let $X' = \conv\{\vx_i\}$ be the new convex hull.
+Note that from \cref{lm:closeness} there exists some point $\vv \in \conv\{\vx_0 \hat{\vx_j}\} \subseteq X'$ such that $\vv$ is closer to $\va$ than $\vx_0$.
+This contradicts the minimality assumption and concludes the proof.
+\end{proof}
+
+The following is a generalisation of \cref{lm:radon}.
 
 \begin{thm}[Tveberg's theorem]
-
+Let $r$ be an integer, and $S \subseteq \R^d$ be such that $|S| \geq (r-1)(d+1) + 1$.
+Then there exists a partition $S = S_1\uplus \cdots \uplus S_r$ such that $\bigcap_{i=1}^r \conv S_i \neq \emptyset$.
 \end{thm}
 
 
 \begin{proof}
+Write $S = \{\vx_0, \ldots, \vx_m\}$.
+It is enough to establish the result for $m = (d+1)(r-1)$.
+Define $\vy_i = (\vx_i, 1)$ for $i = 1, \ldots, d+1$, define $\vv_i = \vec{e}_i \in\R^{r-1}$ for $i = 1, \ldots, r-1$, and define $\vv_r = - \sum_{i=1}^{r-1} \vec{e}_i$.
 
+Define $M_i \coloneqq \{\vv_j\vy^T_i | j=1, \ldots, r \} \subseteq \R^{(r-1) \times (d+1)}$ for $i = 0, \ldots, m$.
+Note that $\sum_{i=1}^r \vv_i = \vec{0}$, so $\vec{0} \in \conv \, M_i$ for all $i$.
+There are $m+1$ such sets in $\R^m$, so \cref{thm:colorful_c} gives us, for each $i$, a point $\vv_{f(i)}\vy^T_i$ and a coeficient $\alpha_i\geq 0$ such that 
+\begin{equation}\label{eq:col}
+ \vec{0} = \sum_{i=0}^m \alpha_i \vv_{f(i)}\vy_i^T , \quad \quad \sum_{i=0}^m \alpha_i = 1\, . 
+\end{equation}
+
+Multiplying by $\vec{e}_1$ on the left of the first equation of \eqref{eq:col} gives us 
+$$ \vec{0} = \left( \sum_{i: f(i) = 1} \alpha_i \vy_i^T\right) - \left(\sum_{i: f(i) = r} \alpha_i \vy_i^T \right) \, . $$
+Multiplying by $\vec{e}_1 - \vec{e}_k$ on the left of the first equation of \eqref{eq:col}, for $k = 2, \ldots, r-1$ gives us 
+$$ \vec{0} = \left( \sum_{i: f(i) = 1} \alpha_i \vy_i^T\right) - \left(\sum_{i: f(i) = k} \alpha_i \vy_i^T \right) \, . $$
+
+We therefore get that $ \sum_{i: f(i) = j} \alpha_i \vy_i^T$ does not depend on $j = 1, \ldots, r$.
+Recall that $\vy_i = (\vx_i, 1)$, so this gives us that $A \coloneqq  \sum_{i: f(i) = j} \alpha_i$, so $r A = \sum_i \alpha_i = 1$ gives $A = \frac{1}{r}$.
+
+We conclude that $\vv \coloneqq \sum_{i: f(i) = j} \frac{\alpha_i}{A}\vx_i$ is a convex combination that does not depend on $j$, that is $\va \in \conv\{\vx_i\}_{i: f(i) = j}$.
+
+Therefore $\bigcap_j \conv\{\vx_i\}_{i: f(i) = j}\neq \emptyset$, and our desired partition was found.
 \end{proof}
 
 
@@ -1704,103 +1898,10 @@ $$ |X_i \cap \overline{h}^+| , |X_i \cap \overline{h}^-| \geq \frac{1}{2} n\, . 
 \end{thm}
 
 \begin{proof}
-
+Borsuk Ulam
 \end{proof}
 
 
-
-\subsection{Efficient Projection}
-
-
-
-
-\begin{thm}[Johnson - Linderstrauss Theorem]\label{thm:JL}
-Fix $d >> 1$ and $\varepsilon \in (0, 1)$.
-Let $P \subseteq \R^d$ with $|P| = n$ finite.
-
-Then there exists a linear map $A:\R^d \to \R^k$, with $k = C_{\varepsilon} \log (n)$, such that for any two distinct $\vx, \vy \in P$ we have
-$$ 1 - \varepsilon \leq \frac{||A(\vx) - A(\vy)||}{||\vx - \vy||} \leq 1 + \varepsilon \, . $$
-\end{thm}
-
-\begin{proof}[Proof of \cref{thm:JL}]%Page 36
-Probabilistic method with a random matrix
-\end{proof}
-
-\begin{lm}\label{lm:JL_1}
-Fix $n$ integer and $\varepsilon \in (0, 1)$.
-Let $A = [a_{i, j}]_{\substack{i = 1, \ldots , n \\ j = 1, \ldots , n}}$ be a symmetric matrix.
-Assume that $a_{i, i} = 1$ and $|a_{i, j}| < \varepsilon $ for all $i, j$ distinct in $[n]$.
-
-Then $\rk \,A \geq n \frac{1}{1 + (n-1)\varepsilon^2}$.
-In particular, if $\varepsilon < (n-1)^{-0.5}$, then $\rk A \geq 0.5 n$ and if $\varepsilon < (n-1)^{-1.5}$ then $\rk \,A = n$.
-\end{lm}
-
-Recall that $\rk \, A$ is the number of eigenvalues of $A$ that are non zero.
-Recall as well that $\tr \, A$ is the sum of the eigenvalues.
-It is a known fact that this is the same as the sum of the diagonal entries of the matrix $A$.
-
-\begin{proof}
-Let $\lambda_1, \ldots, \lambda_n$ be the eigenvalues of $A$, with multiplicity.
-Because $A$ is symmetric, all eigenvalues are real numbers, so we have from Cauchy-Schwarz inequality that
-$$\rk \, A \,  \tr (A^2)= \left(\sum_{\lambda_i \neq 0} 1 \right)\left( \sum_{\lambda_i \neq 0} \lambda_i^2\right) \geq \left( \sum_{\lambda_i \neq 0} \lambda_i \right)^2 = (\tr\,  A)^2 = n^2 \, . $$
-
-Rewritting and using that $|a_{i, j}| < \varepsilon$ for $i\neq j$ we have 
-\begin{align*}
-\rk \, A &\geq n^2/\tr (A^2) = \frac{n^2}{\sum_{i, j} a_{i, j}^2} \\
-&\geq \frac{n^2}{n + n(n-1)\varepsilon^2} = \frac{n}{1 + (n-1)\varepsilon^2}\, ,
-\end{align*}
-which is the desired inequality.
-\end{proof}
-
-\begin{lm}\label{lm:JL_2}
-Fix a positive integer $k$ and let $A = [a_{i, j}]_{\substack{i = 1, \ldots , n \\ j = 1, \ldots , n}}$ be a symmetric matrix.
-Let $B = [a_{i, j}^k]_{\substack{i = 1, \ldots , n \\ j = 1, \ldots , n}}$.
-Then $\rk B \leq \binom{k + \rk A - 1}{k}$.
-\end{lm}
-
-\begin{proof}
-Let $\vv^{(1)}, \ldots, \vv^{(r)} $ be a basis of $\mathrm{rowspace}(A)$, where $r = \rk A$.
-Then $\vw \in \mathrm{rowspace}(B)$ is in 
-$$V \coloneqq \spn \left\{ \left((\vv_j^{(1)})^{t_1} \cdots (\vv_j^{(r)})^{t_r} \right)_{j = 1, \ldots, n}\right\}_{(t_1, \ldots , t_t) \in \Z_{\geq 0}^r | \sum_i t_i = k } \, .$$
-
-It is easy to see that $\dim V = \binom{k + r - 1}{k}$, which leads to the desired result.
-\end{proof}
-
-\begin{lm}\label{lm:JL_3}
-Fix $n$ integer and $\varepsilon \in (0, 0.5)$.
-Let $B = [b_{i, j}]_{\substack{i = 1, \ldots , n \\ j = 1, \ldots , n}}$ be a matrix, not necessarily symmetric.
-Assume that $b_{i, i} = 1$ and $|b_{i, j}| < \varepsilon $ for all $i, j$ distinct in $[n]$.
-
-If $\varepsilon > (n-1)^{-.5}$, then there exists a constant $C$ independent of $n$ and $\varepsilon$ such that 
-$$ \rk B \geq \frac{C \log n}{\varepsilon^2 \log (\varepsilon^{-1})}\, . $$
-\end{lm}
-
-Note that the case where $\varepsilon < (n-1)^{-.5}$ has already been covered in \cref{lm:JL_3}.
-
-\begin{proof}
-Note that 
-$$\rk(B + B^T) \leq \dim( \mathrm{rowspace}(B) ) + \dim( \mathrm{rowspace}(B^T) ) =  \rk B + \rk B^T  = 2 \, \rk \, B\, . $$ 
-Therefore, it is sufficient to show the result for a symmetric matrix $B$.
-
-We split the remaning part of the proof in two cases: when $2 \log(\varepsilon^{-1}) \leq \log n$ and when $2 \log(\varepsilon^{-1}) \geq \log n$.
-
-In the first case define $k = \lfloor \frac{\log n}{2 \log ( \varepsilon^{-1})} \rfloor$ and $n' = \lfloor \varepsilon^{-2k} \rfloor$, in such a way that 
-$$ n' \leq \frac{1}{\varepsilon^{2k}} \leq \left( \frac{1}{\varepsilon} \right)^{\frac{\log n}{2 \log(\varepsilon^{-1})}} = n\, . $$
-Furthermore, $\varepsilon^k \leq \frac{1}{\sqrt{n}} \leq \frac{1}{\sqrt{n-1}}$.
-Let $B_0$ be the $n'\times n'$ submatrix of $B$ arising from the first $n'$ rows and $n'$ columns of $B$, and let $B^{(k)}$ be the matrix $B_0$ with each entry raised to the $k$-th power.
-Note how $B^{(k)}$ is still a symmetric function.
-From \cref{lm:JL_1} we have that $\rk \, B^{(k)} \geq .5 \, n'$.
-
-On the other hand, \cref{lm:JL_2} gives us that 
-$$\rk \, B^{(k)} \leq \binom{k + \rk\, B_0 - 1}{k} \leq e^k \left( \frac{k + \rk \, B_0}{k}\right)^k =  e^k \left(1 +  \frac{\rk \, B_0}{k}\right)^k\, , $$
-where we are using the bound presented in \cref{lm:binom_bound}.
-
-Puting it all together and using $n' \leq \varepsilon^{-2k}$ we get 
-$$ \rk \, B_0 \leq k \left( \frac{1}{2^{1/_k} e} \sqrt[k]{n'} - 1\right)  \leq  \frac{k}{2^{1/_k} e} \sqrt[k]{n'} \leq \frac{1}{2e  2^{1/_k} }\frac{\log n}{\log(\varepsilon^{-1})}\varepsilon^{-2} \leq \frac{C \log n}{\varepsilon^2 \log(\varepsilon^{-1})}\, , $$
-where $C = \frac{1}{2e}$.
-
-For the other side, note that $2 \log(\varepsilon^{-1}) \geq \log n$ implies $\varepsilon \leq n^{-.5}$
-\end{proof}
 
 
 
