@@ -2,7 +2,7 @@
 % options: kulak (default) or kul
 
 \title{Algebraic Methods in Combinatorics}
-\author{Assignment 3}
+\author{Assignment 2 - Solutions}
 \date{Summer semester 2022 -- 2023}
 \address{
 	\textbf{Max Planck Institute for the Mathematics in the Sciences} \\
@@ -92,6 +92,8 @@
 \newcommand{\maxcut}{\mathrm{maxcut}}
 \newcommand{\Tr}{\mathrm{Tr}}
 \newcommand{\we}{\mathrm{we}}
+\newcommand{\Id}{\mathrm{Id}}
+\newcommand{\spec}{\mathrm{spec}}
 
 
 \begin{document}
@@ -102,14 +104,21 @@
 Fix an integer $n$, so that $\chi_G(n)$ is the number of proper colourings of $G$ using $n$ colours.
 Let $e = \{v_1, v_2\}$.
 Fix $f$ a proper colouring of $G\setminus e$.
-We have two distinct cases: either $f(v_1) \neq f(v_2)$, in which case $f$ is a proper colouring of the vertices of $G$, or $f(v_1) = f(v_2)$, in which case this induces $\hat{f}$ a colouring in $G/_e$ by setting $f(e) = f(v_1)$.
-This is a proper colouring, and in fact any proper colouring of $G/_e$ can be obtained in such a way, we conclude that 
+We have two distinct cases: either $f(v_1) \neq f(v_2)$, in which case $f$ is a proper colouring of $G$, or $f(v_1) = f(v_2)$, in which case this induces $\hat{f}$ a colouring in $G/_e$ by setting $f(e) = f(v_1)$.
+This is a proper colouring, and in fact any proper colouring of $G/_e$ can be uniquely obtained in such a way.
+
+This constructs a bijection between
+\begin{align*}
+ \{ \text{ proper colourings of $G$ with $n$ colours }\} &\uplus \{ \text{ proper colourings of $G/_e$ with $n$ colours }\} \\
+ &\leftrightarrow \{ \text{ proper coloruings of $G\setminus e$ with $n$ colours }\}\, , 
+\end{align*}
+thus we conclude that 
 $$ \chi_{G\setminus e }(n) = \chi_G(n) + \chi_{G/_e}(n)\, . $$
 
 \item 
 \begin{enumerate}
 \item 
-Any proper colouring of $K_m$ has to use different colours for each vertex of the graph, so $\chi_{K_m}(n) = \frac{n!}{(n-m)!}$.
+Any proper colouring of $K_m$ has to use different colours for each vertex of the graph, so $\chi_{K_m}(n) = n(n-1) \cdots (n-m+1) = \frac{n!}{(n-m)!}$.
 
 \item 
 A proper colouring of the graph with no edges is simply a map $V(0_m) \to [n]$, so there are $\chi_{0_m}(n) = n^m$ many such colourings.
@@ -120,42 +129,63 @@ We claim that if a tree $T$ has $v$ vertices, then $\chi_T(n) = n(n-1)^v$.
 We use induction on $v$.
 If $v=1$, then the graph has no edges and so $\chi_T(n) = n^1 = n (n-1)^0$.
 
-For the induction step, let $e$ be a leaf of the tree, so that $T\setminus e = \{\vv\} \uplus T'$ for some smaller tree $T$.
-Therefore, $\chi_{T'\setminus e}(n) = n \chi_{T'}(n) = n^2(n-1)^{v-2}$, where we used the induction hypothesis on $T'$.
-On the other hand, $T/_e$ is also a tree, so $\chi_{T/_e}(n) = n (n-1)^{v-2}$.
+For the induction step, let $e$ be a leaf of the tree, so that $T\setminus e$ is the disjoint union of two graphs, an isolated vertex $\{\vv\}$ and some smaller tree $T'$ with $v-1$ vertices.
+Therefore, $\chi_{T \setminus e}(n) = n \chi_{T'}(n) = n^2(n-1)^{v-2}$, where we used the induction hypothesis on $T'$.
+On the other hand, $T/_e$ is also a tree with $v-1$ vertices, so $\chi_{T/_e}(n) = n (n-1)^{v-2}$.
 We conclude with the deletion contraction:
 $$\chi_T(n) = \chi_{T'\setminus e}(n) - \chi_{T/_e}(n) = n^2(n-1)^{v-2}  - n(n-1)^{v-2} = n(n-1)^{v-1} \, .  $$
 
 
 \item 
 Let $C_m$ be the cycle on $m$ vertices, and $T_m$ a path on $m$ vertices.
-If $m=3$ then $\chi_{C_3} = n(n-1)(n-2)$.
-Notice that deleting an edge on $C_{m+1}$ we get $T_{m+1}$, which is a tree, and contracting gives us $C_m$.
+Notice that deleting an edge on $C_{m+1}$ we get $T_{m+1}$, which is a tree, and that the contraction $C_{m+1}/_e$ is isomorphic to $C_m$.
 Therefore, we use deletion contraction to get 
 $$\chi_{C_{m+1}}(n) =  \chi_{T_{m+1}}(n) - \chi_{C_m}(n) =  n(n-1)^m - \chi_{C_m}(n) \, . $$
 
-By summing this equation up to some $m$ we get, after using geometric series formulas, that
-$$\chi_{C_m}(n) = (n-1)^2\left( (-1)^m - (n-1)^{m-2}\right) \, . $$
-
+By multiplying this equation by $(-1)^m$ and summing for $m=3, \ldots, M$ we get,
+\begin{align*}
+\sum_{m=3}^M (-1)^m\chi_{C_{m+1}}(n) &= \sum_{m=3}^M (-1)^m n(n-1)^m - \sum_{m=3}^M (-1)^m \chi_{C_{m}}(n) \\
+\sum_{m=3}^M (-1)^m(\chi_{C_{m+1}}(n) + \chi_{C_{m}}(n) ) &= n \frac{(n-1)^{M+1}(-1)^{M+1} - (n-1)^3(-1)^3}{-(n-1) -  1}\\
+(-1)^M \chi_{C_{M+1}}(n) + (-1)^3 \chi_{C_{3}}(n) &= -(n-1)^{M+1}(-1)^{M+1} + (n-1)^3(-1)^3\\
+\chi_{C_{M+1}}(n) + (-1)^{M+3} \chi_{C_{3}}(n) &= -(n-1)^{M+1}(-1)^{2M+1} + (n-1)^3(-1)^{M+3}\\
+\chi_{C_{M+1}}(n) &= (n-1)^{M+1} + (n-1)^3(-1)^{M+3} - (-1)^{M+3} \chi_{C_{3}}(n)\\
+\chi_{C_{M+1}}(n) &= (n-1)^{M+1} - (-1)^M(n-1)\left( (n-1)^2 - n(n-2) \right) \\
+\chi_{C_{M+1}}(n) &= (n-1)^{M+1} - (-1)^M(n-1)
+\end{align*}
+where we use that $\chi_{C_{3}}(n) = n(n-1)(n-2)$, since $C_{3}$ is the complete graph on $3$ vertices.
+We conclude the formula for $M\geq 3$ to be
+$$\chi_{C_M}(n) = (n-1)^M + (-1)^M(n-1) \, . $$
 \end{enumerate}
 
 
 \item 
-Note that $A_{K_{m, n}}^2 = \begin{pmatrix}
-n J & 0 \\ 0 & mJ
-\end{pmatrix}$, where $J$ is the all-one matrix (either $m\times m$ or $n\times n$).
+Recall that for any graph $G$, $(A_G^k)_{i, j}$ is the number of paths of length $k$ connecting the vertices $i$ and $j$.
+Therefore, one can see that $A_{K_{m, n}}^2 = \begin{pmatrix}
+n J_m & 0 \\ 0 & mJ_n
+\end{pmatrix}$, where $J_k$ is the $k\times k$ all-one matrix.
 The spectrum of this matrix is $\{ 0 ^{\times (m+n-2) }, mn^{\times 2}\}$.
-Indeed, any vector $\vv $ such that $\sum_{i=1}^m \vv_i = 0$ and $\sum_{i=m+1}^{m+n} \vv_i = 0$ has $A_{K_{m, n}}^2\vv =0 $ and the vectors $(\underbrace{1}_{m \text{ times}}, \underbrace{0}_{n \text{ times}})$ and  $ (\underbrace{0}_{m \text{ times}}, \underbrace{1}_{n \text{ times}})$ eigenvectors corresponding to the eigenvalue $mn$.
+Indeed, any vector $\vv $ such that $\sum_{i=1}^m \vv_i = 0$ and $\sum_{i=m+1}^{m+n} \vv_i = 0$ has $A_{K_{m, n}}^2\vv =0 $ and the vectors $(\underbrace{1}_{m \text{ times}}, \underbrace{0}_{n \text{ times}})$ and  $ (\underbrace{0}_{m \text{ times}}, \underbrace{1}_{n \text{ times}})$ are linearly independent eigenvectors corresponding to the eigenvalue $mn$.
 
-Thus, $0$ is an eigenvalue of $A_{K{m, n}}$ with multiplicity $m+n-2$ and the values $\{ \sqrt{mn}, -\sqrt{mn}\}$ have combined multiplicity two.
+Thus, $0$ is an eigenvalue of $A_{K{m, n}}$ with multiplicity $m+n-2$ and the eigenvalues $\{ \sqrt{mn}, -\sqrt{mn}\}$ have combined multiplicity two.
 Because $\Tr A_{K_{m, n}} =0 $, we have that each of these values has multiplicity one.
 Thus, the spectrum is 
-$$ \{ \sqrt{mn}, \underbrace{0, 
-\ldots, 0}_{m+n-2 \text{ many times }}, -\sqrt{mn} \} \, . $$
+$$ \{ \sqrt{mn}, \underbrace{0, \ldots, 0}_{m+n-2 \text{ many times }}, -\sqrt{mn} \} \, . $$
 
 \item 
 \begin{enumerate}
 \item 
+First we observe that $\vv_1 = \frac{1}{\sqrt{n}} \mathbb{1}$ is indeed an eigenvector.
+Note that for each vertex $i$ we have $(A_G \vv_1)_i = \sum_{j : i\-- j} \frac{1}{\sqrt{n}} = \frac{d}{\sqrt{n}}$, as $i$ has exactly $d$ neighbours.
+
+Assume now that there is some eigenvalue $\lambda > d$, and let $\vv $ be its corresponding eigenvector, let $i$ be the vertex such that $|\vv_i|$ is maximal.
+Then 
+\begin{align*}
+\lambda |\vv_i | &= |(A_G \vv)_i|\\
+ &= \left|\sum_{j : i\-- j} \vv \right| \\
+ &\leq \sum_{j : i\-- j} |\vv| \\
+ &\leq d |\vv_i| < \lambda |\vv_i | \, ,
+\end{align*}
+a contradiction.
 
 \item 
 
@@ -167,6 +197,55 @@ $$ \{ \sqrt{mn}, \underbrace{0,
 
 
 \item 
+Let $P$ be the Petersen graph, and let $G$ be the line graph of $K_5$.
+Because $K_5$ has $10$ edges, $G$ has $10$ vertices.
+Furthermore, each edge in $K_5$ has $6$ neighbouring edges, so $G$ is $6$-regular.
+One can notice that $P$ is the complementary graph of $G$, so we compute the eigenvalues of $G$ and use 4.d).
+
+Let $B = B_{K_5}$ be the incidence matrix of $K_5$, that is for $v\in V(K_5)$ and $e\in E(K_5)$, the corresponding entry $B_{v, e}$ is $1$ if $v\in e$, and $0$ otherwise.
+In this way we have 
+\begin{equation}\label{eq:similar}
+\begin{split}
+A_{K_5} &= B B^T - 4 \Id_{5} \, , \\
+A_G &= B^T B - 2 \Id_{10} \, .
+\end{split}
+\end{equation}
+
+We will use \eqref{eq:similar} to compute the eigenvalues of $A_G$.
+Specifically, we will show that any eigenvalue of $B B^T$ is an eigenvalue of $B^T B$, with at least the same multiplicity, by mapping an eigenspace to another injectively.
+Finally, we will show that all remaning eigenvalues of $B^T B$ are zero, by analyzing its rank.
+The connection between the spectrum og $G$ and $K_5$ is then done using \eqref{eq:similar}.
+
+We start with the latter.
+Recall that if $\mu_{\lambda}$ is the multiplicity of the eigenvalue $\lambda $ in the matrix $A$, $\rk(A -\lambda  \Id_n ) + \mu_{\lambda} \geq n$ with equality for symetric matrices (from the spectral theorem).
+It is easy to see that $\rk B^T = 5 $ is maximal: if $e_1, e_2, e_3$ are three edges that form a triangle, then $B_{\cdot, e_1} + B_{\cdot, e_2} - B_{\cdot, e_3}$ is a multiple of a canonical basis element.
+Thus, we observe that $\rk(A_G + 2 \Id_{10} ) = \rk (B^T B) \leq \rk B^T = 5$.
+Therefore $\mu_{-2} \geq 5$.
+
+Now consider the eigenspace $V_{\lambda} $ of $B B^T$ corresponding to the eigenvalue $\lambda$, and the eigenspace $W_{\lambda} $ of $B^T B$ corresponding to the eigenvalue $\lambda$.
+The map $B^T$ is an injective map $\R^5 \to \R^{10}$, as $\rk B^T = 5$.
+Furthermore, if $\vv \in V_{\lambda} $, we have $B^T B B^T v = \lambda B^T v$.
+So $B^T V_{\lambda} \subseteq W_{\lambda}$.
+
+
+We now compute the spectrum of each of the matrices.
+First, we know that 
+$$\spec \, K_5 = \{4^{\times 1 }, -1^ {\times 4} \}\, ,$$
+thus
+$$\spec \, B B^T = \{8^{\times 1 }, 3^{\times 4} \}\, ,$$
+and therefore the eigenspace of $B^T B$ satisfies
+$$\spec \, B B^T \subseteq \{8^{\times 1 }, 3^{\times 4}, 0^{\times 5} \}\, ,$$
+and since this already has the correct cardinality $10$, this is precisely the spectrum of the matrix.
+
+Thus
+$$\spec \, G = \{6^{\times 1 }, 1^{\times 4}, -2^ {\times 5} \}\, ,$$
+
+Therefore, from 4.d)
+$$\spec \, P = \{3^{\times 1}, 1^{\times 5}, -2^{\times 4} \}\, .$$
+Alternatively, the following python code, yields the spectrum of $A_P$:
+\begin{verbatim}
+
+\end{verbatim}
 
 \item 
 \begin{enumerate}
@@ -179,6 +258,12 @@ $$ \{ \sqrt{mn}, \underbrace{0,
 \item
 
 \item 
+From 6.a), we have that $\dim (V^i \cap (V^{i+1})^{\perp}) = \binom{e}{i}-\binom{e}{i-1}$.
+From 6.d) we have that $(V^i \cap (V^{i+1})^{\perp}) \subseteq V_{\lambda_i}$ is contained in the eigenspace of $A_{K(E, r)}$ corresponding to $(-1)^i\binom{e-r-i}{r-i} = \lambda_i$.
+
+We have $\binom{e}{r} \geq \sum_{i=0}^r \dim V_{\lambda_i} \geq \sum_{i=0}^r \binom{e}{i}-\binom{e}{i-1} = \binom{e}{r}$.
+So we have equality all throughout, so $(V^i \cap (V^{i+1})^{\perp}) = V_{\lambda_i}$ and these are indeed all the eigenvalues of $K(E, r)$, so
+$$\spec \, K(E, r) = \{  \lambda_i^{\binom{e}{i} - \binom{e}{i-1}} | i = 0, \ldots, r\} \, . $$
 \end{enumerate}
 
 \end{enumerate}
