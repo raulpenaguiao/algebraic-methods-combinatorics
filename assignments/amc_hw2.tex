@@ -93,6 +93,7 @@
 \newcommand{\conv}{\mathrm{conv}}
 \newcommand{\maxcut}{\mathrm{maxcut}}
 \newcommand{\we}{\mathrm{we}}
+\newcommand{\Id}{\mathrm{Id}}
 \newcommand{\spec}{\mathrm{spec}}
 
 
@@ -133,12 +134,12 @@ Write as usual $\spec \, G = \{\lambda_1 \leq \cdots \leq \lambda_n \}$, and con
 \begin{enumerate}
 \item If $G$ is a $d$-regular graph, then $\lambda_1 = d$ and $\vv_1 = \frac{1}{\sqrt{n}}\mathbb{1}$.
 
-\item If $G$ is connected, then $\lambda_1 \neq \lambda_2$.
+\item If $G$ is connected, then $\lambda_1 \neq \lambda_2$. Hint: Recall Perron-Frobenius theorem.
 
 \item A graph $G$ is bipartite if and only if $\spec \, G = - \spec \, G$.
 Hint: recall that a graph is bipartite if and only if it does not have any cycle with odd length.
 
-\item If a graph $G$ is $d$-regular, and $\overline{G}$ is the complementary graph, then $\spec \, \overline{G} = \{ \overline{\lambda_{n+1}} \geq  \overline{\lambda_{n}} \geq  \ldots \geq  \overline{\lambda_{3}} \geq  \overline{\lambda_{2}} \}$, where $\overline{\lambda_{n+1}} = n - d + 1$ and $\overline{\lambda_i} = - 1 - \lambda _ i$ for $i = 2, \ldots, n$.
+\item If a graph $G$ is $d$-regular, and $\overline{G}$ is the complementary graph, then $\spec \, \overline{G} = \{ \overline{\lambda_{n+1}} \geq  \overline{\lambda_{n}} \geq  \cdots \geq  \overline{\lambda_{3}} \geq  \overline{\lambda_{2}} \}$, where $\overline{\lambda_{n+1}} = n - d + 1$ and $\overline{\lambda_i} = - 1 - \lambda _ i$ for $i = 2, \ldots, n$.
 Show that the corresponding eigenbasis is the same.
 \end{enumerate}
 
@@ -149,7 +150,6 @@ For that, take advantage of the previous exercise, and note that the complement 
 \item In this exercise we will compute the spectrum of the Kneser graph.
 Recall that the Kneser graph $K(E, r)$ is the graph with vertex set $V = \binom{E}{r}$ and two vertices $A, B$ share an edge if $A \cap B = \emptyset$.
 We work on the vector space $\R^V$, where vectors are indexed by subsets of $E$ with $r$ elements.
-Let $e = |E|$.
 
 For $i, j = 0, \ldots, r$, define the matrices $M_{i, j} = [m_{I, J}]_{\substack{I\in \binom{E}{i} \\ J \in \binom{E}{j}}}$ and $N_{i, j} = [n_{I, J}]_{\substack{I\in \binom{E}{i} \\ J \in \binom{E}{j}}}$ such that 
 
@@ -164,15 +164,32 @@ $$ m_{I, J} =\begin{cases*}
 
 Note that $A_{K(E, r)} = N_{r, r}$.
 Define $V^i = \rowspn \, M_{i, r} \subseteq \R^V$.
+Let $e = |E|$.
 
 \begin{enumerate}
-\item Show that $V^i \subseteq V^{i+1}$ and $\dim V^i = \binom{e}{i}$ for $i=0, \ldots, r$.
+\item
+Show the following equalities:
+\begin{equation}\label{eq:matrices}
+\begin{split}
+M_{i, j} M_{j, k} &= \binom{k-i}{j-i} M_{i, k} \text{ for $0\leq i \leq j \leq k \leq r$}\\
+M_{i, j} N_{j, k} &= \binom{e-k-i}{j-i} N_{i, k}  \text{ for $0\leq i \leq j \leq k \leq r$}\\
+\sum_{i=0}^j (-1)^i N_{i, j}^T N_{i, k} &= M_{j, k} \\
+\sum_{i=0}^j (-1)^i N_{i, j}^T M_{i, k} &= N_{j, k} \\
+\end{split}
+\end{equation}
+
+\item
+Prove that $\dim V^i = \binom{e}{i}$ for $i=0, \ldots, r$. 
+Hint: Show that $M_{i, r} \sum_{j=0}^i \frac{(-1)^j}{\binom{e-i-j}{r-i}} N_{r, j} M_{j, i} = \Id$.
+
+\item Show that $V^i \subseteq V^{i+1}$ for $i=0, \ldots, r-1$.
+Hint: Show that if $A = BC $ then $\rowspn\,~A~\subseteq~\rowspn\,~C$.
 
 \item Show that $\rowspn \, N_{i, r} = \rowspn \, M_{i, r} = V^i$.
-
-\item Show that $M_{i, j} N_{j, k} = N_{i, k} \binom{e - k - i}{j-i}$ and that $N_{i, i} = \sum_{l=0}^i (-1)^l M_{l, i}^TM_{l, j}$.
+Use the 3rd and 4th equation in \eqref{eq:matrices}.
 
 \item Show that if $\vv \in V^i \cap (V^{i-1})^{\perp}$, then $(-1)^i \vv A_G = \binom{e-r-i}{r-i} \vv $.
+
 
 \item Conclude with the spectrum of $K(E, r)$.
 \end{enumerate}

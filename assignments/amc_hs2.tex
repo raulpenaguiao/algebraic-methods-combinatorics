@@ -174,25 +174,52 @@ $$ \{ \sqrt{mn}, \underbrace{0, \ldots, 0}_{m+n-2 \text{ many times }}, -\sqrt{m
 \item 
 \begin{enumerate}
 \item 
-First we observe that $\vv_1 = \frac{1}{\sqrt{n}} \mathbb{1}$ is indeed an eigenvector.
+First we observe that $\vv_1 = \frac{1}{\sqrt{n}} \mathbb{1}$ is indeed an orthonormal eigenvector.
 Note that for each vertex $i$ we have $(A_G \vv_1)_i = \sum_{j : i\-- j} \frac{1}{\sqrt{n}} = \frac{d}{\sqrt{n}}$, as $i$ has exactly $d$ neighbours.
+This concludes that it is an eigenvector.
+The orthonormality is imediate.
 
 Assume now that there is some eigenvalue $\lambda > d$, and let $\vv $ be its corresponding eigenvector, let $i$ be the vertex such that $|\vv_i|$ is maximal.
 Then 
-\begin{align*}
-\lambda |\vv_i | &= |(A_G \vv)_i|\\
- &= \left|\sum_{j : i\-- j} \vv \right| \\
- &\leq \sum_{j : i\-- j} |\vv| \\
- &\leq d |\vv_i| < \lambda |\vv_i | \, ,
-\end{align*}
+
+$$\lambda |\vv_i | = |(A_G \vv)_i| = \left|\sum_{j : i\-- j} \vv_j \right| \leq \sum_{j : i\-- j} |\vv_j| \leq d |\vv_i| < \lambda |\vv_i | \, ,$$
 a contradiction.
 
 \item 
+We observe that if $G$ is connected, then $A_G$ is irreducible, that is there is no permutation matrix $P$ such that $PA_GP^{-1} = \begin{pmatrix}
+A&B//0 & C\end{pmatrix}$ where $A, C$ are square non-empty matrices.
+Thus the exercise follows from Pieron-Frobbenius theorem.
+Specifically, any non-negative matrix that is irreducible has a unique largest eigenvalue, with a one-dimensional eigenspace.
 
 \item 
+For the direct implication, assume that $G$ is bipartite.
+Let the vertex partition be $V = V_1 \uplus V_2$ and identify $\R^V = \R^{V_1} \times \R^{V_2}$.
+Define the map $\phi : \R^{V_1} \times \R^{V_2} \to \R^{V_1} \times \R^{V_2}$ by $\phi(\vv, \vw) \mapsto (\vv, -\vw)$.
+This maps the eigenspace of $\lambda $ to $-\lambda$.
+Indeed, because $G$ is bipartite, $A_G = \begin{pmatrix}
+0 & A\\
+A^T & 0
+\end{pmatrix}$ so if $(\vv, \vw)$ is in the eigenspace of $A_G$ corresponding to $\lambda$, then $A_G (\vv, \vw)^T = \lambda (\vv, \vw)^T$, that is $(A\vw, A^T\vv) = \lambda (\vv, \vw)^T$, so 
+$$A_G \phi(\vv, \vw)^T = A_G (\vv, -\vw)^T = (-A\vw, A^T\vv) = \lambda (-\vv, \vw)^T  = -\lambda \phi(\vv, \vw)^T\, . $$
+This concludes that the bijective linear map $\phi$ sends eigenspaces to its symmetric eigenvalue, so the multiplicities are the same.
+
+For the inverse implication, assume that $\spec \, G = - \spec \, G$.
+Therefore we have for any odd number $k$ that $\Tr A_G^k = \sum_{\lambda \in \spec \, G } \lambda^k = 0$.
+Recall that for any graph $G$, $(A_G^k)_{i, j}$ is the number of paths of length $k$ connecting the vertices $i$ and $j$.
+So $\Tr A_G^k = 0$ is the number of cycles of $G$ of length $k$.
+We conclude that $G$ has no cycles of odd length, so it is bipartite.
+
 
 \item 
-
+First observe that $\overline{G}$ is a regular graph, with common degree $n - 1 - d $.
+Therefore $\frac{1}{\sqrt{n}} \mathbb{1}$ is an eigenvalue of $\overline{G}$, from 2a), with the same eigenvector as $G$.
+Now let $\vv $ be an eigenvector of $\overline{G}$, corresponding to the eigenvalue $\lambda$, and assume that $\vv \perp \mathbb{1}$, this captures all the remaning eigenvectors because of the spectral theorem.
+Then note that $A_{\overline{G}} + A_G = J - \Id_n$, where $J$ is the all-one $n\times n$ matrix.
+Note that $J\vv = \vec{0}$.
+Thus
+$$\lambda \vv = A_{\overline{G}}\vv = (J - \Id_n - A_G)\vv = -\vv - A_G \vv\, ,$$
+that is $A_G \vv = -(\lambda + 1)\vv$.
+This shows that the eigenspaces are the same, and the corresponding eigenvalues are related by $\lambda \mapsto -(\lambda + 1)$, as desired.
 \end{enumerate}
 
 
@@ -244,7 +271,33 @@ Therefore, from 4.d)
 $$\spec \, P = \{3^{\times 1}, 1^{\times 5}, -2^{\times 4} \}\, .$$
 Alternatively, the following python code, yields the spectrum of $A_P$:
 \begin{verbatim}
+import numpy as np
 
+# Adjacency matrix Peterson graph
+
+A_P = [[0, 1, 0, 0, 1, 1, 0, 0, 0, 0],
+
+      [1, 0, 1, 0, 0, 0, 1, 0, 0, 0],
+
+      [0, 1, 0, 1, 0, 0, 0, 1, 0, 0],
+
+      [0, 0, 1, 0, 1, 0, 0, 0, 1, 0],
+
+      [1, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+
+      [1, 0, 0, 0, 0, 0, 0, 1, 1, 0],
+
+      [0, 1, 0, 0, 0, 0, 0, 0, 1, 1],
+
+      [0, 0, 1, 0, 0, 1, 0, 0, 0, 1],
+
+      [0, 0, 0, 1, 0, 1, 1, 0, 0, 0],
+
+      [0, 0, 0, 0, 1, 0, 1, 1, 0, 0]]
+
+sorted(list(np.round(np.linalg.eig(np.array(A_P))[0])))
+
+>> [-2.0, -2.0, -2.0, -2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 3.0]
 \end{verbatim}
 
 \item 
@@ -263,7 +316,7 @@ From 6.d) we have that $(V^i \cap (V^{i+1})^{\perp}) \subseteq V_{\lambda_i}$ is
 
 We have $\binom{e}{r} \geq \sum_{i=0}^r \dim V_{\lambda_i} \geq \sum_{i=0}^r \binom{e}{i}-\binom{e}{i-1} = \binom{e}{r}$.
 So we have equality all throughout, so $(V^i \cap (V^{i+1})^{\perp}) = V_{\lambda_i}$ and these are indeed all the eigenvalues of $K(E, r)$, so
-$$\spec \, K(E, r) = \{  \lambda_i^{\binom{e}{i} - \binom{e}{i-1}} | i = 0, \ldots, r\} \, . $$
+$$\spec \, K(E, r) = \{  \lambda_i^{\times \binom{e}{i} - \binom{e}{i-1}} | i = 0, \ldots, r\} \, . $$
 \end{enumerate}
 
 \end{enumerate}

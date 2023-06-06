@@ -1867,22 +1867,23 @@ Then there exists a partition $S = S_1\uplus \cdots \uplus S_r$ such that $\bigc
 \begin{proof}
 Write $S = \{\vx_0, \ldots, \vx_m\}$.
 It is enough to establish the result for $m = (d+1)(r-1)$.
-Define $\vy_i = (\vx_i, 1)$ for $i = 1, \ldots, d+1$, define $\vv_i = \vec{e}_i \in\R^{r-1}$ for $i = 1, \ldots, r-1$, and define $\vv_r = - \sum_{i=1}^{r-1} \vec{e}_i$.
+Define $\vy_i = (\vx_i, 1)\in \R^{d+1}$ for $i = 0, \ldots, m$, define $\vv_i = \vec{e}_i \in\R^{r-1}$ for $i = 1, \ldots, r-1$, and define $\vv_r = - \sum_{i=1}^{r-1} \vec{e}_i$.
 
 Define $M_i \coloneqq \{\vv_j\vy^T_i | j=1, \ldots, r \} \subseteq \R^{(r-1) \times (d+1)}$ for $i = 0, \ldots, m$.
 Note that $\sum_{i=1}^r \vv_i = \vec{0}$, so $\vec{0} \in \conv \, M_i$ for all $i$.
-There are $m+1$ such sets in $\R^m$, so \cref{thm:colorful_c} gives us, for each $i$, a point $\vv_{f(i)}\vy^T_i$ and a coeficient $\alpha_i\geq 0$ such that 
+There are $m+1$ such sets in $\R^m$, so \cref{thm:colorful_c} gives us, for each $i$, a point $\vz_i\in M_i$ and a coeficient $\alpha_i\geq 0$ such that 
 \begin{equation}\label{eq:col}
- \vec{0} = \sum_{i=0}^m \alpha_i \vv_{f(i)}\vy_i^T , \quad \quad \sum_{i=0}^m \alpha_i = 1\, . 
+ \vec{0} = \sum_{i=0}^m \alpha_i \vz_i , \quad \quad \sum_{i=0}^m \alpha_i = 1\, . 
 \end{equation}
 
-Multiplying by $\vec{e}_1$ on the left of the first equation of \eqref{eq:col} gives us 
+Let $f(i)$ such that $\vz_i = \vv_{f(i)}\vy_i^T$.
+Multiplying by $\vec{e}_1^T$ on the left of the first equation of \eqref{eq:col} gives us 
 $$ \vec{0} = \left( \sum_{i: f(i) = 1} \alpha_i \vy_i^T\right) - \left(\sum_{i: f(i) = r} \alpha_i \vy_i^T \right) \, . $$
-Multiplying by $\vec{e}_1 - \vec{e}_k$ on the left of the first equation of \eqref{eq:col}, for $k = 2, \ldots, r-1$ gives us 
+Multiplying by $\vec{e}_1^T - \vec{e}_k^T$ on the left of the first equation of \eqref{eq:col}, for $k = 2, \ldots, r-1$ gives us 
 $$ \vec{0} = \left( \sum_{i: f(i) = 1} \alpha_i \vy_i^T\right) - \left(\sum_{i: f(i) = k} \alpha_i \vy_i^T \right) \, . $$
 
 We therefore get that $ \sum_{i: f(i) = j} \alpha_i \vy_i^T$ does not depend on $j = 1, \ldots, r$.
-Recall that $\vy_i = (\vx_i, 1)$, so this gives us that $A \coloneqq  \sum_{i: f(i) = j} \alpha_i$, so $r A = \sum_i \alpha_i = 1$ gives $A = \frac{1}{r}$.
+Recall that $\vy_i = (\vx_i, 1)$, so this gives us that $A \coloneqq  \sum_{i: f(i) = j} \alpha_i$ does not depend on $j$, so $r A = \sum_i \alpha_i = 1$ gives $A = \frac{1}{r}$.
 
 We conclude that $\vv \coloneqq \sum_{i: f(i) = j} \frac{\alpha_i}{A}\vx_i$ is a convex combination that does not depend on $j$, that is $\va \in \conv\{\vx_i\}_{i: f(i) = j}$.
 
