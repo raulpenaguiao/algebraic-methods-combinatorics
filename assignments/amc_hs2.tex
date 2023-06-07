@@ -187,13 +187,13 @@ a contradiction.
 
 \item 
 We observe that if $G$ is connected, then $A_G$ is irreducible, that is there is no permutation matrix $P$ such that $PA_GP^{-1} = \begin{pmatrix}
-A&B//0 & C\end{pmatrix}$ where $A, C$ are square non-empty matrices.
+A&B\\ 0 & C\end{pmatrix}$ where $A, C$ are square non-empty matrices.
 Thus the exercise follows from Pieron-Frobbenius theorem.
 Specifically, any non-negative matrix that is irreducible has a unique largest eigenvalue, with a one-dimensional eigenspace.
 
 \item 
 For the direct implication, assume that $G$ is bipartite.
-Let the vertex partition be $V = V_1 \uplus V_2$ and identify $\R^V = \R^{V_1} \times \R^{V_2}$.
+Let the corresponding vertex partition be $V = V_1 \uplus V_2$ and identify $\R^V = \R^{V_1} \times \R^{V_2}$.
 Define the map $\phi : \R^{V_1} \times \R^{V_2} \to \R^{V_1} \times \R^{V_2}$ by $\phi(\vv, \vw) \mapsto (\vv, -\vw)$.
 This maps the eigenspace of $\lambda $ to $-\lambda$.
 Indeed, because $G$ is bipartite, $A_G = \begin{pmatrix}
@@ -201,7 +201,7 @@ Indeed, because $G$ is bipartite, $A_G = \begin{pmatrix}
 A^T & 0
 \end{pmatrix}$ so if $(\vv, \vw)$ is in the eigenspace of $A_G$ corresponding to $\lambda$, then $A_G (\vv, \vw)^T = \lambda (\vv, \vw)^T$, that is $(A\vw, A^T\vv) = \lambda (\vv, \vw)^T$, so 
 $$A_G \phi(\vv, \vw)^T = A_G (\vv, -\vw)^T = (-A\vw, A^T\vv) = \lambda (-\vv, \vw)^T  = -\lambda \phi(\vv, \vw)^T\, . $$
-This concludes that the bijective linear map $\phi$ sends eigenspaces to its symmetric eigenvalue, so the multiplicities are the same.
+This concludes that the bijective linear map $\phi$ sends eigenspaces to eigenspaces of its symmetric eigenvalue, so the multiplicities are the same.
 
 For the inverse implication, assume that $\spec \, G = - \spec \, G$.
 Therefore we have for any odd number $k$ that $\Tr A_G^k = \sum_{\lambda \in \spec \, G } \lambda^k = 0$.
@@ -213,7 +213,7 @@ We conclude that $G$ has no cycles of odd length, so it is bipartite.
 \item 
 First observe that $\overline{G}$ is a regular graph, with common degree $n - 1 - d $.
 Therefore $\frac{1}{\sqrt{n}} \mathbb{1}$ is an eigenvalue of $\overline{G}$, from 2a), with the same eigenvector as $G$.
-Now let $\vv $ be an eigenvector of $\overline{G}$, corresponding to the eigenvalue $\lambda$, and assume that $\vv \perp \mathbb{1}$, this captures all the remaning eigenvectors because of the spectral theorem.
+Now let $\vv $ be an eigenvector of $\overline{G}$, corresponding to the eigenvalue $\lambda$, and assume that $\vv \perp \mathbb{1}$, this captures all the remaining eigenvectors because of the spectral theorem.
 Then note that $A_{\overline{G}} + A_G = J - \Id_n$, where $J$ is the all-one $n\times n$ matrix.
 Note that $J\vv = \vec{0}$.
 Thus
@@ -303,10 +303,39 @@ sorted(list(np.round(np.linalg.eig(np.array(A_P))[0])))
 \item 
 \begin{enumerate}
 \item 
+Let's prove the four equations.
+For the first one let $A \in \binom{E}{i}$ and $B \in \binom{E}{k}$, then
+\begin{align*}
+(M_{i, j} M_{j, k})_{A, B} &= \sum_{C \in \binom{E}{j}} (M_{i, j})_{A, C}( M_{j, k})_{C, B}\\
+&= \sum_{\substack{C \in \binom{E}{j} \\ A \subseteq C \subseteq B }} 1\\
+\end{align*}
+which is equal to $\binom{k-i}{j-i}$ whenever $A\subseteq B$, and is zero otherwise, so
+$M_{i, j} M_{j, k} = \binom{k-i}{j-i}M_{i, k}$.
+
+For the second equation let $A \in \binom{E}{i}$ and $B \in \binom{E}{k}$, then
+\begin{align*}
+(M_{i, j} N_{j, k})_{A, B} &= \sum_{C \in \binom{E}{j}} (M_{i, j})_{A, C}( N_{j, k})_{C, B}\\
+&= \sum_{\substack{C \in \binom{E}{j} \\ A \subseteq C \\ C \cap B = \emptyset }} 1\\
+\end{align*}
+which is equal to $\binom{e-k-i}{j-i}$ whenever $A\cap B = \emptyset $, and is zero otherwise, so
+$M_{i, j} N_{j, k} = \binom{e-k-i}{j-i}N_{i, k}$.
+
+For the third equation let $A \in \binom{E}{i}$ and $B \in \binom{E}{k}$, then
+\begin{align*}
+()_{A, B} &= \sum_{C \in \binom{E}{j}} (M_{i, j})_{A, C}( N_{j, k})_{C, B}\\
+&= \sum_{\substack{C \in \binom{E}{j} \\ A \subseteq C \\ C \cap B = \emptyset }} 1\\
+\end{align*}
+which is equal to $\binom{e-k-i}{j-i}$ whenever $A\cap B = \emptyset $, and is zero otherwise, so
+$M_{i, j} N_{j, k} = \binom{e-k-i}{j-i}N_{i, k}$.
+
+
+
 
 \item 
 
 \item 
+
+\item
 
 \item
 
