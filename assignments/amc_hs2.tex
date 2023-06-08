@@ -84,8 +84,10 @@
 \newcommand{\vx}{\mathsf{x}}
 \newcommand{\vy}{\mathsf{y}}
 \newcommand{\va}{\mathsf{a}}
+\newcommand{\vc}{\mathsf{c}}
 
 \newcommand{\spn}{\mathrm{span}}
+\newcommand{\rowspn}{\mathrm{rowspan}}
 \newcommand{\rk}{\mathrm{rk}}
 \newcommand{\tr}{\mathrm{tr}}
 \newcommand{\conv}{\mathrm{conv}}
@@ -301,43 +303,94 @@ sorted(list(np.round(np.linalg.eig(np.array(A_P))[0])))
 \end{verbatim}
 
 \item 
+We start by establishing a useful counting lemma:
+\begin{lm}\label{lm:binsum}
+Let $n> 0$ be an integer, then
+$$ \sum_{i=0}^n (-1)^i\binom{n}{i} = 0 \, ,$$
+furthermore, if $n=0$, then $\sum_{i=0}^n (-1)^i\binom{n}{i} = 1$.
+\end{lm}
+
+\begin{proof}
+The case $n=0$ is imediate.
+We can therefore assume that $n>0$, and apply the Newton binomial theorem on $(x+y)^n$ for $x = -1$ and $y = 1$, which gives the desired formula. 
+\end{proof}
+
 \begin{enumerate}
 \item 
 Let's prove the four equations.
 For the first one let $A \in \binom{E}{i}$ and $B \in \binom{E}{k}$, then
-\begin{align*}
-(M_{i, j} M_{j, k})_{A, B} &= \sum_{C \in \binom{E}{j}} (M_{i, j})_{A, C}( M_{j, k})_{C, B}\\
-&= \sum_{\substack{C \in \binom{E}{j} \\ A \subseteq C \subseteq B }} 1\\
-\end{align*}
+$$(M_{i, j} M_{j, k})_{A, B} = \sum_{C \in \binom{E}{j}} (M_{i, j})_{A, C}( M_{j, k})_{C, B} = \sum_{\substack{C \in \binom{E}{j} \\ A \subseteq C \subseteq B }} 1\, ,$$
 which is equal to $\binom{k-i}{j-i}$ whenever $A\subseteq B$, and is zero otherwise, so
 $M_{i, j} M_{j, k} = \binom{k-i}{j-i}M_{i, k}$.
 
 For the second equation let $A \in \binom{E}{i}$ and $B \in \binom{E}{k}$, then
-\begin{align*}
-(M_{i, j} N_{j, k})_{A, B} &= \sum_{C \in \binom{E}{j}} (M_{i, j})_{A, C}( N_{j, k})_{C, B}\\
-&= \sum_{\substack{C \in \binom{E}{j} \\ A \subseteq C \\ C \cap B = \emptyset }} 1\\
-\end{align*}
+$$(M_{i, j} N_{j, k})_{A, B} = \sum_{C \in \binom{E}{j}} (M_{i, j})_{A, C}( N_{j, k})_{C, B} = \sum_{\substack{C \in \binom{E}{j} \\ A \subseteq C \\ C \cap B = \emptyset }} 1 \, ,
+$$
 which is equal to $\binom{e-k-i}{j-i}$ whenever $A\cap B = \emptyset $, and is zero otherwise, so
 $M_{i, j} N_{j, k} = \binom{e-k-i}{j-i}N_{i, k}$.
 
-For the third equation let $A \in \binom{E}{i}$ and $B \in \binom{E}{k}$, then
+For the third equation let $A \in \binom{E}{j}$ and $B \in \binom{E}{k}$, then
 \begin{align*}
-()_{A, B} &= \sum_{C \in \binom{E}{j}} (M_{i, j})_{A, C}( N_{j, k})_{C, B}\\
-&= \sum_{\substack{C \in \binom{E}{j} \\ A \subseteq C \\ C \cap B = \emptyset }} 1\\
+\left(\sum_{i=0}^j (-1)^i M_{i, j}^T N_{i, k}\right)_{A, B} &= \sum_{i=0}^j (-1)^i \sum_{C \in \binom{E}{i}} (M_{i, j}^T)_{A, C}( N_{i, k})_{C, B}\\
+&=\sum_{i=0}^j (-1)^i \sum_{C \in \binom{E}{i}} (M_{i, j})_{C, A}( N_{i, k})_{C, B}\\
+&=\sum_{i=0}^j (-1)^i \sum_{\substack{C \in \binom{E}{i}\\ C \subseteq A \\ C \cap B = \emptyset  }} 1 =\sum_{i=0}^j (-1)^i \binom{|A \setminus B|}{i}
 \end{align*}
-which is equal to $\binom{e-k-i}{j-i}$ whenever $A\cap B = \emptyset $, and is zero otherwise, so
-$M_{i, j} N_{j, k} = \binom{e-k-i}{j-i}N_{i, k}$.
+where we note that $\binom{|A \setminus B|}{i} = 0 $ for $i > |A \setminus B|$.
+Therefore, from \cref{lm:binsum} this is equal to $1$ whenever $A \subseteq B $, and is zero otherwise, so we can conclude that
+$\sum_{i=0}^j (-1)^i M_{i, j}^T N_{i, k} = M_{j, k}$.
+
+
+For the fourth equation let $A \in \binom{E}{j}$ and $B \in \binom{E}{k}$, then
+\begin{align*}
+\left(\sum_{i=0}^j (-1)^i M_{i, j}^T M_{i, k}\right)_{A, B} &= \sum_{i=0}^j (-1)^i \sum_{C \in \binom{E}{i}} (M_{i, j}^T)_{A, C}( M_{i, k})_{C, B}\\
+&=\sum_{i=0}^j (-1)^i \sum_{C \in \binom{E}{i}} (M_{i, j})_{C, A}( M_{i, k})_{C, B}\\
+&=\sum_{i=0}^j (-1)^i \sum_{\substack{C \in \binom{E}{i}\\ C \subseteq A \\ C\subseteq B}} 1 =\sum_{i=0}^j (-1)^i \binom{|B \cap A|}{i}
+\end{align*}
+where we note that $\binom{|B \cap A|}{i} = 0 $ for $i > |B \cap A|$.
+Therefore, from \cref{lm:binsum} this is equal to $1$ whenever $B \cap A = \emptyset $, and is zero otherwise, so we can conclude that
+$\sum_{i=0}^j (-1)^i  M_{i, j}^T M_{i, k} = N_{j, k}$.
 
 
 
 
 \item 
+Note that the matrix $N_{i, j}$ is symetric, so that $N_{i, j} = N_{j, i}^T$.
+Therefore, we can use equations one and three from 6 a) to get
+\begin{align*}
+M_{i, r} \left( \sum_{j=0}^i \frac{(-1)^j}{\binom{e-i-j}{r-i}} N_{r, j} M_{j, i}\right) &= \sum_{j=0}^i \frac{(-1)^j}{\binom{e-i-j}{r-i}}M_{i, r} N_{r, j} M_{j, i} = \sum_{j=0}^i \frac{(-1)^j}{\binom{e-i-j}{r-i}}\binom{e-i-j}{r-i} N_{i, j} M_{j, i}\\
+&= \sum_{j=0}^i (-1)^j N_{j, i}^T M_{j, i} = \sum_{j=0}^i (-1)^j \left(M_{j, i}^T N_{j, i} \right)^T = M_{i, i}^T = \Id \, ,
+\end{align*}
+we conclude that $M_{i, r}$ has a right inverse, so it must correspond to an injective map, therefore $\rk M_{i, r} = \binom{e}{i}$.
 
 \item 
 
-\item
+\begin{lm}\label{lm:rowspan}
+If $A, B, C$ are matrices such that $A = BC$ then $\rowspn \, A \subseteq \rowspn \, C$
+\end{lm}
+
+\begin{proof}
+Let $\va_1, \ldots , \va_k$ be the row vectors in $A$, and $\vc_1, \ldots, \vc_j$ be the row vectors in $C$.
+Write $B = \begin{pmatrix}
+b_{i, j}
+\end{pmatrix}_{i, j}$.
+The matrix equation $A = BC$ translates to
+$$ \va_i = \sum_l b_{i, l} \vc_l \, ,$$
+so $\va_i \in \spn \{\vc_l\}_l$.
+\end{proof}
+
+From the first equation in 6. a), we have that $M_{i, i+1} M_{i+1, r} = (r-i)M_{i, r}$ so from \cref{lm:rowspan} $V^{i} \subseteq V^{i+1}$. 
 
 \item
+Using the second equation in 6. a) and from \cref{lm:rowspan}, we have that $\rowspn \,N_{i, r} \subseteq \rowspn \, N_{i+1, r}$.
+From the third equation in 6. a), setting $k = r$ we have that $\rowspn \, M_{j, r} \subseteq \cup_{i=0}^j \rowspn \, N_{i, r} = N_{j, r}$
+From the fourth equation in 6. a), setting $k = r$ we have that $\rowspn \, N_{j, r} \subseteq \cup_{i=0}^j \rowspn \, M_{i, r} = M_{j, r}$
+
+We conclude that both rowspans are the same.
+
+
+\item
+Recall that $A_G = N_{r, r}$.
+If $\vv \in V^i$, then ..
 
 \item 
 From 6.a), we have that $\dim (V^i \cap (V^{i+1})^{\perp}) = \binom{e}{i}-\binom{e}{i-1}$.

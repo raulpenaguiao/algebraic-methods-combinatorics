@@ -84,6 +84,8 @@
 \newcommand{\vx}{\mathsf{x}}
 \newcommand{\vy}{\mathsf{y}}
 \newcommand{\va}{\mathsf{a}}
+\newcommand{\vb}{\mathsf{b}}
+\newcommand{\vc}{\mathsf{c}}
 \newcommand{\ve}{\mathsf{e}}
 
 \newcommand{\spn}{\mathrm{span}}
@@ -171,16 +173,16 @@ Let $e = |E|$.
 Show the following equalities:
 \begin{equation}\label{eq:matrices}
 \begin{split}
-M_{i, j} M_{j, k} &= \binom{k-i}{j-i} M_{i, k} \text{ for $0\leq i \leq j \leq k \leq r$}\\
-M_{i, j} N_{j, k} &= \binom{e-k-i}{j-i} N_{i, k}  \text{ for $0\leq i \leq j \leq k \leq r$}\\
-\sum_{i=0}^j (-1)^i N_{i, j}^T N_{i, k} &= M_{j, k} \\
-\sum_{i=0}^j (-1)^i N_{i, j}^T M_{i, k} &= N_{j, k} \\
+M_{i, j} M_{j, k} = \binom{k-i}{j-i} M_{i, k} &\text{ for $0\leq i \leq j \leq k \leq r$}\\
+M_{i, j} N_{j, k} = \binom{e-k-i}{j-i} N_{i, k}  &\text{ for $0\leq i \leq j \leq k \leq r$}\\
+\sum_{i=0}^j (-1)^i M_{i, j}^T N_{i, k} = M_{j, k} &\text{ for $0\leq j \leq k \leq r$}\\
+\sum_{i=0}^j (-1)^i M_{i, j}^T M_{i, k} = N_{j, k} &\text{ for $0\leq j \leq k \leq r$}\\
 \end{split}
 \end{equation}
 
 \item
 Prove that $\dim V^i = \binom{e}{i}$ for $i=0, \ldots, r$. 
-Hint: Show that $M_{i, r} \sum_{j=0}^i \frac{(-1)^j}{\binom{e-i-j}{r-i}} N_{r, j} M_{j, i} = \Id$.
+Hint: Show that $M_{i, r} \left( \sum_{j=0}^i \frac{(-1)^j}{\binom{e-i-j}{r-i}} N_{r, j} M_{j, i}\right) = \Id$.
 
 \item Show that $V^i \subseteq V^{i+1}$ for $i=0, \ldots, r-1$.
 Hint: Show that if $A = BC $ then $\rowspn\,~A~\subseteq~\rowspn\,~C$.
