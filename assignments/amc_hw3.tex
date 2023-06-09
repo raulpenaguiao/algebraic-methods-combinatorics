@@ -105,26 +105,35 @@ Show, using polynomials, that $|P| \leq d+2$.
 Fix the proof to show that $|P| \leq d+1$.
 
 \item Let $P$ be a $\{\delta_1, \delta_2\}$ distance set in $\R^d $, and assume that $\delta_1> 2 \delta_2 > 0$.
-Show that $|S| \leq d+1$
+Show that $|S| \leq d+1$.
+Hint: Show that points at distance $\delta_2$ of each other form cliques, then show that a collection of polynomials of degree two is linearly independent.
 
 \item Let $P$ be a $D$-distance set in $\R^d$.
 Show that $|S| \leq p(d)$, where $p$ is a polynomial with degree $|D|$.
 \end{enumerate}
 
-\item 
+\item Let $S$ be a finite set in $\R^d$.
+An $S$-simplex is a convex hull of $d+1$ distinct points in $S$.
+Prove that there is a point $\va \in \R^d$ contained in at least $c_d \binom{|S|}{d+1}$ $S$-simplices, where $c_d$ is a constant independent of $d$.
 
+Hint: Use Tveberg's theorem for $r$ as large as possible.
 
 
 \item Let $X$ be a finite set in $\R^2$ such that any three points in $X$ can be covered by a closed unit disc.
 Show that there is a closed unit disk covering the whole set $X$.
+Hint: Three points can be covered by a unit disk if and only if three particular unit disks have non-empty intersection.
 
 
-\item 
+\item Let $\mathcal F $ be a family of such that any $r+1$ sets in $\FF $ intersect, that is for $X_0, \ldots, X_d \in \FF $ we have $\bigcap_{i=0}^d X_i \neq \emptyset$.
+Show that 
+$$ \bigcap_{X \in \FF} X \neq \emptyset \, . $$
+Hint: 
 
-\item 
+\item Let $\FF = \{ F_0, \ldots, F_m\}$ be a collection of subsets of $[n]$, such that $m \geq (n+1)(r-1)+1$.
+Then there are disjoint subsets $I_1, \ldots , I_r$ that partition $\{0, \ldots, m\}$ such that for any $i\neq j$
+$$ \bigcup_{k \in I_i} F_k = \bigcup_{k \in I_j} F_k , \quad \quad \quad \bigcap_{k \in I_i} F_k = \bigcap_{k \in I_j} F_k \, .$$
 
-\item 
-
+Hint: Follow along the proof of Tveberg's theorem.
 
 \end{enumerate}
 \end{document}
