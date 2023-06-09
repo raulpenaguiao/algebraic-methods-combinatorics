@@ -303,7 +303,7 @@ sorted(list(np.round(np.linalg.eig(np.array(A_P))[0])))
 \end{verbatim}
 
 \item 
-We start by establishing a useful counting lemma:
+We start by establishing useful lemmas:
 \begin{lm}\label{lm:binsum}
 Let $n> 0$ be an integer, then
 $$ \sum_{i=0}^n (-1)^i\binom{n}{i} = 0 \, ,$$
@@ -313,6 +313,21 @@ furthermore, if $n=0$, then $\sum_{i=0}^n (-1)^i\binom{n}{i} = 1$.
 \begin{proof}
 The case $n=0$ is imediate.
 We can therefore assume that $n>0$, and apply the Newton binomial theorem on $(x+y)^n$ for $x = -1$ and $y = 1$, which gives the desired formula. 
+\end{proof}
+
+
+\begin{lm}\label{lm:rowspan}
+If $A, B, C$ are matrices such that $A = BC$ then $\rowspn \, A \subseteq \rowspn \, C$
+\end{lm}
+
+\begin{proof}
+Let $\va_1, \ldots , \va_k$ be the row vectors in $A$, and $\vc_1, \ldots, \vc_j$ be the row vectors in $C$.
+Write $B = \begin{pmatrix}
+b_{i, j}
+\end{pmatrix}_{i, j}$.
+The matrix equation $A = BC$ translates to
+$$ \va_i = \sum_l b_{i, l} \vc_l \, ,$$
+so $\va_i \in \spn \{\vc_l\}_l$.
 \end{proof}
 
 \begin{enumerate}
@@ -364,20 +379,6 @@ we conclude that $M_{i, r}$ has a right inverse, so it must correspond to an inj
 
 \item 
 
-\begin{lm}\label{lm:rowspan}
-If $A, B, C$ are matrices such that $A = BC$ then $\rowspn \, A \subseteq \rowspn \, C$
-\end{lm}
-
-\begin{proof}
-Let $\va_1, \ldots , \va_k$ be the row vectors in $A$, and $\vc_1, \ldots, \vc_j$ be the row vectors in $C$.
-Write $B = \begin{pmatrix}
-b_{i, j}
-\end{pmatrix}_{i, j}$.
-The matrix equation $A = BC$ translates to
-$$ \va_i = \sum_l b_{i, l} \vc_l \, ,$$
-so $\va_i \in \spn \{\vc_l\}_l$.
-\end{proof}
-
 From the first equation in 6. a), we have that $M_{i, i+1} M_{i+1, r} = (r-i)M_{i, r}$ so from \cref{lm:rowspan} $V^{i} \subseteq V^{i+1}$. 
 
 \item
@@ -390,15 +391,27 @@ We conclude that both rowspans are the same.
 
 \item
 Recall that $A_G = N_{r, r}$.
-If $\vv \in V^i$, then ..
+If $\vv \in V^i$ is a row vector, then $\vv = \va M_{i, r}$  for some vector $\va$.
+Furthermore, if $\vv \in (V^{i-1})^{\perp} = (\rowspn N_{i-1, r})^{\perp} $, therefore when $j < i$ we have
+$$ 0 = N_{j, r}\vv^T = \vv N_{j, r}^T =  \va M_{i, r} M_{j, r}^T = \binom{j-i}{r-i} \va N_{i, j} = \va N_{j, i}^T\, , $$
+
+Therefore $\va N_{j, i}^T = \vec{0}$.
+So we have that $\va M_{i, j}^T = 0 $ for $i <j$.
+Using this, and the second and fourth equations of 6. a), we get
+\begin{align*}
+\vv A_G &= \vv N_{r, r} = \va M_{i, r} N_{r, r} = \binom{e-r-j}{r-j} \sum_{i=0}^j (-1)^i \va M_{i, j}^T M_{i, r}\\
+&= \binom{e-r-j}{r-j} (-1)^j \va M_{j, j}^T M_{j, r} = \binom{e-r-j}{r-j} (-1)^j \va M_{j, r} = \binom{e-r-j}{r-j} (-1)^j \vv \,  ,
+\end{align*}
+where we recall that $M_{j, j} = \Id$.
+Because $A_G$ is symmetric, we also have that $A_G \vv^T = \binom{e-r-j}{r-j} (-1)^j \vv^T$.
 
 \item 
 From 6.a), we have that $\dim (V^i \cap (V^{i+1})^{\perp}) = \binom{e}{i}-\binom{e}{i-1}$.
 From 6.d) we have that $(V^i \cap (V^{i+1})^{\perp}) \subseteq V_{\lambda_i}$ is contained in the eigenspace of $A_{K(E, r)}$ corresponding to $(-1)^i\binom{e-r-i}{r-i} = \lambda_i$.
 
 We have $\binom{e}{r} \geq \sum_{i=0}^r \dim V_{\lambda_i} \geq \sum_{i=0}^r \binom{e}{i}-\binom{e}{i-1} = \binom{e}{r}$.
-So we have equality all throughout, so $(V^i \cap (V^{i+1})^{\perp}) = V_{\lambda_i}$ and these are indeed all the eigenvalues of $K(E, r)$, so
-$$\spec \, K(E, r) = \{  \lambda_i^{\times \binom{e}{i} - \binom{e}{i-1}} | i = 0, \ldots, r\} \, . $$
+So we have equality throughout, so $(V^i \cap (V^{i+1})^{\perp}) = V_{\lambda_i}$ and these are indeed all the eigenvalues of $K(E, r)$, so
+$$\spec \, K(E, r) = \left\{  \lambda_i^{\times \binom{e}{i} - \binom{e}{i-1}} \Big| i = 0, \ldots, r\right\} \, . $$
 \end{enumerate}
 
 \end{enumerate}
