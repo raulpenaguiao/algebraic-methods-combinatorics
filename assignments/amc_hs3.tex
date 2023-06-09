@@ -1,0 +1,246 @@
+\documentclass[kulak]{tplt} 
+% options: kulak (default) or kul
+
+\title{Algebraic Methods in Combinatorics}
+\author{Assignment 3 - Solutions}
+\date{Summer semester 2022 -- 2023}
+\address{
+	\textbf{Max Planck Institute for the Mathematics in the Sciences} \\
+	\textbf{Universit\"at Leipzig}}
+
+
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbold}
+\usepackage{listings}
+\usepackage{lineno}
+%\usepackage[margin=3cm]{geometry}
+\usepackage[all,cmtip, color,matrix,arrow]{xy}
+%\usepackage{amsaddr}
+\usepackage{tikz-cd}
+\usepackage{amsmath}%To use \text 
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage[capitalize]{cleveref}
+\crefname{thm}{Theorem}{Theorems}
+%\usepackage{bbold}
+\usepackage[export]{adjustbox}
+\usepackage{todonotes}
+\usepackage{bm}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{mathtools}
+\usepackage{aliascnt}
+\newaliascnt{eqfloat}{equation}
+\newfloat{eqfloat}{h}{eqflts}
+\floatname{eqfloat}{Equation}
+\usepackage{dirtytalk}
+\usepackage[mathscr]{euscript}
+
+
+%\def\shuffle{\sqcup\mathchoice{\mkern-7mu}{\mkern-7mu}{\mkern-3.2mu}{\mkern-3.8mu}\sqcup\,}
+\newcommand{\qshuffle}{\overline{\shuffle}}
+
+
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lm}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{obs}[thm]{Observation}
+\newtheorem{defin}[thm]{Definition}
+\newtheorem{smpl}[thm]{Example}
+\newtheorem{quest}[thm]{Question}
+\newtheorem{exe}[thm]{Exercise}
+\newtheorem{const}[thm]{Construction}
+\newtheorem{prob}[thm]{Problem}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{rem}[thm]{Remark}
+\crefname{lm}{Lemma}{Lemmas}
+\crefname{thm}{Theorem}{Theorems}
+\crefname{prop}{Proposition}{Propositions}
+\crefname{defin}{Definition}{Definitions}
+\crefname{rem}{Remark}{Remarks}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\PP}{\mathbb{P}}
+
+\newcommand{\one}{\mathbb{1}}
+
+\newcommand{\CC}{\mathcal C}
+\newcommand{\JJ}{\mathcal J}
+\newcommand{\II}{\mathcal I}
+\newcommand{\BB}{\mathcal B}
+\newcommand{\FF}{\mathcal F}
+
+%vectors
+\newcommand{\vv}{\mathsf{v}}
+\newcommand{\vw}{\mathsf{w}}
+\newcommand{\vj}{\mathsf{j}}
+\newcommand{\vx}{\mathsf{x}}
+\newcommand{\vy}{\mathsf{y}}
+\newcommand{\vz}{\mathsf{z}}
+\newcommand{\va}{\mathsf{a}}
+\newcommand{\vp}{\mathsf{p}}
+\newcommand{\vc}{\mathsf{c}}
+
+\newcommand{\spn}{\mathrm{span}}
+\newcommand{\rowspn}{\mathrm{rowspan}}
+\newcommand{\rk}{\mathrm{rk}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\conv}{\mathrm{conv}}
+\newcommand{\maxcut}{\mathrm{maxcut}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\we}{\mathrm{we}}
+\newcommand{\Id}{\mathrm{Id}}
+\newcommand{\spec}{\mathrm{spec}}
+
+
+\begin{document}
+
+\maketitle
+\begin{enumerate}
+\item 
+\begin{enumerate}
+\item
+Let $P = \{\vp_1, \ldots, \vp_m \} $ and for each $i=1, \ldots, m$ define the polynomial $F_i \in \R[x_1, \ldots, x_d] = \R[\vx]$ as
+$$ F_i ( \vx ) \coloneqq ||\vx - \vp_i ||^2 - 1  = ||\vx ||^2 - 2 \vx \cdot \vp_i + ||\vp_i||^2 - 1\, .$$
+
+The proof is concluded by showing that $\{F_i\}_{i=1}^m \cup \{ 1 \}$ is a linearly independent set, where $1$ is the constant polynomial equal to $1$.
+Indeed, $F_i \in \spn \{ ||\vx||^2, x_1, \ldots, x_d, 1\}$, which is a $d+2$ dimensional space, so the linear independence implies that $m+1 \leq d+2$, which is the desired inequality.
+
+Assume that there is a linear combination $\alpha 1 + \sum_{i=1}^m \alpha_i F_i = 0 $.
+By comparing the quadratic terms of this equation, we get that $\sum_{i=1}^m \alpha_i = 0$.
+Note that for $i\neq j$ we have $F_i(\vp_j) = 0$.
+By evaluation at $\vp_j $ we get 
+$$ 0 = \alpha + \sum_{i=1}^m \alpha_i F_i(\vp_j) = \alpha + \alpha_j\, . $$
+
+By summing all these equalities we get $m \alpha + \sum_{j=1}^m \alpha_j = 0$, therefore $\alpha = - \sum_{i=1}^m \alpha_i = 0$ and so $\alpha_j = - \alpha = 0$.
+As all coefficients must be zero, we conclude the desired linear independence.
+
+\item 
+Let $P = \{\vp_1, \ldots, \vp_m \} $ and for each $i=1, \ldots, m$ define the polynomial $F_i \in \R[x_1, \ldots, x_d] = \R[\vx]$ as
+$$ F_i ( \vx ) \coloneqq \delta_1^2 - ||\vx - \vp_i ||^2  = - ||\vx ||^2 + 2 \vx \cdot \vp_i - ||\vp_i||^2 + \delta_1^2\, .$$
+
+Define in $[m]$ the relation $i\sim j $ if $i=j$ or $||\vp_i - \vp_j || = \delta_2$.
+Note that $\sim $ is reflexive and symmetric (that is $i\sim i$ and $i\sim j \Rightarrow j \sim i$).
+We also have that $\sim $ is transitive.
+Indeed, if $i\sim j$ and $j \sim k$, we have 
+$$||\vp_i - \vp_k ||  = || \vp_i - \vp_j + \vp_j - \vp_k||  \leq ||\vp_i - \vp_j || + ||\vp_j - \vp_k|| = 2\delta_2 < \delta_1 \, , $$
+so we must have either $i=k$ or $||\vp_i - \vp_k|| = \delta_2$, so in either case $i \sim k$.
+
+This shows that $\sim $ is an equivalence relation on $[m]$.
+Let $I_1, \ldots, I_t $ be the corresponding equivalence classes.
+
+The proof is concluded by showing that $\{F_i\}_{i=1}^m \cup \{ 1 \}$ is a linearly independent set, where $1$ is the constant polynomial equal to $1$.
+Indeed, $F_i \in \spn \{ ||\vx||^2, x_1, \ldots, x_d, 1\}$, which is a $d+2$ dimensional space, so the linear independence implies that $m+1 \leq d+2$, which is the desired inequality.
+
+Assume that there is a linear combination $\alpha 1 + \sum_{i=1}^m \alpha_i F_i = 0 $.
+By comparing the quadratic terms of this equation, we get that $\sum_{i=1}^m \alpha_i = 0$.
+
+Note that we have 
+$F_j(\vp_i) = \begin{cases} 0& \text{ if $i \not\sim j$} \\ \delta_1^2 - \delta_2^2& \text{ if $i\sim j$ and $i\neq j$} \\ \delta_1^2& \text{ if $i = j$.}\end{cases}$
+
+Let $i \in I_k$, and evaluate the equation above on $\vp_i$ to get
+
+
+\begin{equation}\label{eq:eq_1}
+\begin{split}
+0 = \alpha + \alpha_i \delta_1^2 + \sum_{\substack{j\in I_k \\ j \neq i}} \alpha_j (\delta_1^2-\delta_2^2) = \alpha + \alpha_i \delta_2^2 + \sum_{j\in I_k } \alpha_j (\delta_1^2-\delta_2^2)\, . 
+\end{split}
+\end{equation}
+
+Summing all these equations for all $i\in I_k$ we get
+
+\begin{equation}\label{eq:eq_2}
+\begin{split}
+0 &= |I_k|\alpha + \sum_{i\in I_k} \alpha_i \delta_2^2 + \sum_{j\in I_k } \alpha_j (\delta_1^2-\delta_2^2)|I_k| = |I_k|\alpha + \left( \sum_{i\in I_k} \alpha_i \right) \left( \delta_2^2 + (\delta_1^2-\delta_2^2)|I_k|  \right) \\
+\Rightarrow \sum_{i \in I_k} \alpha_i &= \alpha \frac{-|I_k|}{\delta_2^2 + (\delta_1^2-\delta_2^2)|I_k|} \, ,
+\end{split}
+\end{equation}
+where we note that $\delta_2^2 + (\delta_1^2-\delta_2^2)|I_k| > 0 $.
+
+Therefore, $0 = \sum_{i=1}^m \alpha_i = \sum_{k = 1}^t \sum_{i \in I_k} \alpha_i = \alpha \sum_{k=1}^t \frac{-|I_k|}{\delta_2^2 + (\delta_1^2-\delta_2^2)|I_k|}$, which implies that $\alpha = 0$.
+This applied to \eqref{eq:eq_2} gives us $sum_{i \in I_k} \alpha_i  = 0$ for each $k = 1, \ldots, t$.
+This applied to \eqref{eq:eq_1} gives us $ 0 = \delta_2^2 \alpha_ i$ for each $i = 1, \ldots, m$.
+So each $\alpha_i $ vanishes, and we conclude the desired linear independence.
+
+\item 
+Let $P = \{\vp_1, \ldots, \vp_m \} $ and for each $i=1, \ldots, m$ define the polynomial $F_i \in \R[x_1, \ldots, x_d] = \R[\vx]$ as
+$$ F_i ( \vx ) \coloneqq \prod_{j=1}^t \left( \delta_j^2 - ||\vx - \vp_i ||^2\right)  =  \prod_{j=1}^t \left(  - ||\vx ||^2 + 2 \vx \cdot \vp_i - ||\vp_i||^2 + \delta_j^2\right) \, .$$
+
+
+The proof is concluded by showing that $\{F_i\}_{i=1}^m$ is a linearly independent set.
+Indeed, $F_i \in \spn \{ ||\vx||^{2\alpha_0} x_1^{\alpha_1} \cdots x_d^{\alpha_d} | \sum_{i=0}^d \alpha_i \leq t, \, \alpha_i\in \Z_{\geq 0 } \txt{ for $i = 0 , \ldots, d $ }\}$.
+The number of sequences $\alpha = (\alpha_0, \ldots, \alpha_d)$ such that $ \sum_i \alpha_i \leq t, \, \alpha_i\in \Z_{\geq 0 }$ is $\binom{d+t}{t}$, so the linear independence implies that $m \leq \binom{d+t}{t}$, which is the desired inequality.
+
+Assume that there is a linear combination $ \sum_{i=1}^m \alpha_i F_i = 0 $.
+Note that $F_i(\vp_j ) = 0$ whenever $i \neq j$, and $F_i(\vp_i ) = \prod_{j=1}^t \delta_j^2 \neq 0$.
+Therefore by evaluating the linear combination at $\vp_i $ we get that $\alpha_i =0$, and we conclude the linear independence.
+\end{enumerate}
+
+\item 
+Let $k = |S|$ and $r = \lfloor \frac{k-1}{d+1} + 1 \rfloor$.
+Because $k \geq (r-1)(d+1) + 1$, there is a partition of $S = S_1 \uplus \cdots \uplus S_r$ such that we can find some point $\va \in \bigcap_{i=1}^r \conv (S_i)$.
+
+For any $\{i_0 < \cdots < i_d\} \subseteq [r]$ we have $a \in \bigcap_{j=0}^d \conv (S_{i_j})$ so, according to the colourful Caratheodory theorem, there is a sequence $(\hat{x}_j)_{j=0}^d$ such that $\hat{x}_j\in S_{i_j} $ for each $j = 0, \ldots, d$ and $\va \in \conv (\hat{x}_j)_{j=0}^d$.
+
+Note that for each choice $\{i_0 < \cdots < i_d\} \subseteq [r]$, the corresponding sequence $(\hat{x}_j)_{j=0}^d$ is necessarily distinct.
+Furthermore, $\conv (\hat{x}_j)_{j=0}^d $ is an $S$-simplex.
+Therefore, we have found that $\va $ is contained in $\binom{r}{d+1}$ distinct $S$-simplices which, for large $k$, is bounded by a degree $d+1$ polynomial on $k$, as desired.
+
+\item 
+For a point $\vp \in \R^2$ let $\overline{B}(\vp) = \{ \vv \in \R^2 | ||\vv - \vp|| \leq 1 \}$
+Consider the collection of convex sets $Y = \{\overline{B}(\vx)\}_{\vx \in X}$ and note that any three sets in $Y$ have a non-empty intersection.
+Indeed, if $\vx_1, \vx_2, \vx_3 \in X$, then there is a unit disk $\overline{B}(\vy)$ that contains $\vx_1, \vx_2, \vx_3$.
+Then $\vy \in \overline{B}(\vx_1)\cap \overline{B}(\vx_2) \cap \overline{B}(\vx_3)$, which shows that this intersection is non-empty.
+
+Thus, Helly's theorem tells us that there is some $\vy \in \bigcap_{B \in Y} B $, and this point is the centre of a unit disk that contains $X$, as desired.
+
+
+\item 
+Let $\FF = \{F_1, \ldots, F_m\} $
+We act by induction on $m$.
+For $m = r+1$, the statement is immediate.
+
+For the induction step let $m \geq r+2$ and note that for each $i = 1, \ldots, m$ we have that $\FF \setminus  \{ F_i\} $ is a collection of $m-1\geq d+1$ sets of size $r$, where each $r+1$ sets has non-empty intersection.
+Thus, by the induction hypothesis it has non empty intersection.
+Let $a_i \in \bigcap_{\substack{ F \in \FF  \\ F \neq F_i }} F $.
+
+Note that $\{a_1, \ldots, a_{m-1}\} \subseteq F_m$ and $|F_m| =r \leq m-1$ so there is some $i \neq j $ such that $a_i = a_j$.
+In this case, we have $a_i \in \bigcap_{F \in \FF } F$, so this is non-empty, as desired.
+
+
+\item 
+It is enough to establish the result for $m = (d+1)(r-1)$.
+Define $\vy_i \in \R^{d+1}$ for $i = 0, \ldots, m$ so that $(\vy_i)_j = \begin{cases}&1, \text{ if $j \in F_i$ or $j = n+1$ } \\  &0, \text{ otherwise.}\end{cases}$.
+Define $\vv_i = \vec{e}_i \in\R^{r-1}$ for $i = 1, \ldots, r-1$, and define $\vv_r = - \sum_{i=1}^{r-1} \vec{e}_i$.
+
+Define $M_i \coloneqq \{\vv_j\vy^T_i | j=1, \ldots, r \} \subseteq \R^{(r-1) \times (d+1)}$ for $i = 0, \ldots, m$.
+Note that $\sum_{i=1}^r \vv_i = \vec{0}$, so $\vec{0} \in \conv \, M_i$ for all $i$.
+There are $m+1$ such sets in $\R^m$, so colourful Caratheodory's theorem gives us, for each $i$, a point $\vz_i\in M_i$ and a coefficient $\alpha_i\geq 0$ such that 
+\begin{equation}\label{eq:col}
+ \vec{0} = \sum_{i=0}^m \alpha_i \vz_i , \quad \quad \sum_{i=0}^m \alpha_i = 1\, . 
+\end{equation}
+
+Let $f(i)$ such that $\vz_i = \vv_{f(i)}\vy_i^T$.
+Multiplying by $\vec{e}_1^T$ on the left of the first equation of \eqref{eq:col} gives us 
+$$ \vec{0} = \left( \sum_{i: f(i) = 1} \alpha_i \vy_i^T\right) - \left(\sum_{i: f(i) = r} \alpha_i \vy_i^T \right) \, . $$
+Multiplying by $\vec{e}_1^T - \vec{e}_k^T$ on the left of the first equation of \eqref{eq:col}, for $k = 2, \ldots, r-1$ gives us 
+$$ \vec{0} = \left( \sum_{i: f(i) = 1} \alpha_i \vy_i^T\right) - \left(\sum_{i: f(i) = k} \alpha_i \vy_i^T \right) \, . $$
+
+We therefore get that $ \sum_{i: f(i) = j} \alpha_i \vy_i^T$ does not depend on $j = 1, \ldots, r$.
+Recall that $\vy_i = (\vx_i, 1)$, so this gives us that $A \coloneqq  \sum_{i: f(i) = j} \alpha_i$ does not depend on $j$, so $r A = \sum_i \alpha_i = 1$ gives $A = \frac{1}{r}$.
+
+We conclude that $\vv \coloneqq \sum_{i: f(i) = j} \frac{\alpha_i}{A}\vx_i$ is a convex combination that does not depend on $j$, that is $\va \in \conv\{\vx_i\}_{i: f(i) = j}$.
+
+Therefore $\bigcap_j \conv\{\vx_i\}_{i: f(i) = j}\neq \emptyset$, and our desired partition was found.
+
+
+
+\end{enumerate}
+\end{document}
