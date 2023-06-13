@@ -1558,37 +1558,69 @@ As it turns out, this conjecture is false, and we will use Frankl-Wilson's const
 
 \subsubsection*{Nearly orthogonal vectors}
 
-A set $Y \subseteq \R^d$ is said to be \textbf{orthogonal if any two} distinct points $\vx, \vy \in Y$ have $\vx \perp \vy$.
-
+A set $Y \subseteq \R^d$ is said to be \textbf{orthogonal} if any two distinct points $\vx, \vy \in Y$ have $\vx \perp \vy$.
 A set $X\subseteq \R^d$ is said to be \textbf{nearly orthogonal} if any three distinct points $\vx, \vy, \vz \in X $ have either $\vx\perp \vy, \vy\perp\vz$ or $\vz\perp\vx$.
 
 
 \begin{thm}[Rosenfeld, 1991]\label{thm:nearly}
-A \textbf{neraly orthogonal set} $X$ has at most size $2d$.
+A \textbf{nearly orthogonal set} $X\subseteq \R^d$ has $|X| \leq 2d$.
 \end{thm}
 
-\begin{lm}[Paserval]
+We first establish a few important Lemmas.
+
+\begin{lm}[Paserval]\label{lm:paserval}
 For a set $Y \subseteq \R^d$ of \textbf{orthogonal vectors} with unit length, and $\vv \in \R^d$, we have 
-$$ \sum_{\vy \in Y} (\vy \cdot \vv)^2 \leq ||\vv ||^2 \, . $$
+$$ \sum_{\vy \in Y} \langle \vv, \vy\rangle^2 \leq ||\vv ||^2 \, . $$
 \end{lm}
 
 \begin{proof}
+We start by extending $Y = \{\vy_1, \ldots, \vy_k\}$ to a base $\{\vy_1, \ldots, \vy_d\}$ of $\R^d$.
+This is possible because non-zero orthogonal vectors form a linearly independent set. 
+This extension can further be orthogonalized via the Graham-Schmidt algorithm.
 
+In this way, for a vector $\vv\in \R^d$ we have $\vv = \sum_{i=1}^d \alpha_i \vy_i$, where for each $i=1, \ldots, d$ it can be observed that $\alpha_i = \langle \vv, \vy_i\rangle$.
+Thus 
+\begin{align*}
+|| \vv ||^2 &= \langle \vv, \vv \rangle  = \sum_{i=1}^d \sum_{j=1}^d \alpha_i \alpha_j  \langle \vy_i,  \vy_j \rangle \\ 
+&= \sum_{i=1}^d \alpha_i^2 \geq \sum_{i=1}^k \alpha_i^2 = \sum_{i=1}^k \langle \vv, \vy_i\rangle^2,
+\end{align*}
+as desired.
 \end{proof}
 
 
-\begin{lm}
+\begin{lm}\label{lm:rank_ineq}
 If $A$ is a symmetric matrix, we have 
-$$ \rk \, A \geq \frac{(\tr A)^2}{\tr A^2} \,  . $$
+$$ \rk \, A \geq \frac{(\tr A)^2}{\tr (A^2)} \,  . $$
 \end{lm}
 
 \begin{proof}
+Let $r = \rk A$, which is the number of non-zero eigenvalues of a matrix $A$, with multiplicity.
+Write $\lambda_1, \ldots, \lambda_r$ for the non-zero eigenvalues of $A$.
 
+Recall from Cauchy inequality we have
+$$\left( \underbrace{1 + \cdots + 1}_{r \text{ times}} \right)\left(\sum_{i=1}^r \lambda_i^2 \right) \geq \left( \sum_{i=1}^r \lambda_i \right)^2\, . $$
+
+With this we have $ r \, \tr (A^2) = r \sum_{i=1}^r \lambda_i^2 =  \left( \sum_{i=1}^r \lambda_i \right)^2 = (\tr A)^2 $ which can be rearranged to the desired inequality.
 \end{proof}
 
 
 \begin{proof}[Proof of \cref{thm:nearly}]
+Let $X = \{\vx_1, \ldots, \vx_m\}\subseteq \R^d$ be a nearly orthogonal set and assume all vectors are unit vectors.
+We wish to show that $m \leq 2 d$.
+Let $B = \begin{pmatrix}
+| &  & | \\ \vx_1 & \cdots & \vx_d \\ | & & | \end{pmatrix}$ and $A = B^T B$.
+Note that $\rk A \leq \rk B\leq d$ and $\tr A = \sum_{i=1}^m \langle \vx_i, \vx_i\rangle = m$.
 
+However,
+\begin{align*}
+\tr (A^2) &= \sum_{i=1}^m (A^2)_{i, i} = \sum_{i=1}^m \sum_{j=1}^m A_{i, j} A_{j, i} = \sum_{i=1}^m \sum_{j=1}^m \langle \vx_i, \vx_j \rangle^2 \\
+&= \sum_{i=1}^m \left(\langle \vx_i, \vx_i \rangle^2 \right)+ \sum_{i=1}^m\left( \sum_{j : \vx_j \perp \vx_i } \langle \vx_i, \vx_j \rangle^2 \right) + \sum_{i=1}^m\left( \sum_{\substack{j : \vx_j \not\perp \vx_i \\ j \neq i}} \langle \vx_i, \vx_j \rangle^2 \right) \\
+&= m + \left( \sum_{j : \vx_j \perp \vx_i } \langle \vx_i, \vx_j \rangle^2 \right) + \left( \sum_{\substack{j : \vx_j \not\perp \vx_i \\ j \neq i}} \langle \vx_i, \vx_j \rangle^2 \right)\\
+&= m + \left( \sum_{\substack{j : \vx_j \not\perp \vx_i \\ j \neq i}} \langle \vx_i, \vx_j \rangle^2 \right) \leq m + \sum_{i=1}^m ||\vx_i ||^4  = 2m  \, , 
+\end{align*}
+where we use \cref{lm:paserval}, for each $i$, on the orthonormal set $\{\vx_j : \vx_j \not\perp \vx_i\}$.
+
+Together with \cref{lm:rank_ineq}, this gives us $ 2m \geq \tr(A^2) \geq \frac{(\tr A )^2}{\rk A}\geq \frac{m^2}{d}$, which can be rearranged to $m \leq 2d $.
 \end{proof}
 
 \subsubsection*{Efficient projection}
@@ -1908,21 +1940,67 @@ Borsuk Ulam
 
 \section{Chevalier - Warning}
 
-\begin{thm}
-Fix $q$ a power of a prime $p$, and consider $f_1, \ldots, f_n$ polynomials in $\F_q[\vx_1, \ldots , \vx_m]$ such that $\sum_i \deg (f) < m$.
+Commonly used in number theory, the Chevalier-Warning theorem guarantees that there are some solutions to a polynomial equation, provided that there are sufficient variables.
+This result lead to important conjectures, like Artin's conjecture, that is that any $\F_q$ is quasi-algebraically closed.
+
+\begin{thm}[Chevalier - Warning]\label{thm:CW}
+Fix $q$ a power of a prime $p$, and consider $f_1, \ldots, f_t$ polynomials in $\F_q[\vx_1, \ldots , \vx_m]$ such that $\sum_i \deg (f) < m$.
+
+Then the number of common zeroes of the polynomials $\{ f_i\}_{i=1}^t $ is a multiple of $p$.
 \end{thm}
 
-
-
-
-
-\begin{thm}
-Every graph $G$ arrising from adding an edge to a $4$-regular graph contains a $3$ regular graph
-\end{thm}
+\begin{lm}\label{lm:sum_infield}
+Let $q$ be a power of a prime and $r$ a positive integer with $r < q - 1$. 
+%Recall that $\F_q $ is the finite field of size $q$.
+Then, modulo $p$ we have
+$$ \sum_{x \in \F_q} x^r = 0 \, . $$
+\end{lm}
 
 \begin{proof}
+We have shown in \cref{lm:rootcount} that any one-variable polynomial of degree $d$ has at most $d$ roots in any field.
+Therefore, because $r < q-1$, there is some non-zero $y \in \F_q$ such that $y^r - 1 \neq 0$.
+Thus we have 
+$$y^r \sum_{x \in \F_q} x^r =  \sum_{x \in \F_q} (yx)^r =  \sum_{x \in \F_q} x^r \, , $$
+which implies that $ \sum_{x \in \F_q} x^r = 0$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:CW}]
+Consider the polynomial 
+$$ N(\vx) \coloneqq N(\vx_1, \ldots, \vx_m ) \coloneqq \prod_{i=1}^t ( 1 - f_i(\vx )^{q-1} )\, . $$
+
+Recall that $x^{q-1} - 1 $ vanishes in all non-zero field elements $x \in \F_q$.
+If $\vx  $ is a common root of $\{f_i\}_{i=1}^t$ then $N(\vx) = 1$, whereas if $\vx $ does not vanish in some $f_i$ then $N(\vx) = 0$.
+Thus $\sum_{(\vx_1, \ldots, \vx_m) \in \F_q^m} N(\vx) = \# \{ \text{ common roots of } \{f_i\}_i \}$ modulo $p$.
+
+Note that $\deg N = \sum_{i= 1}^t (q-1)\deg f_i \leq t(q-1)$, so for any monomial in $N(\vx )$, say $ \vx_1^{\alpha_1}\cdots \vx_m^{\alpha_m}$ there is some $i$ such that $\alpha_i < q-1$.
+Using \cref{lm:sum_infield} we have 
+$$\sum_{(\vx_1, \ldots, \vx_m) \in \F_q^m} \vx_1^{\alpha_1}\cdots \vx_m^{\alpha_m} = \left(\sum_{x\in\F_q}x^{\alpha_1} \right) \cdots \left(\sum_{x\in\F_q}x^{\alpha_1} \right) = 0  \text{ modulo $p$}\, . $$
+
+Using this on every monomial of $N$, we get $\sum_{(\vx_1, \ldots, \vx_m) \in \F_q^m} N(\vx) = 0$ modulo $p$, as desired.
+\end{proof}
+
+A \textbf{subgraph} $H\leq G$ of a graph $G$ is a graph $H = (V, E)$ such that $V \subseteq V(G)$ and $E \subseteq E(G) $.
+Notice that to obtain a subgraph of $G$ we remove some edges and some vertices.
+
+\begin{thm}\label{thm:3reggraphs}
+Every graph $G$ arising from adding an edge to a $4$-regular graph contains a $3$ regular graph
+\end{thm}
+
+This result gets us very close to an open conjecture in graph theory.
+
+\begin{conj}[Berge Saun conjecture]
+Every $4$-regular graph contains a $3$-regular graph.
+\end{conj}
+
+
+\begin{proof}[Proof of \cref{thm:3reggraphs}]
+For each vertex $v\in V(G)$ consider the polynomial in $\F_3[\vx_e | e\in E(G) ]$ defined by
+$$f_v(\vx) = \sum_{e\in E(G) \text{ s.t. } v\in e} x_e^2 \, . $$
+
+Note that $\sum_{v \in V(G)} \deg f_v = 2 |V(G)|$.
 
 \end{proof}
+
 
 
 \begin{thm}[Erd\"os-Ginzburg-Ziv Theorem]
