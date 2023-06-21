@@ -1909,18 +1909,19 @@ There are $m+1$ such sets in $\R^m$, so \cref{thm:colorful_c} gives us, for each
 \end{equation}
 
 Let $f(i)$ such that $\vz_i = \vv_{f(i)}\vy_i^T$.
-Multiplying by $\vec{e}_1^T$ on the left of the first equation of \eqref{eq:col} gives us 
-$$ \vec{0} = \left( \sum_{i: f(i) = 1} \alpha_i \vy_i^T\right) - \left(\sum_{i: f(i) = r} \alpha_i \vy_i^T \right) \, . $$
-Multiplying by $\vec{e}_1^T - \vec{e}_k^T$ on the left of the first equation of \eqref{eq:col}, for $k = 2, \ldots, r-1$ gives us 
-$$ \vec{0} = \left( \sum_{i: f(i) = 1} \alpha_i \vy_i^T\right) - \left(\sum_{i: f(i) = k} \alpha_i \vy_i^T \right) \, . $$
+Multiplying by $\vec{e}_t^T$, for $t = 1, \ldots, r-1$, on the left of the first equation of \eqref{eq:col} gives us 
+$$ \vec{0} = \left( \sum_{i: f(i) = t} \alpha_i \vy_i^T\right) - \left(\sum_{i: f(i) = r} \alpha_i \vy_i^T \right) \, . $$
 
-We therefore get that $ \sum_{i: f(i) = j} \alpha_i \vy_i^T$ does not depend on $j = 1, \ldots, r$.
-Recall that $\vy_i = (\vx_i, 1)$, so this gives us that $A \coloneqq  \sum_{i: f(i) = j} \alpha_i$ does not depend on $j$, so $r A = \sum_i \alpha_i = 1$ gives $A = \frac{1}{r}$.
+We therefore get that $ \sum_{i: f(i) = t} \alpha_i \vy_i^T$ does not depend on $t = 1, \ldots, r$.
+Recall that $\vy_i = (\vx_i, 1)$, so this gives us that $A \coloneqq  \sum_{i: f(i) = t} \alpha_i$ does not depend on $t$, so $r A = \sum_i \alpha_i = 1$ gives $A = \frac{1}{r}$.
 
-We conclude that $\vv \coloneqq \sum_{i: f(i) = j} \frac{\alpha_i}{A}\vx_i$ is a convex combination that does not depend on $j$, that is $\va \in \conv\{\vx_i\}_{i: f(i) = j}$.
+We conclude that $\vv \coloneqq \sum_{i: f(i) = t} \frac{\alpha_i}{A}\vx_i$ does not depend on $t=1, \ldots, r$.
+Thus, $\vv \in \conv\{\vx_i\}_{i: f(i) = t}$ for any $t=1, \ldots, r$.
 
 Therefore $\bigcap_j \conv\{\vx_i\}_{i: f(i) = j}\neq \emptyset$, and our desired partition was found.
 \end{proof}
+
+\subsection{Borsuk-Ulam theorem}
 
 
 
@@ -1931,7 +1932,9 @@ $$ |X_i \cap \overline{h}^+| , |X_i \cap \overline{h}^-| \geq \frac{1}{2} n\, . 
 \end{thm}
 
 \begin{proof}
-Borsuk Ulam
+This claim uses the Borsuk Ulam theorem, to be found in \cite{matouvsek2003using}.
+TBD
+
 \end{proof}
 
 
@@ -1982,25 +1985,69 @@ Using this on every monomial of $N$, we get $\sum_{(\vx_1, \ldots, \vx_m) \in \F
 A \textbf{subgraph} $H\leq G$ of a graph $G$ is a graph $H = (V, E)$ such that $V \subseteq V(G)$ and $E \subseteq E(G) $.
 Notice that to obtain a subgraph of $G$ we remove some edges and some vertices.
 
-\begin{thm}\label{thm:3reggraphs}
-Every graph $G$ arising from adding an edge to a $4$-regular graph contains a $3$ regular graph
-\end{thm}
+\subsection{Berge-Sauer conjecture}
 
-This result gets us very close to an open conjecture in graph theory.
-
-\begin{conj}[Berge Saun conjecture]
-Every $4$-regular graph contains a $3$-regular graph.
+\begin{conj}[Berge-Sauer conjecture]
+Every $4$-regular simple graph contains a $3$-regular graph.
 \end{conj}
 
+This conjecture is still open, but a slight modification was established in \cite{alon1984every}.
+Note that the condition that the graph is simple is necessary: If one takes three vertices with six edges forming three pairs of parallel edges, we get a $4$-regular graph that does not contain a $3$-regular graph.
+The theorem below does not require the simple graph assumption.
+
+\begin{thm}\label{thm:3reggraphs}
+Every graph $G$ arising from adding an edge $f$ to a $4$-regular graph contains a $3$ regular graph.
+\end{thm}
+
+Fix a graph $G = (V(G), E(G))$.
+Recall that for a vertex $c\in V(G)$, we write $\deg_G v$ for the number of incident edges at $v$ in the graph $G$.
 
 \begin{proof}[Proof of \cref{thm:3reggraphs}]
-For each vertex $v\in V(G)$ consider the polynomial in $\F_3[\vx_e | e\in E(G) ]$ defined by
+For each vertex $v\in V(G)$ consider $f_f \in \F_3[\vx_e | e\in E(G) ]$ defined by
 $$f_v(\vx) = \sum_{e\in E(G) \text{ s.t. } v\in e} x_e^2 \, . $$
 
 Note that $\sum_{v \in V(G)} \deg f_v = 2 |V(G)|$.
+However, the sum of the incidence of the vertices double counts the edges, so
+$$ |E(G)| - 1 = \frac{1}{2} \sum_{v \in V(G)} \deg_{G \setminus f} v = 2 |V(G)| \, . $$
+Therefore, $\sum_{v \in V(G)} \deg f_v < |E(G)|$, so we can use \cref{thm:CW}.
 
+
+That is, the number of common zeroes of $\{f_v\}_{v \in V(G)}$ is a multiple of three.
+Since these polynomials have no constant term, they all vanish at $\vx = (0, \ldots, 0)$.
+Therefore, there is at least one other common zero $\vy = (\vy_e)_{e \in E(G)}$.
+Fix this zero, let $W \subseteq E(G)$ be the set of edges $e \in E(G)$ such that $\vy_e \neq 0$, and let $V' \subseteq V(G)$ be the set of vertices incident to some edge in $W$.
+We claim that $H = (V', W)$ is the desired $3$-regular subgraph.
+
+Indeed, for any $v \in V'$, $f_v(\vy) = \sum_{\substack{e\in E(G) \\ v \in e}} \vy_e^2 = \sum_{\substack{e\in W \\ v \in e}} 1 = \deg_H(v)$ is zero modulo three.
+However $0 < \deg_H(v) \leq \deg_G(v) < 6$, so $\deg_H (v) = 3$.
+Furthermore, $V'$ is non empty, as $\vy $ was taken to be non-zero, so $H$ is $3$-regular, as desired.
 \end{proof}
 
+\subsection{Aditive number theory}
+
+Let $G$ be an abelian group.
+We define 
+$$g(G) = \min \{ s \in \Z_{\geq 0} | \forall_{g_1, \ldots, g_s \in G} \exists_{I \subseteq [s]} \text{ s.t. } |I| = s \, \text{ and } \sum_{i \in I} g_i = 0 \, . $$
+
+\begin{smpl}
+One can see that for any integer $n \geq 1 $ we have $g(\Z_n) = n$.
+Indeed, $g(\Z_n ) \geq n$ as we can take $g_1 = \cdots = g_{n-1} = 1$ and there is no subset of $[n-1]$ that results in a zero sum.
+
+On the other hand, if $g_1, \ldots, g_n \in \Z_n $ then in the following list
+$$ g_1, g_1 + g_2, \ldots, g_1 + \cdots + g_n \, , $$
+there is either a zero or a repeated value of $\Z_n$.
+In either case, we can cook up a sum that vanishes, so $g(\Z_n) \geq n$.
+\end{smpl}
+
+
+\begin{thm}[Olsen's theorem]
+Let $p$ be a prime number and $G = \underbrace{\Z_p \oplus \cdots \oplus \Z_p}_{\text{ $k$ times } }$.
+Then $g(G) = k(p-1)+ 1$.
+\end{thm}
+
+\begin{proof}
+
+\end{proof}
 
 
 \begin{thm}[Erd\"os-Ginzburg-Ziv Theorem]
@@ -2012,10 +2059,17 @@ Then there exists a set $I\subseteq [2n-1] $ of size $n$ such that $\sum_{i\in I
 
 \end{proof}
 
-\begin{thm}[Lajos-R\'onyai Theorem]
-Let $p$ be a prime number and  $a_1, \ldots, a_{4p-2} \in \Z/_{\Z_p}\oplus \Z/_{\Z_p} $.
-Then there exists a set $I\subseteq [4p-2] $ of size $n$ such that $\sum_{i\in I} a_i = 0$.
+\subsection{Kemnitz conjecture}
+
+Let $p$ be a prime number and  $a_1, \ldots, a_{4p-3} \in \Z/_{\Z_p}\oplus \Z/_{\Z_p} $.
+Then there exists a set $I\subseteq [4p-3] $ of size $n$ such that $\sum_{i\in I} a_i = 0$.
+
+
+\begin{thm}[Reiher's Theorem]
+$$f(\Z_n^2, n ) = 4n - 3 \, . $$
 \end{thm}
+
+
 
 \begin{proof}
 

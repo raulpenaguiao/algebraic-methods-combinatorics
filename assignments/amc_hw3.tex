@@ -118,7 +118,9 @@ Show that $|S| \leq \binom{d+t}{t}$.
 
 \item Let $S$ be a finite set in $\R^d$.
 An $S$-simplex is a convex hull of $d+1$ distinct points in $S$.
-Prove that there is a polynomial $p(x)$ with leading term $c x^{d+1}$, with $c > 0$, such that for any set finite $S$ in $\R^d$ there exists a point $\va \in \R^d$ contained in at least $p(|S|)$ $S$-simplices.
+
+Fix an integer $d$.
+Prove that there is a polynomial $p(x)$ with leading term $c x^{d+1}$, with $c > 0$, such that for any finite set $S$ in $\R^d$ there exists a point $\va \in \R^d$ contained in at least $p(|S|)$ $S$-simplices.
 
 Hint: Use Tveberg's theorem for $r$ as large as possible to find a special point $\va$.
 What does the colourful Caratheodory theorem tells us about $\va$?
@@ -129,14 +131,18 @@ Show that there is a closed unit disk covering the whole set $X$.
 Hint: Three points can be covered by a unit disk if and only if three particular unit disks have non-empty intersection.
 
 
-\item Let $\mathcal F $ be a family of sets $F\in \FF $ with $m \geq d+1$, such that any set has size $d$, and any $d+1$ sets in $\FF $ intersect, that is for $F_0, \ldots, F_d \in \FF $ we have $\bigcap_{i=0}^d F_i \neq \emptyset$.
+\item 
+Let $d\geq 1$ be an integer, $I$ a set (possibly infinite) and $\mathcal F \subset \binom{I}{d}$ a finite family with $m\coloneq |\FF | \geq d+1$.
+Assume that any $d+1$ sets in $\FF $ intersect, that is for $F_0, \ldots, F_d \in \FF $ we have $\bigcap_{i=0}^d F_i \neq \emptyset$.
 Show that 
 $$ \bigcap_{F \in \FF} F \neq \emptyset \, . $$
 Hint: 
 Follow along the proof of Helly's theorem.
 
-\item Let $\FF = \{ F_0, \ldots, F_m\}$ be a collection of subsets of $[n]$, such that $m \geq (n+1)(r-1)$.
-Then there are disjoint subsets $I_1, \ldots , I_r$ that partition $\{0, \ldots, m\}$ such that for any $i\neq j$
+\item 
+Fix $d, m, r\geq 1$ integers.
+Let $\FF = \{ F_0, \ldots, F_m\}$ be a collection of subsets of $[d]$, and assume that that $m \geq (d+1)(r-1)$.
+Then there are subsets $I_1, \ldots , I_r$ of $\{0, \ldots, m\}$, pairwise disjoint, such that for any $i, j$ in $\{1, \ldots, r \}$ we have
 $$ \bigcup_{k \in I_i} F_k = \bigcup_{k \in I_j} F_k , \quad \quad \quad \bigcap_{k \in I_i} F_k = \bigcap_{k \in I_j} F_k \, .$$
 
 Hint: Follow along the proof of Tveberg's theorem.
