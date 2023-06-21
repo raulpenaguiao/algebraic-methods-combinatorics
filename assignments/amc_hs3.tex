@@ -195,7 +195,7 @@ Note that for each choice $\{i_0 < \cdots < i_d\} \subseteq [r]$, the correspond
 Furthermore, $\conv (\hat{x}_j)_{j=0}^d $ is an $S$-simplex.
 Therefore, we have found that $\va $ is contained in $\binom{r}{d+1}$ distinct $S$-simplices.
 Note that 
-$$\binom{r}{d+1} \geq (r-d)^{d+1}\frac{1}{(d+1)!} \geq \frac{(k-1)^{d+1}}{(d+1)^{d+1} (d+1)!} \, ,$$
+$$\binom{r}{d+1} \geq \frac{(r-d)^{d+1}}{(d+1)!} \geq \frac{(k-1)^{d+1}}{(d+1)^{d+1} (d+1)!} \, ,$$
 which is the desired polynomial bound.
 
 \item 
@@ -210,7 +210,7 @@ Thus, Helly's theorem tells us that there is some $\vy \in \bigcap_{x \in X} \ov
 
 
 \item 
-Let $\FF = \{F_1, \ldots, F_m\} $
+Let $\FF = \{F_1, \ldots, F_m\}$.
 We act by induction on $m$.
 For $m = d+1$, the statement is immediate.
 
@@ -224,30 +224,36 @@ In this case, we have $a_i \in \bigcap_{F \in \FF } F$, so this is non-empty, as
 
 \item 
 It is enough to establish the result for $m = (d+1)(r-1)$.
-Define $\vy_i \in \R^{d+1}$ for $i = 0, \ldots, m$ so that $(\vy_i)_j = \begin{cases}&1, \text{ if $j \in F_i$ or $j = n+1$ } \\  &0, \text{ otherwise.}\end{cases}$.
+Define $\vx_i \in \R^{d}$ for $i = 0, \ldots, m$ so that $(\vx_i)_j = \begin{cases}&1, \text{ if $j \in F_i$ } \\  &0, \text{ otherwise.}\end{cases}$, and let $\vy = (\vx, 1) \in \R^{d+1}$.
 Define $\vv_i = \vec{e}_i \in\R^{r-1}$ for $i = 1, \ldots, r-1$, and define $\vv_r = - \sum_{i=1}^{r-1} \vec{e}_i$.
+Write $\vec{0} \in\R^{d+1}$ for the all zero vector and $\mathbb{0} \in \R^{(d+1)\times (r-1)}$ for the all zero matrix.
 
 Define $M_i \coloneqq \{\vv_j\vy^T_i | j=1, \ldots, r \} \subseteq \R^{(r-1) \times (d+1)}$ for $i = 0, \ldots, m$.
-Note that $\sum_{i=1}^r \vv_i = \vec{0}$, so $\vec{0} \in \conv \, M_i$ for all $i$.
+Note that $\sum_{i=1}^r \vv_i = \vec{0}$, so $\mathbb{0} \in \conv \, M_i$ for all $i$.
 There are $m+1$ such sets in $\R^m$, so colourful Caratheodory's theorem gives us, for each $i$, a point $\vz_i\in M_i$ and a coefficient $\alpha_i\geq 0$ such that 
 \begin{equation}\label{eq:col}
  \vec{0} = \sum_{i=0}^m \alpha_i \vz_i , \quad \quad \sum_{i=0}^m \alpha_i = 1\, . 
 \end{equation}
 
-Let $f(i)$ such that $\vz_i = \vv_{f(i)}\vy_i^T$.
-Multiplying by $\vec{e}_1^T$ on the left of the first equation of \eqref{eq:col} gives us 
-$$ \vec{0} = \left( \sum_{i: f(i) = 1} \alpha_i \vy_i^T\right) - \left(\sum_{i: f(i) = r} \alpha_i \vy_i^T \right) \, . $$
-Multiplying by $\vec{e}_1^T - \vec{e}_k^T$ on the left of the first equation of \eqref{eq:col}, for $k = 2, \ldots, r-1$ gives us 
-$$ \vec{0} = \left( \sum_{i: f(i) = 1} \alpha_i \vy_i^T\right) - \left(\sum_{i: f(i) = k} \alpha_i \vy_i^T \right) \, . $$
+Let $f:\{0, \ldots, m\} \to \{1, \ldots, r\}$ such that $\vz_i = \vv_{f(i)}\vy_i^T$.
+Multiplying by $\vec{e}_t^T$, for $t = 1, \ldots, r-1$, on the left of the first equation of \eqref{eq:col} gives us 
+$$ \vec{0} = \left( \sum_{i: f(i) = t} \alpha_i \vy_i^T\right) - \left(\sum_{i: f(i) = r} \alpha_i \vy_i^T \right) \, . $$
 
-We therefore get that $ \sum_{i: f(i) = j} \alpha_i \vy_i^T$ does not depend on $j = 1, \ldots, r$.
-Recall that $\vy_i = (\vx_i, 1)$, so this gives us that $A \coloneqq  \sum_{i: f(i) = j} \alpha_i$ does not depend on $j$, so $r A = \sum_i \alpha_i = 1$ gives $A = \frac{1}{r}$.
+We therefore get that $ \sum_{i: f(i) = t} \alpha_i \vy_i^T$ does not depend on $t = 1, \ldots, r$.
+Recall that $\vy_i = (\vx_i, 1)$, so this gives us that $A \coloneqq  \sum_{i: f(i) = t} \alpha_i$ does not depend on $t$, so $r A = \sum_i \alpha_i = 1$ gives $A = \frac{1}{r}$.
 
-We conclude that $\vv \coloneqq \sum_{i: f(i) = j} \frac{\alpha_i}{A}\vx_i$ is a convex combination that does not depend on $j$, that is $\va \in \conv\{\vx_i\}_{i: f(i) = j}$.
+We conclude that $\vv \coloneqq  \sum_{i: f(i) = t} \frac{\alpha_i}{A}\vx_i = \sum_{i: f(i) = t} r \alpha_i\vx_i$ does not depend on $t=1, \ldots, r$.
 
-Therefore $\bigcap_j \conv\{\vx_i\}_{i: f(i) = j}\neq \emptyset$, and our desired partition was found.
+The desired disjoint sets are $I_t = \{ i \in \{0, \ldots, m\} | \alpha_i > 0 \text{ and } f(i) = t \}$, where $t = 1, \ldots, r$.
+Indeed, we claim that $j \in \bigcap_{i \in I_t} F_i$ if and only if $\vv_j = 1$ and $j \not\in \bigcup_{i \in I_t} F_i$ if and only if $\vv_j = 0$.
+Because $\vv $ does not depend on $t$, the result follows.
 
+First observe that all entries of $\vv$ are in $[0, 1]$, as $\vv$ is a convex combination of $0$-$1$ vectors.
+Fix $t$, we note
+$$\vv_j = \sum_{i \in I_t} r \alpha_i(\vx_i)_j = \sum_{\substack{i \in I_t\\ j \in F_i}} r \alpha_i \leq \sum_{i \in I_t} r \alpha_i = 1  \, .$$
 
+The equality holds if and only if $j \in F_i$ for al $i\in I_t$, that is $j \in \bigcap_{i \in I_t} F_i$, so this concludes the first part.
 
+Furthermore, because $r \alpha_i > 0$ for any $i\in I_t$, $\sum_{\substack{i \in I_t\\ j \in F_i}} r \alpha_i  = 0 $ if and only if $j \not\in F_i$ for al $i\in I_t$, that is $j \not\in \bigcup_{i \in I_t} F_i$, so this concludes the second part, and the proof.
 \end{enumerate}
 \end{document}

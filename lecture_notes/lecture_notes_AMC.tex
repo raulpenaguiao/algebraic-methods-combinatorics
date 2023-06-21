@@ -1899,16 +1899,18 @@ Then there exists a partition $S = S_1\uplus \cdots \uplus S_r$ such that $\bigc
 \begin{proof}
 Write $S = \{\vx_0, \ldots, \vx_m\}$.
 It is enough to establish the result for $m = (d+1)(r-1)$.
-Define $\vy_i = (\vx_i, 1)\in \R^{d+1}$ for $i = 0, \ldots, m$, define $\vv_i = \vec{e}_i \in\R^{r-1}$ for $i = 1, \ldots, r-1$, and define $\vv_r = - \sum_{i=1}^{r-1} \vec{e}_i$.
+Define $\vx_i \in \R^{d}$ for $i = 0, \ldots, m$ so that $(\vx_i)_j = \begin{cases}&1, \text{ if $j \in F_i$ } \\  &0, \text{ otherwise.}\end{cases}$, and let $\vy = (\vx, 1) \in \R^{d+1}$.
+Define $\vv_i = \vec{e}_i \in\R^{r-1}$ for $i = 1, \ldots, r-1$, and define $\vv_r = - \sum_{i=1}^{r-1} \vec{e}_i$.
+Write $\vec{0} \in\R^{d+1}$ for the all zero vector and $\mathbb{0} \in \R^{(d+1)\times (r-1)}$ for the all zero matrix.
 
 Define $M_i \coloneqq \{\vv_j\vy^T_i | j=1, \ldots, r \} \subseteq \R^{(r-1) \times (d+1)}$ for $i = 0, \ldots, m$.
-Note that $\sum_{i=1}^r \vv_i = \vec{0}$, so $\vec{0} \in \conv \, M_i$ for all $i$.
+Note that $\sum_{i=1}^r \vv_i = \vec{0}$, so $\mathbb{0} \in \conv \, M_i$ for all $i$.
 There are $m+1$ such sets in $\R^m$, so \cref{thm:colorful_c} gives us, for each $i$, a point $\vz_i\in M_i$ and a coeficient $\alpha_i\geq 0$ such that 
 \begin{equation}\label{eq:col}
- \vec{0} = \sum_{i=0}^m \alpha_i \vz_i , \quad \quad \sum_{i=0}^m \alpha_i = 1\, . 
+ \mathbb{0} = \sum_{i=0}^m \alpha_i \vz_i , \quad \quad \sum_{i=0}^m \alpha_i = 1\, . 
 \end{equation}
 
-Let $f(i)$ such that $\vz_i = \vv_{f(i)}\vy_i^T$.
+Let $f:\{0, \ldots, m\} \to \{1, \ldots, r\}$ such that $\vz_i = \vv_{f(i)}\vy_i^T$.
 Multiplying by $\vec{e}_t^T$, for $t = 1, \ldots, r-1$, on the left of the first equation of \eqref{eq:col} gives us 
 $$ \vec{0} = \left( \sum_{i: f(i) = t} \alpha_i \vy_i^T\right) - \left(\sum_{i: f(i) = r} \alpha_i \vy_i^T \right) \, . $$
 
@@ -1918,7 +1920,7 @@ Recall that $\vy_i = (\vx_i, 1)$, so this gives us that $A \coloneqq  \sum_{i: f
 We conclude that $\vv \coloneqq \sum_{i: f(i) = t} \frac{\alpha_i}{A}\vx_i$ does not depend on $t=1, \ldots, r$.
 Thus, $\vv \in \conv\{\vx_i\}_{i: f(i) = t}$ for any $t=1, \ldots, r$.
 
-Therefore $\bigcap_j \conv\{\vx_i\}_{i: f(i) = j}\neq \emptyset$, and our desired partition was found.
+Therefore $\bigcap_t \conv\{\vx_i\}_{i: f(i) = t}\neq \emptyset$, and our desired partition was found.
 \end{proof}
 
 \subsection{Borsuk-Ulam theorem}
