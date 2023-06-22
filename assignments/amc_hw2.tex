@@ -102,34 +102,40 @@
 \begin{document}
 
 \maketitle
+\vspace{2mm}
 \begin{enumerate}
-\item Prove the deletion contraction relation on the chromatic polynomial of a graph.
+\item Deletion contraction.
+
+Prove the deletion contraction relation on the chromatic polynomial of a graph.
 That is, let $G$ be a graph and $e$ any edge in $G$.
 Denote by $G\setminus e $ the deletion of the edge $e$ in $G$, and $G /_e$ the contraction of the edge $e$ in $G$ (defined in the lecture notes).
 Show that
 $$ \chi_G(n) = \chi_{G\setminus e}(n) - \chi_{G /_e}(n)\, . $$
 
-\item Compute the chromatic polynomial of simple graphs
+\item Chromatic polynomial of some graphs.
 
 \begin{enumerate}
 \item Compute the chromatic polynomial of a complete graph on $m$ vertices $K_m$.
 
-\item Compute the chromatic polynomial of the graph with no edges.
+\item Compute the chromatic polynomial of a graph with no edges on $m$ vertices $\mathbb{0}_m$.
 
-\item Compute the chromatic polynomial of any tree graph (that is, connected and acyclic graph).
+\item Compute the chromatic polynomial of any tree graph (that is, connected and acyclic graph) on $m$ vertices.
 
 \item Compute the chromatic polynomial of a cycle of length $m$.
-Use deletion contraction.
+Hint: Use deletion contraction.
 \end{enumerate}
 
 
 
-\item Compute the spectrum of a complete bipartite graph $K_{m, n}$.
+\item Spectrum of bipartite graphs.
+
+Compute the spectrum of a complete bipartite graph $K_{m, n}$.
 Hint: Compute $A_{K_{m, n}}^2$.
 
 
 
-\item Prove helpful theorems on the spectrum of graphs.
+\item Helpful theorems on the spectrum of graphs.
+
 Write as usual $\spec \, G = \{\lambda_1 \leq \cdots \leq \lambda_n \}$, and consider the corresponding orthonormal eigenbasis $\{\vv_1, \ldots, \vv_n\}$.
 
 
@@ -141,15 +147,19 @@ Write as usual $\spec \, G = \{\lambda_1 \leq \cdots \leq \lambda_n \}$, and con
 \item A graph $G$ is bipartite if and only if $\spec \, G = - \spec \, G$.
 Hint: recall that a graph is bipartite if and only if it does not have any cycle with odd length.
 
-\item If a graph $G$ is $d$-regular, and $\overline{G}$ is the complementary graph, then $\spec \, \overline{G} = \{ \overline{\lambda_{n+1}} \geq  \overline{\lambda_{n}} \geq  \cdots \geq  \overline{\lambda_{3}} \geq  \overline{\lambda_{2}} \}$, where $\overline{\lambda_{n+1}} = n - d + 1$ and $\overline{\lambda_i} = - 1 - \lambda _ i$ for $i = 2, \ldots, n$.
+\item If a graph $G$ is $d$-regular, and $\overline{G}$ is the complementary graph, then $\spec \, \overline{G} = \{ \overline{\lambda_{n+1}} \geq  \overline{\lambda_{n}} \geq  \cdots \geq  \overline{\lambda_{3}} \geq  \overline{\lambda_{2}} \}$, where $\overline{\lambda_{n+1}} = n - d - 1$ and $\overline{\lambda_i} = - 1 - \lambda _ i$ for $i = 2, \ldots, n$.
 Show that the corresponding eigenbasis is the same.
 \end{enumerate}
 
 
-\item Compute the spectrum of the Petersen graph.
+\item Spectrum of the Petersen graph.
+
+Compute the spectrum of the Petersen graph.
 For that, take advantage of the previous exercise, and note that the complement of the Petersen graph is the line graph of $K_5$.
 
-\item In this exercise we will compute the spectrum of the Kneser graph.
+\item Spectrum of the Kneser graph.
+
+In this exercise we will compute the spectrum of the Kneser graph.
 Recall that the Kneser graph $K(E, r)$ is the graph with vertex set $V = \binom{E}{r}$ and two vertices $A, B$ share an edge if $A \cap B = \emptyset$.
 We work on the vector space $\R^V$, where vectors are indexed by subsets of $E$ with $r$ elements.
 
@@ -173,7 +183,7 @@ Let $e = |E|$.
 Show the following equalities:
 \begin{equation}\label{eq:matrices}
 \begin{split}
-M_{i, j} M_{j, k} = \binom{k-i}{j-i} M_{i, k} &\text{ for $0\leq i \leq j \leq k \leq r$}\\
+M_{i, j} M_{j, k} = \binom{k-i}{j-i} M_{i, k} &\text{ for $0\leq i , j, k \leq r$}\\
 M_{i, j} N_{j, k} = \binom{e-k-i}{j-i} N_{i, k}  &\text{ for $0\leq i \leq j \leq k \leq e - r$}\\
 \sum_{i=0}^j (-1)^i M_{i, j}^T N_{i, k} = M_{j, k} &\text{ for $0\leq j \leq k \leq r$}\\
 \sum_{i=0}^j (-1)^i M_{i, j}^T M_{i, k} = N_{j, k} &\text{ for $0\leq j \leq k \leq r$}\\
@@ -188,7 +198,7 @@ Hint: Show that $M_{i, r} \left( \sum_{j=0}^i \frac{(-1)^j}{\binom{e-i-j}{r-i}} 
 Hint: Show that if $A = BC $ then $\rowspn\,~A~\subseteq~\rowspn\,~C$.
 
 \item Show that $\rowspn \, N_{i, r} = \rowspn \, M_{i, r} = V^i$.
-Use the 3rd and 4th equation in \eqref{eq:matrices}.
+Hint: Use the 3rd and 4th equation in \eqref{eq:matrices}.
 
 \item Show that if $\vv \in V^i \cap (V^{i-1})^{\perp}$, then $(-1)^i \vv A_G = \binom{e-r-i}{r-i} \vv $.
 

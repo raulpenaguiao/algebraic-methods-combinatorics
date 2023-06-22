@@ -102,11 +102,12 @@
 
 \maketitle
 \begin{enumerate}
-\item 
+\item Deletion contraction.
+
 Fix an integer $n$, so that $\chi_G(n)$ is the number of proper colourings of $G$ using $n$ colours.
 Let $e = \{v_1, v_2\}$.
 Fix $f$ a proper colouring of $G\setminus e$.
-We have two distinct cases: either $f(v_1) \neq f(v_2)$, in which case $f$ is a proper colouring of $G$, or $f(v_1) = f(v_2)$, in which case this induces $\hat{f}$ a colouring in $G/_e$ by setting $f(e) = f(v_1)$.
+We have two distinct cases: either $f(v_1) \neq f(v_2)$, in which case $f$ is a proper colouring of $G$, or $f(v_1) = f(v_2)$, in which case this induces a colouring $\hat{f}$ in $G/_e$ by setting $\hat{f}(e) = f(v_1)$ and $\hat{f}(v) = f(v)$ for any $v\in V(G) \setminus \{v_1, v_2\}$.
 This is a proper colouring, and in fact any proper colouring of $G/_e$ can be uniquely obtained in such a way.
 
 This constructs a bijection between
@@ -117,7 +118,8 @@ This constructs a bijection between
 thus we conclude that 
 $$ \chi_{G\setminus e }(n) = \chi_G(n) + \chi_{G/_e}(n)\, . $$
 
-\item 
+\item Chromatic polynomial of some graphs.
+
 \begin{enumerate}
 \item 
 Any proper colouring of $K_m$ has to use different colours for each vertex of the graph, so $\chi_{K_m}(n) = n(n-1) \cdots (n-m+1) = \frac{n!}{(n-m)!}$.
@@ -127,15 +129,15 @@ A proper colouring of the graph with no edges is simply a map $V(0_m) \to [n]$, 
 
 
 \item 
-We claim that if a tree $T$ has $v$ vertices, then $\chi_T(n) = n(n-1)^v$.
-We use induction on $v$.
-If $v=1$, then the graph has no edges and so $\chi_T(n) = n^1 = n (n-1)^0$.
+We claim that if a tree $T$ has $m$ vertices, then $\chi_T(n) = n(n-1)^m$.
+We use induction on $m$.
+If $m=1$, then the graph has no edges and so $\chi_T(n) = n^1 = n (n-1)^0$.
 
-For the induction step, let $e$ be a leaf of the tree, so that $T\setminus e$ is the disjoint union of two graphs, an isolated vertex $\{\vv\}$ and some smaller tree $T'$ with $v-1$ vertices.
-Therefore, $\chi_{T \setminus e}(n) = n \chi_{T'}(n) = n^2(n-1)^{v-2}$, where we used the induction hypothesis on $T'$.
-On the other hand, $T/_e$ is also a tree with $v-1$ vertices, so $\chi_{T/_e}(n) = n (n-1)^{v-2}$.
-We conclude with the deletion contraction:
-$$\chi_T(n) = \chi_{T'\setminus e}(n) - \chi_{T/_e}(n) = n^2(n-1)^{v-2}  - n(n-1)^{v-2} = n(n-1)^{v-1} \, .  $$
+For the induction step, let $e$ be a leaf of the tree, so that $T\setminus e$ is the disjoint union of two graphs, an isolated vertex $\{\vv\}$ and some smaller tree $T'$ with $m-1$ vertices.
+Therefore, $\chi_{T \setminus e}(n) = n \chi_{T'}(n) = n^2(n-1)^{m-2}$, where we used the induction hypothesis on $T'$.
+On the other hand, $T/_e$ is a tree with $m-1$ vertices, so $\chi_{T/_e}(n) = n (n-1)^{m-2}$.
+We conclude using deletion contraction:
+$$\chi_T(n) = \chi_{T'\setminus e}(n) - \chi_{T/_e}(n) = n^2(n-1)^{m-2}  - n(n-1)^{m-2} = n(n-1)^{m-1} \, .  $$
 
 
 \item 
@@ -150,30 +152,38 @@ By multiplying this equation by $(-1)^m$ and summing for $m=3, \ldots, M$ we get
 \sum_{m=3}^M (-1)^m(\chi_{C_{m+1}}(n) + \chi_{C_{m}}(n) ) &= n \frac{(n-1)^{M+1}(-1)^{M+1} - (n-1)^3(-1)^3}{-(n-1) -  1}\\
 (-1)^M \chi_{C_{M+1}}(n) + (-1)^3 \chi_{C_{3}}(n) &= -(n-1)^{M+1}(-1)^{M+1} + (n-1)^3(-1)^3\\
 \chi_{C_{M+1}}(n) + (-1)^{M+3} \chi_{C_{3}}(n) &= -(n-1)^{M+1}(-1)^{2M+1} + (n-1)^3(-1)^{M+3}\\
+\chi_{C_{M+1}}(n) &= (n-1)^{M+1} + (n-1)^3(-1)^{M+3} - (-1)^{M+3} \chi_{C_{3}}(n)\, . 
+\end{align*}
+
+Using that $\chi_{C_{3}}(n) = n(n-1)(n-2)$, since $C_{3}$ is the complete graph on $3$ vertices, gives us
+
+\begin{align*}
 \chi_{C_{M+1}}(n) &= (n-1)^{M+1} + (n-1)^3(-1)^{M+3} - (-1)^{M+3} \chi_{C_{3}}(n)\\
 \chi_{C_{M+1}}(n) &= (n-1)^{M+1} - (-1)^M(n-1)\left( (n-1)^2 - n(n-2) \right) \\
-\chi_{C_{M+1}}(n) &= (n-1)^{M+1} - (-1)^M(n-1)
+\chi_{C_{M+1}}(n) &= (n-1)^{M+1} - (-1)^M(n-1).
 \end{align*}
-where we use that $\chi_{C_{3}}(n) = n(n-1)(n-2)$, since $C_{3}$ is the complete graph on $3$ vertices.
+
 We conclude the formula for $M\geq 3$ to be
 $$\chi_{C_M}(n) = (n-1)^M + (-1)^M(n-1) \, . $$
 \end{enumerate}
 
 
-\item 
+\item Spectrum of bipartite graphs.
+
 Recall that for any graph $G$, $(A_G^k)_{i, j}$ is the number of paths of length $k$ connecting the vertices $i$ and $j$.
 Therefore, one can see that $A_{K_{m, n}}^2 = \begin{pmatrix}
 n J_m & 0 \\ 0 & mJ_n
 \end{pmatrix}$, where $J_k$ is the $k\times k$ all-one matrix.
 The spectrum of this matrix is $\{ 0 ^{\times (m+n-2) }, mn^{\times 2}\}$.
-Indeed, any vector $\vv $ such that $\sum_{i=1}^m \vv_i = 0$ and $\sum_{i=m+1}^{m+n} \vv_i = 0$ has $A_{K_{m, n}}^2\vv =0 $ and the vectors $(\underbrace{1}_{m \text{ times}}, \underbrace{0}_{n \text{ times}})$ and  $ (\underbrace{0}_{m \text{ times}}, \underbrace{1}_{n \text{ times}})$ are linearly independent eigenvectors corresponding to the eigenvalue $mn$.
+Indeed, any vector $\vv $ such that $\sum_{i=1}^m \vv_i = 0$ and $\sum_{i=m+1}^{m+n} \vv_i = 0$ has $A_{K_{m, n}}^2\vv =0 $ and the vectors $(\underbrace{1, \ldots, 1}_{m \text{ times}}, \underbrace{0, \ldots, 0}_{n \text{ times}})^T$ and  $ (\underbrace{0, \ldots, 0}_{m \text{ times}}, \underbrace{1, \ldots, 1}_{n \text{ times}})^T$ are linearly independent eigenvectors corresponding to the eigenvalue $mn$.
 
 Thus, $0$ is an eigenvalue of $A_{K{m, n}}$ with multiplicity $m+n-2$ and the eigenvalues $\{ \sqrt{mn}, -\sqrt{mn}\}$ have combined multiplicity two.
 Because $\Tr A_{K_{m, n}} =0 $, we have that each of these values has multiplicity one.
 Thus, the spectrum is 
 $$ \{ \sqrt{mn}, \underbrace{0, \ldots, 0}_{m+n-2 \text{ many times }}, -\sqrt{mn} \} \, . $$
 
-\item 
+\item Helpful theorems on the spectrum of graphs.
+
 \begin{enumerate}
 \item 
 First we observe that $\vv_1 = \frac{1}{\sqrt{n}} \mathbb{1}$ is indeed an orthonormal eigenvector.
@@ -196,13 +206,13 @@ Specifically, any non-negative matrix that is irreducible has a unique largest e
 \item 
 For the direct implication, assume that $G$ is bipartite.
 Let the corresponding vertex partition be $V = V_1 \uplus V_2$ and identify $\R^V = \R^{V_1} \times \R^{V_2}$.
-Define the map $\phi : \R^{V_1} \times \R^{V_2} \to \R^{V_1} \times \R^{V_2}$ by $\phi(\vv, \vw) \mapsto (\vv, -\vw)$.
+Define the map $\phi : \R^{V_1} \times \R^{V_2} \to \R^{V_1} \times \R^{V_2}$ by $\phi \begin{pmatrix}\vv \\  \vw \end{pmatrix}  \mapsto  \begin{pmatrix}\vv \\  -\vw \end{pmatrix} $.
 This maps the eigenspace of $\lambda $ to $-\lambda$.
 Indeed, because $G$ is bipartite, $A_G = \begin{pmatrix}
 0 & A\\
 A^T & 0
-\end{pmatrix}$ so if $(\vv, \vw)$ is in the eigenspace of $A_G$ corresponding to $\lambda$, then $A_G (\vv, \vw)^T = \lambda (\vv, \vw)^T$, that is $(A\vw, A^T\vv) = \lambda (\vv, \vw)^T$, so 
-$$A_G \phi(\vv, \vw)^T = A_G (\vv, -\vw)^T = (-A\vw, A^T\vv) = \lambda (-\vv, \vw)^T  = -\lambda \phi(\vv, \vw)^T\, . $$
+\end{pmatrix}$ so if $\begin{pmatrix}\vv \\  \vw \end{pmatrix}$ is in the eigenspace of $A_G$ corresponding to $\lambda$, then $A_G \begin{pmatrix}\vv \\  \vw \end{pmatrix} = \lambda \begin{pmatrix}\vv \\  \vw \end{pmatrix}$, that is $ \begin{pmatrix}A\vw \\  A^T\vv \end{pmatrix}  = \lambda  \begin{pmatrix}\vv \\  \vw \end{pmatrix} $, so 
+$$A_G \phi  \begin{pmatrix}\vv \\  \vw \end{pmatrix} = A_G  \begin{pmatrix}\vv \\  -\vw \end{pmatrix}  =  \begin{pmatrix}-A\vw \\  A^T\vv \end{pmatrix}  = \lambda  \begin{pmatrix}-\vv \\  \vw \end{pmatrix}   = -\lambda \phi \begin{pmatrix}\vv \\  \vw \end{pmatrix} \, . $$
 This concludes that the bijective linear map $\phi$ sends eigenspaces to eigenspaces of its symmetric eigenvalue, so the multiplicities are the same.
 
 For the inverse implication, assume that $\spec \, G = - \spec \, G$.
@@ -217,7 +227,7 @@ First observe that $\overline{G}$ is a regular graph, with common degree $n - 1 
 Therefore $\frac{1}{\sqrt{n}} \mathbb{1}$ is an eigenvalue of $\overline{G}$, from 2a), with the same eigenvector as $G$.
 Now let $\vv $ be an eigenvector of $\overline{G}$, corresponding to the eigenvalue $\lambda$, and assume that $\vv \perp \mathbb{1}$, this captures all the remaining eigenvectors because of the spectral theorem.
 Then note that $A_{\overline{G}} + A_G = J - \Id_n$, where $J$ is the all-one $n\times n$ matrix.
-Note that $J\vv = \vec{0}$.
+Note that $J\vv = \vec{0}$, where $\vec{0}$ is the all-zero vector in $\R^{V(G)}$.
 Thus
 $$\lambda \vv = A_{\overline{G}}\vv = (J - \Id_n - A_G)\vv = -\vv - A_G \vv\, ,$$
 that is $A_G \vv = -(\lambda + 1)\vv$.
@@ -225,7 +235,8 @@ This shows that the eigenspaces are the same, and the corresponding eigenvalues 
 \end{enumerate}
 
 
-\item 
+\item Spectrum of the Petersen graph.
+
 Let $P$ be the Petersen graph, and let $G$ be the line graph of $K_5$.
 Because $K_5$ has $10$ edges, $G$ has $10$ vertices.
 Furthermore, each edge in $K_5$ has $6$ neighbouring edges, so $G$ is $6$-regular.
@@ -243,16 +254,16 @@ A_G &= B^T B - 2 \Id_{10} \, .
 We will use \eqref{eq:similar} to compute the eigenvalues of $A_G$.
 Specifically, we will show that any eigenvalue of $B B^T$ is an eigenvalue of $B^T B$, with at least the same multiplicity, by mapping an eigenspace to another injectively.
 Finally, we will show that all remaning eigenvalues of $B^T B$ are zero, by analyzing its rank.
-The connection between the spectrum og $G$ and $K_5$ is then done using \eqref{eq:similar}.
+The connection between the spectrum of $G$ and $K_5$ is then done using \eqref{eq:similar}.
 
 We start with the latter.
 Recall that if $\mu_{\lambda}$ is the multiplicity of the eigenvalue $\lambda $ in the matrix $A$, $\rk(A -\lambda  \Id_n ) + \mu_{\lambda} \geq n$ with equality for symetric matrices (from the spectral theorem).
-It is easy to see that $\rk B^T = 5 $ is maximal: if $e_1, e_2, e_3$ are three edges that form a triangle, then $B_{\cdot, e_1} + B_{\cdot, e_2} - B_{\cdot, e_3}$ is a multiple of a canonical basis element.
-Thus, we observe that $\rk(A_G + 2 \Id_{10} ) = \rk (B^T B) \leq \rk B^T = 5$.
+Now we see that $\rowspn \, B^T = \R^5$ and as a concequence, $\rk \, B^T = 5 $ is maximal: if $e_1, e_2, e_3$ are three edges that form a triangle, then $B_{\cdot, e_1} + B_{\cdot, e_2} - B_{\cdot, e_3}$ is a multiple of a canonical basis element.
+Thus, we observe that $\rk(A_G + 2 \Id_{10} ) = \rk (B^T B) \leq \rk \, B^T = 5$.
 Therefore $\mu_{-2} \geq 5$.
 
-Now consider the eigenspace $V_{\lambda} $ of $B B^T$ corresponding to the eigenvalue $\lambda$, and the eigenspace $W_{\lambda} $ of $B^T B$ corresponding to the eigenvalue $\lambda$.
-The map $B^T$ is an injective map $\R^5 \to \R^{10}$, as $\rk B^T = 5$.
+Now, for $\lambda \neq 0$, consider the eigenspace $V_{\lambda} $ of $B B^T$ corresponding to the eigenvalue $\lambda$, and the eigenspace $W_{\lambda} $ of $B^T B$ corresponding to the eigenvalue $\lambda$.
+The map $B^T$ is an injective map $\R^5 \to \R^{10}$, as $\rk \, B^T = 5$.
 Furthermore, if $\vv \in V_{\lambda} $, we have $B^T B B^T v = \lambda B^T v$.
 So $B^T V_{\lambda} \subseteq W_{\lambda}$.
 
@@ -271,38 +282,27 @@ $$\spec \, G = \{6^{\times 1 }, 1^{\times 4}, -2^ {\times 5} \}\, ,$$
 
 Therefore, from 4.d)
 $$\spec \, P = \{3^{\times 1}, 1^{\times 5}, -2^{\times 4} \}\, .$$
-Alternatively, the following python code, yields the spectrum of $A_P$:
+Alternatively, the following python code yields the spectrum of $A_P$:
 \begin{verbatim}
 import numpy as np
-
 # Adjacency matrix Peterson graph
-
-A_P = [[0, 1, 0, 0, 1, 1, 0, 0, 0, 0],
-
-      [1, 0, 1, 0, 0, 0, 1, 0, 0, 0],
-
-      [0, 1, 0, 1, 0, 0, 0, 1, 0, 0],
-
-      [0, 0, 1, 0, 1, 0, 0, 0, 1, 0],
-
-      [1, 0, 0, 1, 0, 0, 0, 0, 0, 1],
-
-      [1, 0, 0, 0, 0, 0, 0, 1, 1, 0],
-
-      [0, 1, 0, 0, 0, 0, 0, 0, 1, 1],
-
-      [0, 0, 1, 0, 0, 1, 0, 0, 0, 1],
-
-      [0, 0, 0, 1, 0, 1, 1, 0, 0, 0],
-
-      [0, 0, 0, 0, 1, 0, 1, 1, 0, 0]]
-
+A_P = [ 
+	[0, 1, 0, 0, 1, 1, 0, 0, 0, 0],
+	[1, 0, 1, 0, 0, 0, 1, 0, 0, 0],
+	[0, 1, 0, 1, 0, 0, 0, 1, 0, 0],
+	[0, 0, 1, 0, 1, 0, 0, 0, 1, 0],
+	[1, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+	[1, 0, 0, 0, 0, 0, 0, 1, 1, 0],
+	[0, 1, 0, 0, 0, 0, 0, 0, 1, 1],
+	[0, 0, 1, 0, 0, 1, 0, 0, 0, 1],
+	[0, 0, 0, 1, 0, 1, 1, 0, 0, 0],
+	[0, 0, 0, 0, 1, 0, 1, 1, 0, 0]]
 sorted(list(np.round(np.linalg.eig(np.array(A_P))[0])))
-
 >> [-2.0, -2.0, -2.0, -2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 3.0]
 \end{verbatim}
 
-\item 
+\item Spectrum of the Kneser graph.
+
 We start by establishing useful lemmas:
 \begin{lm}\label{lm:binsum}
 Let $n> 0$ be an integer, then
@@ -311,7 +311,7 @@ furthermore, if $n=0$, then $\sum_{i=0}^n (-1)^i\binom{n}{i} = 1$.
 \end{lm}
 
 \begin{proof}
-The case $n=0$ is imediate.
+The case $n=0$ is immediate.
 We can therefore assume that $n>0$, and apply the Newton binomial theorem on $(x+y)^n$ for $x = -1$ and $y = 1$, which gives the desired formula. 
 \end{proof}
 
