@@ -101,18 +101,18 @@
 
 \begin{enumerate}
 \item  Let $P$ be a $\{1\}$-distance set in $\R^d$, that is any two distinct points $\vx, \vy \in P $ have $||\vx - \vy || = 1$.
-Show, using polynomials, that $|P| \leq d+2$.
-Fix the proof to show that $|P| \leq d+1$.
+Show that $|P| \leq d+1$.
+Hint: Use polynomials to show that $|P|\leq d+2$, then fix the proof by adding one polynomial.
 
 \item Let $P$ be a $\{\delta_1, \delta_2\}$ distance set in $\R^d $, and assume that $\delta_1> 2 \delta_2 > 0$.
-Show that $|S| \leq d+1$.
+Show that $|P| \leq d+1$.
 Hint: Show that points at distance $\delta_2$ of each other form cliques, then show that a collection of polynomials of degree two is linearly independent.
-To obtain the stronger bound, add another polynomial to the linearly independent set.
+
 
 \item
-Let $D $ be a set of positive real numbers with $t$ elements.
+Let $D $ be a finite set of positive real numbers with $|D| = t$ elements.
 Let $P$ be a $D$-distance set in $\R^d$.
-Show that $|S| \leq \binom{d+t}{t}$.
+Show that $|P| \leq \binom{d+t}{t}$.
 
 \end{enumerate}
 
@@ -132,8 +132,8 @@ Hint: Three points can be covered by a unit disk if and only if three particular
 
 
 \item 
-Let $d\geq 1$ be an integer, $I$ a set (possibly infinite) and $\mathcal F \subset \binom{I}{d}$ a finite family with $m\coloneq |\FF | \geq d+1$.
-Assume that any $d+1$ sets in $\FF $ intersect, that is for $F_0, \ldots, F_d \in \FF $ we have $\bigcap_{i=0}^d F_i \neq \emptyset$.
+Let $d\geq 1$ be an integer, $I$ a set (possibly infinite) and $\mathcal F \subset \binom{I}{d}$ a finite family with $m\coloneqq |\FF | \geq d+1$.
+Assume that any subcollection of $d+1$ sets in $\FF $ intersect, that is for $F_0, \ldots, F_d \in \FF $ we have $\bigcap_{i=0}^d F_i \neq \emptyset$.
 Show that 
 $$ \bigcap_{F \in \FF} F \neq \emptyset \, . $$
 Hint: 
@@ -141,7 +141,7 @@ Follow along the proof of Helly's theorem.
 
 \item 
 Fix $d, m, r\geq 1$ integers.
-Let $\FF = \{ F_0, \ldots, F_m\}$ be a collection of subsets of $[d]$, and assume that that $m \geq (d+1)(r-1)$.
+Let $\FF = \{ F_0, \ldots, F_m\}$ be a collection of subsets of $[d]$, and assume that $m \geq (d+1)(r-1)$.
 Then there are subsets $I_1, \ldots , I_r$ of $\{0, \ldots, m\}$, pairwise disjoint, such that for any $i, j$ in $\{1, \ldots, r \}$ we have
 $$ \bigcup_{k \in I_i} F_k = \bigcup_{k \in I_j} F_k , \quad \quad \quad \bigcap_{k \in I_i} F_k = \bigcap_{k \in I_j} F_k \, .$$
 

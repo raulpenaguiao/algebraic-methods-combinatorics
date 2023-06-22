@@ -128,6 +128,12 @@ As all coefficients must be zero, we conclude the desired linear independence.
 Let $P = \{\vp_1, \ldots, \vp_m \} $ and for each $i=1, \ldots, m$ define the polynomial $F_i \in \R[x_1, \ldots, x_d] = \R[\vx]$ as
 $$ F_i ( \vx ) \coloneqq \delta_1^2 - ||\vx - \vp_i ||^2  = - ||\vx ||^2 + 2 \vx \cdot \vp_i - ||\vp_i||^2 + \delta_1^2\, .$$
 
+The proof is concluded by showing that $\{F_i\}_{i=1}^m \cup \{ 1 \}$ is a linearly independent set, where $1$ is the constant polynomial equal to $1$.
+Indeed, $F_i \in \spn \{ ||\vx||^2, x_1, \ldots, x_d, 1\}$, which is a $d+2$ dimensional space, so the linear independence implies that $m+1 \leq d+2$, as desired.
+
+Assume that there is a linear combination $\alpha 1 + \sum_{i=1}^m \alpha_i F_i = 0 $.
+By comparing the quadratic terms of this equation, we get that $\sum_{i=1}^m \alpha_i = 0$.
+
 Define in $[m]$ the relation $i\sim j $ if $i=j$ or $||\vp_i - \vp_j || = \delta_2$.
 Note that $\sim $ is reflexive and symmetric (that is $i\sim i$ and $i\sim j \Rightarrow j \sim i$).
 We also have that $\sim $ is transitive.
@@ -137,12 +143,6 @@ so we must have either $i=k$ or $||\vp_i - \vp_k|| = \delta_2$, so in either cas
 
 This shows that $\sim $ is an equivalence relation on $[m]$.
 Let $t$ be the number of equivalence classes, and let $I_1, \ldots, I_t $ be the corresponding equivalence classes.
-
-The proof is concluded by showing that $\{F_i\}_{i=1}^m \cup \{ 1 \}$ is a linearly independent set, where $1$ is the constant polynomial equal to $1$.
-Indeed, $F_i \in \spn \{ ||\vx||^2, x_1, \ldots, x_d, 1\}$, which is a $d+2$ dimensional space, so the linear independence implies that $m+1 \leq d+2$, as desired.
-
-Assume that there is a linear combination $\alpha 1 + \sum_{i=1}^m \alpha_i F_i = 0 $.
-By comparing the quadratic terms of this equation, we get that $\sum_{i=1}^m \alpha_i = 0$.
 
 Note that we have 
 $F_j(\vp_i) = \begin{cases} \delta_1^2 - \delta_2^2& \text{ if $i\sim j$ and $i\neq j$,} \\ \delta_1^2& \text{ if $i = j$,}\\ 0& \text{ if $i \not\sim j$.} \end{cases}$
@@ -159,7 +159,7 @@ Summing all these equations for all $i\in I_k$ we get
 
 \begin{equation}\label{eq:eq_2}
 \begin{split}
-0 &= |I_k|\alpha + \sum_{i\in I_k} \alpha_i \delta_2^2 + \sum_{j\in I_k } \alpha_j (\delta_1^2-\delta_2^2)|I_k| = |I_k|\alpha + \left( \sum_{i\in I_k} \alpha_i \right) \left( \delta_2^2 + (\delta_1^2-\delta_2^2)|I_k|  \right) \\
+0 = |I_k|\alpha + \sum_{i\in I_k} \alpha_i \delta_2^2 + \sum_{j\in I_k } \alpha_j (\delta_1^2-\delta_2^2)|I_k| &= |I_k|\alpha + \left( \sum_{i\in I_k} \alpha_i \right) \left( \delta_2^2 + (\delta_1^2-\delta_2^2)|I_k|  \right) \\
 \Rightarrow \sum_{i \in I_k} \alpha_i &= \alpha \frac{-|I_k|}{\delta_2^2 + (\delta_1^2-\delta_2^2)|I_k|} \, ,
 \end{split}
 \end{equation}
@@ -172,7 +172,7 @@ So each $\alpha_i $ vanishes, and we conclude the desired linear independence.
 
 \item 
 Let $P = \{\vp_1, \ldots, \vp_m \} $ and for each $i=1, \ldots, m$ define the polynomial $F_i \in \R[x_1, \ldots, x_d] = \R[\vx]$ as
-$$ F_i ( \vx ) \coloneqq \prod_{j=1}^t \left( \delta_j^2 - ||\vx - \vp_i ||^2\right)  =  \prod_{j=1}^t \left(  - ||\vx ||^2 + 2 \vx \cdot \vp_i - ||\vp_i||^2 + \delta_j^2\right) \, .$$
+$$ F_i ( \vx ) \coloneqq \prod_{\delta \in D} \left( \delta^2 - ||\vx - \vp_i ||^2\right)  =  \prod_{\delta \in D} \left(  - ||\vx ||^2 + 2 \vx \cdot \vp_i - ||\vp_i||^2 + \delta^2\right) \, .$$
 
 
 The proof is concluded by showing that $\{F_i\}_{i=1}^m$ is a linearly independent set.
@@ -187,11 +187,11 @@ Therefore by evaluating the linear combination at $\vp_i $ we get that $\alpha_i
 
 \item 
 Let $k = |S|$ and $r = \lfloor \frac{k-1}{d+1} + 1 \rfloor$.
-Because $k \geq (r-1)(d+1) + 1$, there is a partition of $S = S_1 \uplus \cdots \uplus S_r$ such that we can find some point $\va \in \bigcap_{i=1}^r \conv (S_i)$.
+Because $k \geq (r-1)(d+1) + 1$, from Tveberg's theorem there is a partition of $S = S_1 \uplus \cdots \uplus S_r$ such that we can find some point $\va \in \bigcap_{i=1}^r \conv (S_i)$.
 
 For any $\{i_0 < \cdots < i_d\} \subseteq [r]$ we have $\va \in \bigcap_{j=0}^d \conv (S_{i_j})$ so, according to the colourful Caratheodory theorem, there is a sequence $(\hat{x}_j)_{j=0}^d$ such that $\hat{x}_j\in S_{i_j} $ for each $j = 0, \ldots, d$ and $\va \in \conv (\hat{x}_j)_{j=0}^d$.
 
-Note that for each choice $\{i_0 < \cdots < i_d\} \subseteq [r]$, the corresponding sequence $(\hat{x}_j)_{j=0}^d$ is necessarily distinct.
+Note that for each choice $\{i_0 < \cdots < i_d\} \subseteq [r]$, the corresponding sequence $(\hat{x}_j)_{j=0}^d$ is necessarily distinct, because $S= S_1\uplus \cdots \uplus S_r$ is a partition into disjoint sets.
 Furthermore, $\conv (\hat{x}_j)_{j=0}^d $ is an $S$-simplex.
 Therefore, we have found that $\va $ is contained in $\binom{r}{d+1}$ distinct $S$-simplices.
 Note that 
@@ -206,7 +206,7 @@ Consider the collection of convex sets $Y = \{\overline{B}(\vx)\}_{\vx \in X}$ a
 Indeed, if $\vx_1, \vx_2, \vx_3 \in X$, then there is a unit disk $\overline{B}(\vy)$ that contains $\vx_1, \vx_2, \vx_3$.
 Then $\vy \in \overline{B}(\vx_1)\cap \overline{B}(\vx_2) \cap \overline{B}(\vx_3)$, which shows that this intersection is non-empty.
 
-Thus, Helly's theorem tells us that there is some $\vy \in \bigcap_{x \in X} \overline{B}(x) $, and this point is the centre of a unit disk that contains $X$, as desired.
+Thus, Helly's theorem tells us that there is some $\vy \in \bigcap_{\vx \in X} \overline{B}(\vx) $, and this point is the centre of a unit disk that contains $X$, as desired.
 
 
 \item 
@@ -214,7 +214,7 @@ Let $\FF = \{F_1, \ldots, F_m\}$.
 We act by induction on $m$.
 For $m = d+1$, the statement is immediate.
 
-For the induction step let $m \geq d+2$ and note that for each $i = 1, \ldots, m$ we have that $\FF \setminus  \{ F_i\} $ is a collection of $m-1\geq d+1$ sets of size $d$, where each $d+1$ sets has non-empty intersection.
+For the induction step let $m \geq d+2$ and note that for each $i = 1, \ldots, m$ we have that $\FF \setminus  \{ F_i\} $ is a collection of $m-1\geq d+1$ sets of size $d$, where each subcollection of $d+1$ sets has non-empty intersection.
 Thus, by the induction hypothesis it has non empty intersection.
 Let $a_i \in \bigcap_{\substack{ F \in \FF  \\ F \neq F_i }} F $.
 
@@ -224,36 +224,36 @@ In this case, we have $a_i \in \bigcap_{F \in \FF } F$, so this is non-empty, as
 
 \item 
 It is enough to establish the result for $m = (d+1)(r-1)$.
-Define $\vx_i \in \R^{d}$ for $i = 0, \ldots, m$ so that $(\vx_i)_j = \begin{cases}&1, \text{ if $j \in F_i$ } \\  &0, \text{ otherwise.}\end{cases}$, and let $\vy = (\vx, 1) \in \R^{d+1}$.
-Define $\vv_i = \vec{e}_i \in\R^{r-1}$ for $i = 1, \ldots, r-1$, and define $\vv_r = - \sum_{i=1}^{r-1} \vec{e}_i$.
+Define $\vx_i \in \R^{d}$ for $i = 0, \ldots, m$ so that $(\vx_i)_j = \begin{cases}&1, \text{ if $j \in F_i$ } \\  &0, \text{ otherwise.}\end{cases}$, and let $\vy_i \coloneqq (\vx_i, 1) \in \R^{d+1}$.
+Define $\vv_i = \vec{e}_i \in\R^{r-1}$, the $i$-th element in the canonical basis of $\R^{r-1}$ for $i = 1, \ldots, r-1$, and define $\vv_r = - \sum_{i=1}^{r-1} \vec{e}_i$.
 Write $\vec{0} \in\R^{d+1}$ for the all zero vector and $\mathbb{0} \in \R^{(d+1)\times (r-1)}$ for the all zero matrix.
 
 Define $M_i \coloneqq \{\vv_j\vy^T_i | j=1, \ldots, r \} \subseteq \R^{(r-1) \times (d+1)}$ for $i = 0, \ldots, m$.
 Note that $\sum_{i=1}^r \vv_i = \vec{0}$, so $\mathbb{0} \in \conv \, M_i$ for all $i$.
-There are $m+1$ such sets in $\R^m$, so colourful Caratheodory's theorem gives us, for each $i$, a point $\vz_i\in M_i$ and a coefficient $\alpha_i\geq 0$ such that 
+There are $m+1$ sets $M_i$ in $\R^m$, so colourful Caratheodory's theorem gives us, for each $i$, a point $\vz_i\in M_i$ and a coefficient $\alpha_i\geq 0$ such that 
 \begin{equation}\label{eq:col}
- \vec{0} = \sum_{i=0}^m \alpha_i \vz_i , \quad \quad \sum_{i=0}^m \alpha_i = 1\, . 
+ \mathbb{0} = \sum_{i=0}^m \alpha_i \vz_i , \quad \quad \sum_{i=0}^m \alpha_i = 1\, . 
 \end{equation}
 
 Let $f:\{0, \ldots, m\} \to \{1, \ldots, r\}$ such that $\vz_i = \vv_{f(i)}\vy_i^T$.
 Multiplying by $\vec{e}_t^T$, for $t = 1, \ldots, r-1$, on the left of the first equation of \eqref{eq:col} gives us 
-$$ \vec{0} = \left( \sum_{i: f(i) = t} \alpha_i \vy_i^T\right) - \left(\sum_{i: f(i) = r} \alpha_i \vy_i^T \right) \, . $$
+$$ \vec{0}^T = \left( \sum_{i: f(i) = t} \alpha_i \vy_i^T\right) - \left(\sum_{i: f(i) = r} \alpha_i \vy_i^T \right) \, . $$
 
 We therefore get that $ \sum_{i: f(i) = t} \alpha_i \vy_i^T$ does not depend on $t = 1, \ldots, r$.
-Recall that $\vy_i = (\vx_i, 1)$, so this gives us that $A \coloneqq  \sum_{i: f(i) = t} \alpha_i$ does not depend on $t$, so $r A = \sum_i \alpha_i = 1$ gives $A = \frac{1}{r}$.
+Recall that $\vy_i = (\vx_i, 1)$, so this gives us that $A \coloneqq  \sum_{i: f(i) = t} \alpha_i$ does not depend on $t = 1, \ldots, r-1$, so $1 = \sum_{i=0}^m \alpha_i = \sum_{t=1}^r \sum_{i: f(i) = t} \alpha_i = r A$ gives $A = \frac{1}{r}$.
 
-We conclude that $\vv \coloneqq  \sum_{i: f(i) = t} \frac{\alpha_i}{A}\vx_i = \sum_{i: f(i) = t} r \alpha_i\vx_i$ does not depend on $t=1, \ldots, r$.
+Furthermore $\vv \coloneqq  \sum_{i: f(i) = t} \frac{\alpha_i}{A}\vx_i = \sum_{i: f(i) = t} r \alpha_i\vx_i$ does not depend on $t=1, \ldots, r$.
 
 The desired disjoint sets are $I_t = \{ i \in \{0, \ldots, m\} | \alpha_i > 0 \text{ and } f(i) = t \}$, where $t = 1, \ldots, r$.
 Indeed, we claim that $j \in \bigcap_{i \in I_t} F_i$ if and only if $\vv_j = 1$ and $j \not\in \bigcup_{i \in I_t} F_i$ if and only if $\vv_j = 0$.
 Because $\vv $ does not depend on $t$, the result follows.
 
 First observe that all entries of $\vv$ are in $[0, 1]$, as $\vv$ is a convex combination of $0$-$1$ vectors.
-Fix $t$, we note
+Fix $t, j$
 $$\vv_j = \sum_{i \in I_t} r \alpha_i(\vx_i)_j = \sum_{\substack{i \in I_t\\ j \in F_i}} r \alpha_i \leq \sum_{i \in I_t} r \alpha_i = 1  \, .$$
 
-The equality holds if and only if $j \in F_i$ for al $i\in I_t$, that is $j \in \bigcap_{i \in I_t} F_i$, so this concludes the first part.
+The equality holds if and only if $j \in F_i$ for all $i\in I_t$, that is $j \in \bigcap_{i \in I_t} F_i$, so this concludes the first part.
 
-Furthermore, because $r \alpha_i > 0$ for any $i\in I_t$, $\sum_{\substack{i \in I_t\\ j \in F_i}} r \alpha_i  = 0 $ if and only if $j \not\in F_i$ for al $i\in I_t$, that is $j \not\in \bigcup_{i \in I_t} F_i$, so this concludes the second part, and the proof.
+Furthermore, because $r \alpha_i > 0$ for any $i\in I_t$, $\sum_{\substack{i \in I_t\\ j \in F_i}} r \alpha_i  = 0 $ if and only if $j \not\in F_i$ for all $i\in I_t$, that is $j \not\in \bigcup_{i \in I_t} F_i$, so this concludes the second part, and the proof.
 \end{enumerate}
 \end{document}
