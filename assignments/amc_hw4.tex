@@ -96,8 +96,74 @@
 \begin{document}
 
 \maketitle
+\vspace{2mm}
 \begin{enumerate}
+\item Kemnitz conjecture.
+
+For an additive group $G$ and an integer $n$, we write $f(G, n)$ for the smallest integer $f$ such that for any choice $g_1, \ldots, g_f \in G$ we can find $I\subseteq [f]$ with $|I| = n$ and $\sum_{i\in I} g_i = 0$.
+The celebrated Erd\"os-Ginzburg-Ziv theorem shows that $f(\Z_n, n) = 2n -1$, and Kemnitz conectured that $f(\Z_n^2, n) = 4n-3$.
+
+Recall that for sets $I, J\subseteq \Z_m^2$ and an integer $x\in\Z_{\geq 0}$, we write $\sum I $ for $\sum_{i\in I} i$, and also write
+$$ (x | J) \coloneqq \# \left\{ I \subseteq J \Big| \sum I = 0, \, |I| = x \right\} \in \left\{ 0, 1, \ldots, \binom{|J|}{x} \right\}\, . $$
+
+\begin{enumerate}
+\item Show that $f(\Z_n^2, n) \geq 4n-3$, by finding a suitable sequence $g_1, \ldots, g_{4n-4}$ of elements in $\Z_n^2$.
+
+\item Show that $f(\Z^2_2, 2) = 5$.
+
+\item Show that $A = \{m\in \Z_{\geq 0} | f(\Z^2_2, 2) = 4m - 3 \} $ is a multiplicative set.
+That is $a, b\in A \Rightarrow ab \in A$.
+
+\item Show that for $p$ prime and a multiset $J \subseteq \Z_p^2$, we have the following:
+\begin{align*}
+|J| = 3p - 3 &\Rightarrow 1 - (p-1|J) - (p|J) + (2p-1|J) +(2p|J)  = 0 \text{ mod $p$.} \\
+|J| = 3p - 2 \text{ or } |J| = 3p - 1 &\Rightarrow 1 - (p|J) + (2p|J)  = 0 \text{ mod $p$.} \\
+|J| = 4p - 3 &\Rightarrow 1 - (p|J) + (2p|J) - (3p|J)  = 0 \text{ mod $p$.} \\
+|J| = 4p - 3 &\Rightarrow (p-1|J) - (2p-1|J) + (3p-1|J)  = 0 \text{ mod $p$.}
+\end{align*}
+\end{enumerate}
+
+
+\item Hypergraph union of edges.
+
+\begin{enumerate}
+\item Let $n, d, p$ be integers such that $p$ is prime and $n > d(p-1)$.
+Show that any polynomial $h \in \F_p[\vx_1, \ldots, \vx_n]$ with $\deg h \leq d$ and $h(0, \ldots, 0) = 0$, then there exists a non-zero vector $\vv \in \{0, 1 \}^n$ such that $h(e) = 0$.
+
 \item 
+Recall that a hypergraph $H = (V, E)$ is a pair where $E \subseteq 2^V$, that is edges are allowed to have any number of endpoints.
+The degree of a vertex in $H$ is the numbero of incident edges $\deg_H (v) = \sum_{\substack{e\in E \\ v \in e}} 1$.
+
+Show that if $H$ has more than $d(p-1)$ edges and maximal degree at most $d$, then it contains a subset of edges whose union $U$ is such that $|U|$ is a multiple of $p$.
+
+\end{enumerate}
+
+\item Good orders of subsets of $\Z_p$.
+
+Let $k$ be an integer and $p$ be an odd prime, and let $A, B \subseteq \Z_p$ sets of size $k$.
+Prove that there is are orderings $(a_1, \ldots, a_k)$ of $A$ and $(b_1, \ldots, b_k)$ of $B$ such that $\{a_i+b_i\}_{i=1}^k$ are all distinct sums.
+
+Hint: Fix an ordering for $A$ and find a polynmial that vanishes when a sequence of $b_i$ is bad.
+
+\item Generalisation of Erd\"os-Heilbronn.
+
+Let $p$ be a prime number and $A_0, \ldots, A_k \subseteq \Z_p$.
+Assume that $|A_i|\neq |A_j| $ for $i\neq j$, and that $A_i \neq \emptyset $ for all $i$.
+
+Then 
+$$ \#\left\{ a_0 + \cdots + a_k \Big| a_i \neq a_j \forall_{i\neq j} \, , a_i \in A_i \right\} \geq \min \left\{p, \left( \sum_{i=0}^k |A_i| \right) - \binom{k+2}{2}  + 1 \right\}\, . $$
+
+Hint: $\prod_{i < j} (x_i - x_j) = \det \begin{pmatrix}
+1 & 1 & \cdots & 1\\
+x_0 & x_1 & \cdots & x_k \\
+\vdots & \vdots & \ddots & \vdots \\
+x_0^k & x_1^k & \cdots & x_k^k 
+\end{pmatrix}= \det \begin{pmatrix}
+\frac{x_0!}{x_0!} & \frac{x_1!}{x_1!} & \cdots & \frac{x_k!}{x_k!}\\
+\frac{x_0!}{(x_0-1)!} & \frac{x_1!}{(x_1-1)!} & \cdots & \frac{x_k!}{(x_k-1)!} \\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{x_0!}{(x_0-k)!} & \frac{x_1!}{(x_1-k)!} & \cdots & \frac{x_k!}{(x_k-k)!}
+\end{pmatrix}$
 
 \end{enumerate}
 \end{document}
