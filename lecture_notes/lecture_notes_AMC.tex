@@ -1946,9 +1946,11 @@ TBD
 \section{Chevalier - Warning}
 
 Commonly used in number theory, the Chevalier-Warning theorem guarantees that there are some solutions to a polynomial equation, provided that there are sufficient variables.
-This result lead to important conjectures, like Artin's conjecture, that is that any $\F_q$ is quasi-algebraically closed.
+This result has lead to important conjectures in abstract algebra, like Artin's conjecture.
 
-\begin{thm}[Chevalier - Warning]\label{thm:CW}
+We will state and prove Chevalier - Warning, stated originally in \cite{chevalley1935demonstration}.
+
+\begin{thm}[Chevalier - Warning Theorem]\label{thm:CW}
 Fix $q$ a power of a prime $p$, and consider $f_1, \ldots, f_t$ polynomials in $\F_q[\vx_1, \ldots , \vx_m]$ such that $\sum_i \deg (f) < m$.
 
 Then the number of common zeroes of the polynomials $\{ f_i\}_{i=1}^t $ is a multiple of $p$.
@@ -1957,7 +1959,7 @@ Then the number of common zeroes of the polynomials $\{ f_i\}_{i=1}^t $ is a mul
 \begin{lm}\label{lm:sum_infield}
 Let $q$ be a power of a prime and $r$ a positive integer with $r < q - 1$. 
 %Recall that $\F_q $ is the finite field of size $q$.
-Then, modulo $p$ we have
+Then we have
 $$ \sum_{x \in \F_q} x^r = 0 \, . $$
 \end{lm}
 
@@ -1971,17 +1973,17 @@ which implies that $ \sum_{x \in \F_q} x^r = 0$.
 
 \begin{proof}[Proof of \cref{thm:CW}]
 Consider the polynomial 
-$$ N(\vx) \coloneqq N(\vx_1, \ldots, \vx_m ) \coloneqq \prod_{i=1}^t ( 1 - f_i(\vx )^{q-1} )\, . $$
+$$ N(\vx) \coloneqq N(x_1, \ldots, x_m ) \coloneqq \prod_{i=1}^t ( 1 - f_i(\vx )^{q-1} )\, . $$
 
 Recall that $x^{q-1} - 1 $ vanishes in all non-zero field elements $x \in \F_q$.
 If $\vx  $ is a common root of $\{f_i\}_{i=1}^t$ then $N(\vx) = 1$, whereas if $\vx $ does not vanish in some $f_i$ then $N(\vx) = 0$.
-Thus $\sum_{(\vx_1, \ldots, \vx_m) \in \F_q^m} N(\vx) = \# \{ \text{ common roots of } \{f_i\}_i \}$ modulo $p$.
+Thus $\sum_{\vx \in \F_q^m} N(\vx) = \# \{ \text{ common roots of } \{f_i\}_i \}$ modulo $p$.
 
-Note that $\deg N = \sum_{i= 1}^t (q-1)\deg f_i \leq t(q-1)$, so for any monomial in $N(\vx )$, say $ \vx_1^{\alpha_1}\cdots \vx_m^{\alpha_m}$ there is some $i$ such that $\alpha_i < q-1$.
+Note that $\deg N = \sum_{i= 1}^t (q-1)\deg f_i < m(q-1)$, so for any monomial in $N(\vx )$, say $ x_1^{\alpha_1}\cdots x_m^{\alpha_m}$ there is some $i$ such that $\alpha_i < q-1$.
 Using \cref{lm:sum_infield} we have 
-$$\sum_{(\vx_1, \ldots, \vx_m) \in \F_q^m} \vx_1^{\alpha_1}\cdots \vx_m^{\alpha_m} = \left(\sum_{x\in\F_q}x^{\alpha_1} \right) \cdots \left(\sum_{x\in\F_q}x^{\alpha_1} \right) = 0  \text{ modulo $p$}\, . $$
+$$\sum_{(x_1, \ldots, x_m) \in \F_q^m} x_1^{\alpha_1}\cdots x_m^{\alpha_m} = \left(\sum_{x\in\F_q}x^{\alpha_1} \right) \cdots \left(\sum_{x\in\F_q}x^{\alpha_1} \right) = 0\, . $$
 
-Using this on every monomial of $N$, we get $\sum_{(\vx_1, \ldots, \vx_m) \in \F_q^m} N(\vx) = 0$ modulo $p$, as desired.
+Using this on every monomial of $N$, we get $\sum_{\vx \in \F_q^m} N(\vx) = 0$, as desired.
 \end{proof}
 
 A \textbf{subgraph} $H\leq G$ of a graph $G$ is a graph $H = (V, E)$ such that $V \subseteq V(G)$ and $E \subseteq E(G) $.
@@ -1998,14 +2000,14 @@ Note that the condition that the graph is simple is necessary: If one takes thre
 The theorem below does not require the simple graph assumption.
 
 \begin{thm}\label{thm:3reggraphs}
-Every graph $G$ arising from adding an edge $f$ to a $4$-regular graph contains a $3$ regular graph.
+Every graph $G$ arising from adding an edge $f$ to a $4$-regular graph contains a $3$-regular graph.
 \end{thm}
 
 Fix a graph $G = (V(G), E(G))$.
 Recall that for a vertex $c\in V(G)$, we write $\deg_G v$ for the number of incident edges at $v$ in the graph $G$.
 
 \begin{proof}[Proof of \cref{thm:3reggraphs}]
-For each vertex $v\in V(G)$ consider $f_f \in \F_3[\vx_e | e\in E(G) ]$ defined by
+For each vertex $v\in V(G)$ consider $f_v \in \F_3[\vx_e | e\in E(G) ]$ defined by
 $$f_v(\vx) = \sum_{e\in E(G) \text{ s.t. } v\in e} x_e^2 \, . $$
 
 Note that $\sum_{v \in V(G)} \deg f_v = 2 |V(G)|$.
@@ -2029,26 +2031,33 @@ Furthermore, $V'$ is non empty, as $\vy $ was taken to be non-zero, so $H$ is $3
 
 Let $G$ be an abelian group.
 We define 
-$$g(G) = \min \{ s \in \Z_{\geq 0} | \forall_{g_1, \ldots, g_s \in G} \exists_{I \subseteq [s]} \text{ s.t. } |I| = s \, \text{ and } \sum_{i \in I} g_i = 0 \, . $$
+$$g(G, n) = \min \left\{ s \in \Z_{\geq 0} \Big| \forall_{g_1, \ldots, g_s \in G} \exists_{I \subseteq [s]} \text{ s.t. } |I| = n \, \text{ and } \sum_{i \in I} g_i = 0 \right\}\, . $$
 
 \begin{smpl}
 One can see that for any integer $n \geq 1 $ we have $g(\Z_n) = n$.
-Indeed, $g(\Z_n ) \geq n$ as we can take $g_1 = \cdots = g_{n-1} = 1$ and there is no subset of $[n-1]$ that results in a zero sum.
+Indeed, $g(\Z_n ) \geq n$ as we can take $g_1 = \cdots = g_{n-1} = 1$ and there is no non-trivial subset of $[n-1]$ that results in a zero sum.
 
 On the other hand, if $g_1, \ldots, g_n \in \Z_n $ then in the following list
 $$ g_1, g_1 + g_2, \ldots, g_1 + \cdots + g_n \, , $$
 there is either a zero or a repeated value of $\Z_n$.
-In either case, we can cook up a sum that vanishes, so $g(\Z_n) \geq n$.
+In either case, we can find a sum that vanishes, so $g(\Z_n) \geq n$.
 \end{smpl}
 
 
 \begin{thm}[Olsen's theorem]
-Let $p$ be a prime number and $G = \underbrace{\Z_p \oplus \cdots \oplus \Z_p}_{\text{ $k$ times } }$.
+Let $p$ be a prime number and $G = \Z_p^{\oplus k} = \underbrace{\Z_p \oplus \cdots \oplus \Z_p}_{\text{ $k$ times } }$.
 Then $g(G) = k(p-1)+ 1$.
 \end{thm}
 
 \begin{proof}
+One can see that for any integer $k \geq 1 $ we have $g(\Z_p^{\oplus k}) \geq k(p-1)+1$.
+Indeed, take $g_{0, i} = (0, 0)$, $g_{(1, i)} = (1, 0)$, $g_{(2, i)} = (0, 1) $ and $g_{3, i} = (1, 1)$ for $i=1, \ldots, p-1$, and there is no non-trivial subset that results in a zero sum:
+if $\sum_{j=0}^3 a_j g_{(j, 1)} = (0, 0) $ for $a_0, \ldots, a_3 \in \{0, \ldots, p-1\}$ with , then 
 
+On the other hand, if $g_1, \ldots, g_n \in \Z_n $ then in the following list
+$$ g_1, g_1 + g_2, \ldots, g_1 + \cdots + g_n \, , $$
+there is either a zero or a repeated value of $\Z_n$.
+In either case, we can find a sum that vanishes, so $g(\Z_n) \geq n$.
 \end{proof}
 
 
