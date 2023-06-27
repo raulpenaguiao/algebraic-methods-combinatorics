@@ -2075,7 +2075,7 @@ For the remaning inequality, that $g(\Z_p^k) \leq k(p-1)+1$, fix $k(p-1)+1$ elem
 $$f_j(\vx ) \coloneqq \sum_{i=0}^{k(p-1)} x_i^{p-1}g^{(i)}_j \, .$$
 
 Note how $\sum_{j=1}^ k \deg(f_j) = k(p-1)$ is less than the number of variables, so the number of common zeroes is a multiple of $p$.
-The all-zero vector is a common zero, so there is some non-trivial solution $\vy$ such that $f_j(\vy) = 0$.
+The all-zero vector is a common zero, so there is some non-trivial solution $\vy$ such that $f_j(\vy) = 0$ for $j=1, \ldots, k$.
 
 Let $L \coloneqq \{ i\in\{0, \ldots, k(p-1)\} | \vy_i \neq 0 \}$.
 The condition $f_j(\vy) = 0$, together with \cref{lm:power} gives us $\sum_{i\in L} g^{(i)}_j = 0$.
@@ -2090,25 +2090,25 @@ Then there exists a set $I\subseteq [2n-1] $ of size $n$ such that $\sum_{i\in I
 \end{thm}
 
 For a generic aditive group $G$, we define
-$$ f(G, n) = \min \left\{ s \in \Z_{\geq 0} \Big| \forall_{g_1, \ldots, g_s \in G} \exists_{I \subseteq [s]} \text{ s.t. } |I| = n \, \text{ and } \sum_{i \in I} g_i = 0 \right\} \, ,$$
+$$ f(G, n) = \min \left\{ s \in \Z_{\geq 0} \Big| \forall_{f_1, \ldots, f_s \in G} \exists_{I \subseteq [s]} \text{ s.t. } |I| = n \, \text{ and } \sum_{i \in I} f_i = 0 \right\} \, ,$$
 so that the theorem becomes $ f(\Z_n, n) = 2n - 1$.
 
 \begin{proof}
 As usual, we provide a multiset in $\Z_n$ of size $2n-2$ to show that $f(\Z_n, n) \geq 2n-1$.
-Specifically, let $g_{(0, j)} = 0$ and $g_{(1, j)} = 1$ for $j=1, \ldots, n-1$.
+Specifically, let $f_{(0, j)} = 0$ and $f_{(1, j)} = 1$ for $j=1, \ldots, n-1$.
 There is no subset $I$ with $n$ elements with zero sum:
 assume otherwise, so that there are $a_0, a_1 \in \{0, \ldots, n-1\}$ with $0 \leq a_j \leq n-1$ for which $a_0 + a_1 = n$ and $ a_1 = 0$ modulo $n$.
-This with $0 \leq a_1 \leq n-1$ givesd $a_1 = 0$, so $a_0 = n$, which is impossible.
+This with $0 \leq a_1 \leq n-1$ gives $a_1 = 0$, so $a_0 = n$, which is impossible.
 
 
 For the remaning inequality, that $f(\Z_n, n) \leq 2n - 1$, we act by induction on the number of prime factors of $n$, counting multiplicity.
 That is, if $n = \prod_i p_i^{\alpha_i}$ is the factorization of $n$ into primes, then our induction step is on $\sum_i \alpha_i$.
 
 The base case is when $\sum_i \alpha_i = 1$, that is when $n$ is prime.
-
-Fix $2n - 1$ elements $f^{(0)}, \ldots, f^{(2n  - 2 )} \in \Z_n$, and consider the following polynomials $a_1, a_2 \in \F_p[x_0, \ldots, x_{2n  - 2 }]$:
+So let us assume that $n$ is a prime number.
+Fix $2n - 1$ elements $f_{0}, \ldots, f_{2n  - 2} \in \Z_n$, and consider the following polynomials $a_1, a_2 \in \F_p[x_0, \ldots, x_{2n  - 2 }]$:
 \begin{align*}
-a_1(\vx ) &\coloneqq \sum_{i=0}^{2n-2} x_i^{n-1}g^{(i)}_j \, ,
+a_1(\vx ) &\coloneqq \sum_{i=0}^{2n-2} x_i^{n-1}f_i \, , \\
 a_2(\vx ) &\coloneqq \sum_{i=0}^{2n-2} x_i^{n-1} \, .
 \end{align*}
 
@@ -2119,61 +2119,273 @@ Furthermore, the all-zero vector is a common root, so there is a non-trivial com
 
 Let $L \coloneqq \{ i\in\{0, \ldots, 2n - 2\} | y_i \neq 0 \}$.
 The condition $a_2(\vy) = 0$, together with \cref{lm:power} gives us $\sum_{i\in L} 1 = 0$.
-Therefore $|L|$ is a multiple of $n$.
+Therefore $|L|\leq 2n-1$ is a multiple of $n$.
 As $\vy $ was chosen to be non-trivial, the set $L$ is non-empty, so $|L| = n$.
-The condition $a_1(\vy) = 0$, together with \cref{lm:power} gives us $\sum_{i\in L} f^{(i)} = 0$, so this is the desired set.
+The condition $a_1(\vy) = 0$, together with \cref{lm:power} gives us $\sum_{i\in L} f_i = 0$, so this is the desired set.
 
 Now for the induction step.
 If $n$ is not prime, then $n = mt$ where $m, t > 1$ and by induction hypothesis $f(\Z_m, m) = 2m - 1$ and $f(\Z_t, t) = 2t - 1$.
-We wish to show that $f(\Z_n, n) \leq 2n-1$, so we consider $2n - 1$ elements $f^{(1)}, \ldots, f^{(2n  - 1 )} \in \Z_n$.
-Because $n$ is a multiple of $m$, we can analyse elements of $\Z_n$ modulo $m$, that is construct a projection $\pi: \Z_n \to \Z_m$ that is a group homomorphism.
-Let $g^{(i)} = \pi(f^{(i)})$ of $i = 1, \ldots, 2n - 1$.
+We wish to show that $f(\Z_n, n) \leq 2n-1$, so we consider $2n - 1$ elements $f_{1}, \ldots, f_{2n  - 1} \in \Z_n$.
+Because $n$ is a multiple of $m$, we can analyse elements of $\Z_n$ modulo $m$, which defines a projection $\pi: \Z_n \to \Z_m$ that is a group homomorphism.
+Let $g_i = \pi(f_i)$ of $i = 1, \ldots, 2n - 1$.
 
 Let $T_1 = [2n-1]$ and for $i = 1, \ldots, 2t-1$ define iteratively
 \begin{align*}
-I_i &\subseteq T_i \text{ such that $|I_i| = m$ and $\sum_{j\in I_i} g^{(j)} = 0$ modulo $m$,} //
-T_{i+1} \coloneqq T_i \setminus I_i \, .
+I_i &\subseteq T_i \text{ such that $|I_i| = m$ and $\sum_{j\in I_i} g_j = 0$,} \\
+T_i &\coloneqq T_{i-1} \setminus I_{i-1} \, .
 \end{align*}
 
-It is imediate that $|T_i| = |T_1| - (i-1)m \geq  |T_1| - ((2t-1) - 1)m = 2n - 1 - 2tm  + 2m = 2m - 1$, so such a $I_i \subseteq T_i $ exists by induction hypothesis (remember that $f(\Z_m, m) = 2m-1$).
-For $i=1, \ldots, 2t-1$, define $h^{(i)} m \coloneqq  \sum_{j \in I_i} f^{(j)}$.
-This is possible because we know that $ \sum_{j \in I_j} f^{(j)} = 0 $ modulo $m$.
-Furthermore, we can identify $h^{(i)} $ with an element in $\Z_t$.
-By induction hypothesis, there is some set $I \subseteq [2t-1]$ such that $|I| = t$ and $\sum_{j\in I} h^{(j)} = 0 $ modulo $t$.
+Note that $|T_i| = |T_1| - (i-1)m \geq  |T_1| - ((2t-1) - 1)m = 2n - 1 - 2tm  + 2m = 2m - 1$, so such an $I_i \subseteq T_i $ exists by induction hypothesis (remember that $f(\Z_m, m) = 2m-1$).
+For $j=1, \ldots, 2t-1$, define $h_j m \coloneqq  \sum_{i \in I_j} f_i$.
+This is possible because we know that $ \sum_{i \in I_j} f_i = 0 $ modulo $m$.
+Furthermore, we can identify $h_j $ with an element in $\Z_t$.
+By induction hypothesis, there is some set $I \subseteq [2t-1]$ such that $|I| = t$ and $\sum_{j\in I} h_j = 0 $ modulo $t$.
 
-Thus $\sum_{j\in I} \sum_{i \in I_j} f^{(i)} = 0$ gives us a sum of $mt = n$ terms that is zero, so this concludes the induction step.
+Thus $\sum_{j\in I} \sum_{i \in I_j} f_i = 0$ gives us a sum of $mt = n$ terms that is zero, so this concludes the induction step.
 \end{proof}
 
 \subsection{Kemnitz conjecture}
 
-Let $p$ be a prime number and  $a_1, \ldots, a_{4p-3} \in \Z/_{\Z_p}\oplus \Z/_{\Z_p} $.
-Then there exists a set $I\subseteq [4p-3] $ of size $n$ such that $\sum_{i\in I} a_i = 0$.
+The natural generalisation of Erd\"os-Ginzburg-Ziv Theorem requires a higher dimensional group.
+Specifically, for integers $n, k$, we can compute $f(\Z_n^{\oplus k}, n)$.
+The answer, for $k=2$, was conjectured by Kemnitz in 1983 and proved in \cite{reiher2007kemnitz}.
 
 
-\begin{thm}[Reiher's Theorem]
+\begin{thm}[Reiher's Theorem]\label{thm:RT}
 $$f(\Z_n^2, n ) = 4n - 3 \, . $$
 \end{thm}
 
+\begin{lm}
+$$f(\Z_2^2, 2 ) = 5\, . $$
+\end{lm}
 
 
 \begin{proof}
 
 \end{proof}
 
+\begin{lm}
+The set $L = \{n \in \Z_{\geq 0} | f(\Z_n^2, n ) = 4n - 3 \} $ is multiplicative.
+That is, if $m, n\in L$ then $mn\in L$.
+\end{lm}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{thm}[Lucas' theorem]
+Let $p$ be a prime number, and $a, b $ positive integers along with their expansion in base $p$ given by:
+$$a = \sum_{i=0}^M a_ip^i, \, \, b = \sum_{i=0}^M b_ip^i \, ,$$
+that is, $M\geq 0 $ is an integer and $a_i, b_i \in \{ 0 , \ldots , p-1 \}$ for $i=0, \ldots M$.
+
+Then 
+$$\binom{a}{b} = \binom{a_M}{b_M} \cdots \binom{a_1}{b_1} \binom{a_0}{b_0} \text{ modulo $p$.}$$
+\end{thm}
+
+\begin{proof}
+TBD
+\end{proof}
+
+\begin{thm}[Fermat's little theorem]
+For $a \in \Z$ and $p$ prime, we have
+$$a^p = a \text{ modulo $p$.}$$
+\end{thm}
+
+\begin{proof}
+TBD
+\end{proof}
+
+We now introduce useful notation for the proof of the Kemnitz conjecture.
+Let $p$ be a prime number, $J, K$ be a multisets of elements in $\Z_p$ and $x$ an integer.
+We denote $\sum K $ for $\sum_{k\in K} k \in \Z_p$, and we denote $(x|J)$ for the number of multisets $I\subseteq J$ such that $|I| = x$ and $\sum I = 0$.
+
+\begin{lm}
+Let $p$ be a prime number, and let $J$ be a multiset of elements in $\Z_p$.
+\begin{equation}
+\text{If $|I| = 3p - 3$, we have } 1 - (p-1|J) - (p|J) + (2p-1|J) + (2p|J) = 0 \text{ modulo $p$,}
+\end{equation}
+\begin{equation}
+\text{If $|I| \in \{ 3p - 2, 3p - 1\} $, we have } 1 - (p|J) + (2p|J) = 0 \text{ modulo $p$,}
+\end{equation}
+\begin{equation}
+\text{If $|I| = 4p - 3$, we have } 1 - (p|J) + (2p|J) - (3p|J) = 0 \text{ modulo $p$,}
+\end{equation}
+\begin{equation}
+\text{If $|I| = 4p - 3$, we have } (p-1|J) - (2p-1|J) + (3p-1|J) = 0 \text{ modulo $p$,}
+\end{equation}
+\begin{equation}
+\text{If $|I| = 4p - 3$, we have } 3 - 2 (p-1|J) - 2 (p|J) + (2p-1|J) + (2p|J) = 0 \text{ modulo $p$,}
+\end{equation}
+\begin{equation}
+\text{If $|I| = 4p - 3$ and $(p|J) = 0$, we have } (p-1|J) = (3p-1|J) \text{ modulo $p$,}
+\end{equation}
+\end{lm}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:RT}]
+
+\end{proof}
 
 \section{Combinatorial Nullstelensatz}
 
 
-The following result was shown in \cite{hilbert1893ueber}.
-This is the motivation for our next section, where we will study polynomials in $\F_q$.
+This section is motivated by a classical result in abstract algebra, shown in \cite{hilbert1893ueber}.
 
-\begin{thm}[Nulstellensatz]
+
+\begin{thm}[Nullstellensatz]
 Let $\F$ be an \textbf{algebraically closed field}, and $f, g_1, \ldots, g_m\in \F[\vx_1, \ldots, \vx_n]$ polynomials.
 If $f$ vanishes in all $\vv$ that are common roots of $g_1, \ldots, g_m$, then there exists an integer $k$ and polynomials $h_1, \ldots, h_m \in \F[\vx_1, \ldots, \vx_n]$ such that
 $$ f^k = \sum_{i=1}^m h_i g_i \, . $$
 \end{thm}
 
 
+We will be interested in its combinatorial versions, with applicatios in Aditive number theory and chromatic invariants.
+
+\begin{thm}[Combinatorial Nullstellensatz - I]\label{thm:NSS-1}
+Let $q$ be a power of a prime and $f\in \F_q[x_1, \ldots, x_n]$.
+Take $S_1, \ldots, S_n \subseteq \F_q$ such that $f$ vanishes in $S_1\times \cdots \times S_n$.
+
+Define $g_i\coloneqq \prod_{s \in S_i} (x_i - s)$ for $i=1, \ldots, n$.
+Then, there exist polynomials $h_1, \ldots, h_n \in \F_q[x_1, \ldots, x_n]$ such that $\deg h_i \leq \deg f - \deg g_i$ and 
+$$f = \sum_{i=1}^n h_i g_i \, .$$
+\end{thm}
+
+If $f\in \K[\vx]$ is a polynomial, we denote $[\vx^\alpha] f\in \K$ for the coefficient of $f$ in the monomial $\vx^{\alpha}$.
+
+\begin{thm}[Combinatorial Nullstellensatz - II]\label{thm:NSS-2}
+Let $q$ be a power of a prime.
+Let $f \in \F_q[x_1, \ldots, x_n]$, consider sets $S_i \subseteq \F_q$ and consider non-negative integers $t_1, \ldots, t_n$ such that $\deg f = \sum_{i=1}^n t_i$, $|S_i| > t_i$ for $i=1, \ldots, n$ and $\left[ \prod_{i=1}^n x_i^{t_i} \right] f \neq 0$.
+
+Then there exists $\vy \in S_1\times \cdots \times S_n$ such that $f(\vy) \neq 0$.
+\end{thm}
+
+For a multivariate polynomial $f \in \K[x_1, \ldots, x_n]$, we denote $\deg_{x_i} f $ for the largest exponent of $x_i$ in any monomial of $f$, and $\deg f$ is the total degree of $f$.
+
+\begin{lm}\label{lm:large_vanishing_poly}
+Let $q$ be a power of a prime.
+Let $f\in \F_q[x_1, \ldots, x_n]$, $t_i$ non-negative integers and $S_i \subseteq \F_q$ for $i=1, \ldots, n$ such that $\deg_{x_i} f \leq t_i < |S_i|$.
+If $f$ vanishes on $S_1\times \cdots \times S_n$, then $f$ is the zero polynomial.
+\end{lm}
+
+\begin{proof}
+We act by induction on $n$, the number of variables.
+For $n = 1$, assume for sake of contradction that $f$ is not the zero polynomial.
+Note that we have $\deg f = \deg_{x_1} f \leq t_1$, so \cref{lm:rootcount} gives us that $f$ vanishes in at most $t_1 $ points of $\F_q$.
+But $|S_1| > t_1$, so if $f$ vanishes on $S_1$ we get a contradiction.
+
+For the induction step, the assumption $\deg_{x_n} f \leq t_n$ allows us to write
+$$f(x_1, \ldots, x_n) = \sum_{j=0}^{t_n} g_j(x_1, \ldots, x_{n-1}) x_n^j \, ,$$
+for some polynomials $g_i \in \F_q[x_1, \ldots, x_{n-1}]$.
+
+Assume that $f$ vanishes on $S_1\times \cdots \times S_n$.
+For each $(s_1, \ldots, s_{n-1}) \in S_1\times \cdots \times S_{n-1}$, the one variate polynomial $f(s_1, \ldots, s_{n-1}, x) \in\F_q[x]$ has degree at most $t_n$ and vanishes in $S_n$, which has more than $t_1$ elements, so it must be the zero polynomial.
+This concludes that $g_j(s_1, \ldots, s_{n-1}) = 0$, that is each $g_j$ vanishes in $S_1\times \cdots \times S_{n-1}$ and has $\deg_{x_i} g_j \leq t_i < |S_i|$.
+By induction hypothesis, $g_j$ must be the zero polynomial, so $f $ is also the zero polynomial, concluding the proof.
+\end{proof}
+
+
+\begin{proof}[Proof of \cref{thm:NSS-1}]
+We can assume with no loss of generality that $|S_i| = t_i + 1$, as shrinking the sets $S_i$ does not break the theorem assumptions.
+Note that $g_i(\vx) = \prod_{s\in S_i} (x_i - s) = x_i^{t_i + 1} + p_i(x_i)$, where $p_i$ is a one variable polynomial of degree at most $t_i$.
+
+By iteratively applying the division algorithm $n$ times, there are polynomials $h_1, \ldots, h_n$ and $\hat{f}$ such that 
+$$f = \sum_{i=1}^n h_i g_i + \hat{f}, \, \, \, \, \, \text{ where $\deg_{x_i}\hat{f} \leq t_i$ and $\deg h_i \leq \deg f - \deg g_i$ for $i=1, \ldots, n$.} $$
+
+Note how both $f$ and $ \sum_{i=1}^n h_i g_i $ vanish on $S_1\times \cdots \times S_n$, so $\hat{f}$ also vanishes on $S_1\times \cdots \times S_n$.
+Thus, from \cref{lm:large_vanishing_poly}, $\hat{f}$ is the zero polynomial, and we get the desired expression.
+\end{proof}
+
+
+\begin{proof}[Proof of \cref{thm:NSS-2}]
+We can assume with no loss of generality that $|S_i| = t_i + 1$, as shrinking the sets $S_i$ does not break the theorem assumptions.
+For sake of contradiction, assume that $f$ vanishes on $S_1\times \cdots \times S_n$.
+From \cref{thm:NSS-1}, there are polynomials $h_1, \ldots, h_n$ with $\deg h_i \leq \deg f - \deg g_i $ and $f = \sum_{i=1}^n h_ig_i$.
+
+Note that $\deg h_i \leq \deg f - \deg g_i < \sum_{\substack{j = 1 \\ j \neq i}}^n t_j$ for $i=1, \ldots, n$.
+Let $ \vx^\mathbf{t} \coloneqq \prod_{i=1}^n x_i^{t_i} $.
+Fix $i$, so that we have
+$$ \left[  \vx^\mathbf{t} \right]  h_i g_i  = \sum_{\substack{\vx^\alpha \vx^\beta = \vx^\mathbf{t}}} [\vx^\alpha]h_i [\vx^\beta]g_i \, . $$
+
+The condition $\vx^\alpha \vx^\beta = \vx^\mathbf{t}$ tells us $ \sum_j \alpha_j + \sum_j \beta_j = \sum_j t_j$.
+If $\sum_j \alpha_j \geq \sum_{\substack{j = 1 \\ j \neq i}}^n t_j$ we have $[\vx^\alpha]h_i = 0 $, and if  $\sum_j \alpha_j  < \sum_{\substack{j = 1 \\ j \neq i}}^n t_j$ we have $ \sum_j \beta_j > t_i$, in which case $\vx^\alpha \vx^\beta = \vx^\mathbf{t} $ is impossible.
+
+Therefore 
+$$ \left[  \vx^\mathbf{t} \right]  h_i g_i  = \sum_{\substack{\vx^\alpha \vx^\beta = \vx^\mathbf{t}}} [\vx^\alpha]h_i [\vx^\beta]g_i = 0\, , $$
+which is a contradiction with the original assumption that $  \left[  \vx^\mathbf{t} \right] f \neq 0$.
+This concludes the proof.
+\end{proof}
+
+\subsubsection*{Aditive group theory}
+
+For $A, B\subseteq \Z_n$, write $A+B \coloneqq \{a+b | a\in A, \, b\in B\}$ and write $A\hat{+}B \coloneqq \{a+b | a\in A, \, b\in B, \, a \neq b\}$.
+
+
+\begin{thm}[Cauchy-Davenport theorem]
+Let $p$ be a prime number and $A, B\subseteq \Z_p$ non-empty sets, then $|A+B| \geq \min \{p, |A| + |B| - 1\}$.
+\end{thm}
+
+\begin{proof}
+If $|A| + |B| > p$, then for any $z \in \Z_p$ we have 
+$$ |A \cap (z - B)| = |A| + |z-B| - |A \cup (z-B)| \geq |A| + |B| - p > 0 \, ,$$
+so there is some $x \in A \cap (z - B)$, so we have $z \in A + B$.
+Since $z$ was generic, we conclude that $\Z_p \subseteq A+B$ and $|A+B| \geq p$.
+
+
+If $|A| + |B| \leq p$, assume for sake of contradiction that $|A+B| < |A| + |B| - 1$ and let $C \subseteq \Z_p$ such that $A+B \subseteq C $ and $|C| = |A| + |B| - 2$.
+Define the polynomial $f \in \Z_p[x, y]$ of degreee $|A|+|B|-2$ given by:
+$$ f(x, y) \coloneqq \prod_{c \in C} (x + y - c) \, . $$
+
+Let $t_1 = |A| - 1$ and $t_2 = |B| -1 $.
+Note that $f$ vanishes in $A\times B$.
+From \cref{thm:NSS-2} we have that $[x^{t_1} y^{t_2}] f = 0 $.
+
+On the other hand, $\deg f = t_1+t_2$ so we can compute 
+$$[x^{t_1} y^{t_2}] f = [x^{t_1} y^{t_2}]\prod_{c \in C} (x + y - c) = [x^{t_1} y^{t_2}] (x+y)^{|C|} = \binom{|C|}{t_1} \, , $$
+which is not a multiple of $p$, as $t_1, t_2 > 0$.
+We get a contradiction.
+\end{proof}
+
+The following result was established in \cite{da1994cyclic}, solving a conjecture from Erd\"os and Heilbronn from 1966.
+
+\begin{thm}[Silva-Hamidoune Theorem]
+Let $p$ be a prime number and $A\subseteq \Z_p$ a non-empty set, then $|A\hat{+}A| \geq \min \{p, 2|A| - 3\}$.
+\end{thm}
+
+\begin{proof}
+If $2|A| > p + 3$, then for any $z \in \Z_p$ we have 
+$$ |A \cap (z - A)| = |A| + |z-A| - |A \cup (z-A)| \geq 2|A| - p > 3 \, ,$$
+so there are distinct $x_1, x_2 \in A \cap (z - B)$, so we have $z \in A + B$.
+Since $z$ was generic, we conclude that $\Z_p \subseteq A+B$ and $|A+B| \geq p$.
+
+
+If $|A| + |B| \leq p$, assume for sake of contradiction that $|A+B| < |A| + |B| - 1$ and let $C \subseteq \Z_p$ such that $A+B \subseteq C $ and $|C| = |A| + |B| - 2$.
+Define the polynomial $f \in \Z_p[x, y]$ of degreee $|A|+|B|-2$ given by:
+$$ f(x, y) \coloneqq \prod_{c \in C} (x + y - c) \, . $$
+
+Let $t_1 = |A| - 1$ and $t_2 = |B| -1 $.
+Note that $f$ vanishes in $A\times B$.
+From \cref{thm:NSS-2} we have that $[x^{t_1} y^{t_2}] f = 0 $.
+
+On the other hand, $\deg f = t_1+t_2$ so we can compute 
+$$[x^{t_1} y^{t_2}] f = [x^{t_1} y^{t_2}]\prod_{c \in C} (x + y - c) = [x^{t_1} y^{t_2}] (x+y)^{|C|} = \binom{|C|}{t_1} \, , $$
+which is not a multiple of $p$, as $t_1, t_2 > 0$.
+We get a contradiction.
+\end{proof}
+
+\subsubsection{Hyperplane arrangements}
+
+\begin{thm}
+Let $n$ be a positive integer, $\vec{0}$ be the all-zero vector in $\R^n$ and let $H = \{0, 1\}^n\setminus \{\vec{0}\}$.
+Assume that $H_1, \ldots, H_m$ are hyperplanes in $\R^n$ such that $H \subseteq \bigcup_{i=1}^n H_i$ and $\vec{0}\not\in \bigcup_{i=1}^n H_i$, 
+Then $m \geq n$.
+\end{thm}
+
+\begin{proof}
+
+\end{proof}
 
 
 \section*{Aknowledgments}
