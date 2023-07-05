@@ -1,0 +1,125 @@
+\documentclass[kulak]{tplt} 
+% options: kulak (default) or kul
+
+\title{Algebraic Methods in Combinatorics}
+\author{Assignment 4}
+\date{Summer semester 2022 -- 2023}
+\address{
+	\textbf{Max Planck Institute for the Mathematics in the Sciences} \\
+	\textbf{Universit\"at Leipzig}}
+
+
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbold}
+\usepackage{listings}
+\usepackage{lineno}
+%\usepackage[margin=3cm]{geometry}
+\usepackage[all,cmtip, color,matrix,arrow]{xy}
+%\usepackage{amsaddr}
+\usepackage{tikz-cd}
+\usepackage{amsmath}%To use \text 
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage[capitalize]{cleveref}
+\crefname{thm}{Theorem}{Theorems}
+%\usepackage{bbold}
+\usepackage[export]{adjustbox}
+\usepackage{todonotes}
+\usepackage{bm}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{mathtools}
+\usepackage{aliascnt}
+\newaliascnt{eqfloat}{equation}
+\newfloat{eqfloat}{h}{eqflts}
+\floatname{eqfloat}{Equation}
+\usepackage{dirtytalk}
+\usepackage[mathscr]{euscript}
+
+
+%\def\shuffle{\sqcup\mathchoice{\mkern-7mu}{\mkern-7mu}{\mkern-3.2mu}{\mkern-3.8mu}\sqcup\,}
+\newcommand{\qshuffle}{\overline{\shuffle}}
+
+
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lm}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{obs}[thm]{Observation}
+\newtheorem{defin}[thm]{Definition}
+\newtheorem{smpl}[thm]{Example}
+\newtheorem{quest}[thm]{Question}
+\newtheorem{exe}[thm]{Exercise}
+\newtheorem{const}[thm]{Construction}
+\newtheorem{prob}[thm]{Problem}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{rem}[thm]{Remark}
+\crefname{lm}{Lemma}{Lemmas}
+\crefname{thm}{Theorem}{Theorems}
+\crefname{prop}{Proposition}{Propositions}
+\crefname{defin}{Definition}{Definitions}
+\crefname{rem}{Remark}{Remarks}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\PP}{\mathbb{P}}
+
+\newcommand{\one}{\mathbb{1}}
+
+\newcommand{\CC}{\mathcal C}
+\newcommand{\JJ}{\mathcal J}
+\newcommand{\II}{\mathcal I}
+\newcommand{\BB}{\mathcal B}
+\newcommand{\FF}{\mathcal F}
+
+%vectors
+\newcommand{\vv}{\mathsf{v}}
+\newcommand{\vw}{\mathsf{w}}
+\newcommand{\vj}{\mathsf{j}}
+\newcommand{\vx}{\mathsf{x}}
+\newcommand{\vy}{\mathsf{y}}
+\newcommand{\va}{\mathsf{a}}
+
+\newcommand{\spn}{\mathrm{span}}
+\newcommand{\rk}{\mathrm{rk}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\conv}{\mathrm{conv}}
+\newcommand{\maxcut}{\mathrm{maxcut}}
+\newcommand{\we}{\mathrm{we}}
+
+
+\begin{document}
+
+\maketitle
+\vspace{2mm}
+\begin{enumerate}
+
+
+
+\item $p$-regular graphs.
+
+Let $p$ be a prime and $G=(V, E)$ a graph with average degree larger than $2p - 2$ and maximum degree at most $2p-1$.
+Show that $G$ contains a $p$-regular subgraph.
+
+
+
+\item Hopf-Stiefel condition
+
+For integers $n, r, t$, we define $\beta = \beta_n(r, t)$ to be the smallest integer such that $\binom{\beta}{k}$ is a multiple of $n$ for all $k = \beta - r + 1, \ldots, s -1$.
+
+Let $p$ be a prime, $t$ a positive integer and let $A, B \subseteq \F_p^t$ be non-empty subsets.
+Then $|A + B| \geq \beta_p(|A|, |B|)$
+
+
+
+\item List colouring
+
+Show that for every $k$ there is an integer $n$ such that $\chi^{\ell}(K_{n, n}) \geq k$.
+
+\end{enumerate}
+\end{document}
