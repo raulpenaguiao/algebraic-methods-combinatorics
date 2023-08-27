@@ -160,7 +160,7 @@ For that, take advantage of the previous exercise, and note that the complement 
 \item Spectrum of the Kneser graph.
 
 In this exercise we will compute the spectrum of the Kneser graph.
-Recall that the Kneser graph $K(E, r)$ is the graph with vertex set $V = \binom{E}{r}$ and two vertices $A, B$ share an edge if $A \cap B = \emptyset$.
+Recall that the Kneser graph $K(E, r)$ is the graph with vertex set $V = \binom{E}{r}$, where two vertices $A, B$ share an edge if $A \cap B = \emptyset$.
 We work on the vector space $\R^V$, where vectors are indexed by subsets of $E$ with $r$ elements.
 
 For $i, j = 0, \ldots, r$, define the matrices $M_{i, j} = [m_{I, J}]_{\substack{I\in \binom{E}{i} \\ J \in \binom{E}{j}}}$ and $N_{i, j} = [n_{I, J}]_{\substack{I\in \binom{E}{i} \\ J \in \binom{E}{j}}}$ such that 
@@ -184,9 +184,9 @@ Show the following equalities:
 \begin{equation}\label{eq:matrices}
 \begin{split}
 M_{i, j} M_{j, k} = \binom{k-i}{j-i} M_{i, k} &\text{ for $0\leq i , j, k \leq r$}\\
-M_{i, j} N_{j, k} = \binom{e-k-i}{j-i} N_{i, k}  &\text{ for $0\leq i \leq j \leq k \leq e - r$}\\
-\sum_{i=0}^j (-1)^i M_{i, j}^T N_{i, k} = M_{j, k} &\text{ for $0\leq j \leq k \leq r$}\\
-\sum_{i=0}^j (-1)^i M_{i, j}^T M_{i, k} = N_{j, k} &\text{ for $0\leq j \leq k \leq r$}\\
+M_{i, j} N_{j, k} = \binom{e-k-i}{j-i} N_{i, k}  &\text{ for $0\leq i \leq j\leq r$ and $0\leq k \leq e-r$}\\
+\sum_{i=0}^j (-1)^i M_{i, j}^T N_{i, k} = M_{j, k} &\text{ for $0\leq i \leq j \leq k \leq r$}\\
+\sum_{i=0}^j (-1)^i M_{i, j}^T M_{i, k} = N_{j, k} &\text{ for $0\leq i\leq j \leq r$ and $0\leq k \leq e-r$}\\
 \end{split}
 \end{equation}
 
