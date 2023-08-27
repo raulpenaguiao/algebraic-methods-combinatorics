@@ -134,8 +134,13 @@
 \subjclass[2010]{}
 \date{Spring semester 2023} % Date
 
-%\begin{abstract}
-%\end{abstract}
+\begin{abstract}
+These are lecture notes of a course taken in Leipzig 2023, spring semester.
+It deals with extremal combinatorics, algebraic methods and combinatorial geometry.
+These are not meant to be exhaustive, and do not contain many proofs that were presented in the course.
+\end{abstract}
+
+
 
 \maketitle
 
@@ -985,13 +990,7 @@ $$ \left\{(-1)^i\binom{|E| -r - i}{r - i}^{\times \binom{|E|}{i} - \binom{|E|}{i
 \end{lm}
 
 \begin{proof}
-%We will consider the chain of subspaces $V_0 \subseteq V_1 \subseteq \cdots \subseteq V_r$ defined as follows:
-%
-%$$V_i \coloneqq \{ \} \, . $$
-%
-%So for instance $V_0 = \K \mathbb{1}$.
-%We always have $\dim V_i = \binom{|E|}{i}$ and note how $V_r = \R^{V(K(E, r))}$.
-TBD
+Not given here
 \end{proof}
 
 \begin{proof}[Proof of \cref{thm:EKR}]
@@ -1023,8 +1022,8 @@ $$\maxcut(G) \geq \frac{1}{2}|E| \, .$$
 \end{prop}
 
 \begin{proof}
-Probabilistic method
-%TODO
+Application of the probabilistic method.
+Proof not given here.
 \end{proof}
 
 
@@ -1035,7 +1034,7 @@ $$\maxcut(G) \leq \frac{1}{2} |E| - \frac{n \lambda_n}{4} = \frac{n (d-\lambda_n
 \end{prop}
 
 \begin{proof}
-
+Exercise
 \end{proof}
 
 
@@ -1050,15 +1049,8 @@ A graph $G$ is said to be a \textbf{friendship} graph if any two distinct vertic
 
 
 \begin{figure}[h]
-\includegraphics[scale=.1]{../imgs/ina.png}%../imgs/consistent
-\caption{A windmill graph, with its centre highlighted.\label{fig:windmill}}
-\end{figure}
-
-
-
-\begin{figure}[h]
-\includegraphics[scale=.1]{../imgs/ina.png}%../imgs/consistent
-\caption{A friendship graph, with a particular common neighbour highlighted.\label{fig:friendship}}
+\includegraphics[scale=.65]{../imgs/friendship_windmil}
+\caption{\textbf{Left:} A windmill graph, with its centre highlighted. \textbf{Right:} A friendship graph, with a particular common neighbour highlighted.\label{fig:windmill}}
 \end{figure}
 
 It is clear that any windmill is a friendship graph.
@@ -1075,7 +1067,7 @@ If $G$ is a friendship graph, it is either $d$-regular, or it is a windmill.
 
 
 \begin{proof}
-TBD
+Not given here.
 \end{proof}
 
 \begin{proof}[Proof of \cref{thm:ERS}]
@@ -1255,16 +1247,16 @@ Furthermore, $D$ results from the adjacency matrix of $C_n|_W$ by flipping some 
 But by \cref{lm:interlacing}, $\lambda \geq \lambda_{2^n - |W| + 1}(B_n) = \sqrt{n}$, because $2^n - |W| + 1 \leq 2^{n-1}$, as desired.
 \end{proof}
 
-\subsection{Turan's problem}
-
-Section under construction
+%\subsection{Turan's problem}
+%
+%Section under construction
 
 \subsection{Consistent colouring}
 
 
 
 \begin{figure}[h]
-\includegraphics[scale=.1]{../imgs/ina.png}%../imgs/consistent
+\includegraphics[scale=1]{../imgs/consistent_colouring}%../imgs/consistent
 \caption{A consistent colouring locally has either six colours or three colours distributed in this way.\label{fig:consistent_colouring}}
 \end{figure}
 
@@ -1286,17 +1278,13 @@ We will endow $\CC \cup \{\vec{0}\}$ with a structure of $\F_2$ vector space.
 
 Incidentally, let $c$ be the colour of an edge $v_1 \-- v_2$, and $d$ be the colour of an edge $v_1 \-- v_3$.
 We define $c + d $ to be the colour of the edge $v_1 \-- v_3$.
-That this is well defined follows from a simple application of the cosistency property in three squares, as shown in \cref{fig:consistency_squares}.
+That this is well defined follows from a simple application of the consistency property in three squares.
 This shows that $|\CC \cup \{\vec{0}\}| = n$ is a power of two.
 
 For the converse result, we set $V = \F_2^n$ and colour an edge $\vv \-- \vw$ with the colour $\vv - \vw$.
 It is a straightforward observation that this is a consistent colouring.
 \end{proof}
 
-\begin{figure}[h]
-\includegraphics[scale=.1]{../imgs/ina.png}%../imgs/consistent
-\caption{The vector space operation is well defined.\label{fig:consistency_squares}}
-\end{figure}
 
 
 \section{Geometry}
@@ -1311,7 +1299,7 @@ Then there are at least $m$ lines that go through at least two points in $X$.
 \end{prop}
 
 \begin{figure}[h]
-\includegraphics[scale=.1]{../imgs/ina.png}%../imgs/consistent
+\includegraphics[scale=.5]{../imgs/simpson_lines}%../imgs/consistent
 \caption{The unique distribution of points that minimizes the number of lines.\label{fig:sylvester}}
 \end{figure}
 
@@ -1413,7 +1401,7 @@ Given $d+n$ boxes alligned horizontally, there are $\binom{d+n}{n}$ ways of sele
 We will construct a bijection between each selection and a monomial of degree at most $d$.
 
 \begin{figure}
-\includegraphics[scale=.1]{../imgs/ina.png}
+\includegraphics[scale=.5]{../imgs/bars_boxes}
 \caption{A selection of boxes for $n=d=3$\label{fig:starsnbars}}
 \end{figure}
 
@@ -1506,7 +1494,7 @@ The general construction is as follows: we take the collection of $n^2$ lines wi
 In this line configuration, any point $(a, b, c) $ with $a, b, c \in [n]$ is a joint, so $J = n^3$, whereas $N = 3 n^2$.
 
 \begin{figure}[h]
-\includegraphics[scale=.1]{../imgs/ina.png}%../imgs/joints
+\includegraphics[scale=.6]{../imgs/joints_problem}%../imgs/joints
 \caption{A construction of a collection of lines with high number of joints.\label{fig:joints}}
 \end{figure}
 \end{smpl}
@@ -2391,6 +2379,8 @@ Then $m \geq n$.
 \section*{Aknowledgments}
 The author is supported by the Max Planck institute for the sciences. 
 These notes are based on a lecture by Benny Sudakov at ETH, in 2014.
+These notes benefited tremendously from coments and suggestions of students from Algebraic Methods in Combinatorics 2023.
+
 
 \bibliographystyle{alpha}
 \bibliography{bibli}
